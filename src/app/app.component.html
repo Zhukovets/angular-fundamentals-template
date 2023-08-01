@@ -1,16 +1,10 @@
 <loader [isLoading]="isLoading"></loader>
 <div class="content">
     <div class="logo">
-        <img
-                src="https://brandpalettes.com/wp-content/uploads/2021/06/star-wars-color-codes.svg"
-                width="100"
-        />
+        <img src="https://brandpalettes.com/wp-content/uploads/2021/06/star-wars-color-codes.svg" width="100"/>
     </div>
 
-    <input
-            (keyup)="changeCharactersInput($event)"
-            [placeholder]="'Search by characters'"
-    />
+    <input (keyup)="changeCharactersInput($event)" [placeholder]="'Search by characters'"/>
     <ng-container *ngIf="charactersResults$ | async as results">
         <div *ngIf="results.length > 0; else noResults">
             <div *ngFor="let item of results">
