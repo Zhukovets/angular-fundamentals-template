@@ -1,0 +1,56 @@
+<!-- Replace ::text:: with your code -->
+<h2>Create / Edit Course</h2>
+<form>
+  <div class="app-plate">
+    <div class="course">
+      <h3>Main Info</h3>
+      <div class="form__control">
+        <label for="title">Title</label>
+        <!--Use the name `title` for the form control.-->
+        <input type="text" id="title" placeholder="Input text"/>
+        <span id="titleErrorMessage" class="text-danger">Title is required.</span>
+      </div>
+      <div class="form__control">
+        <label for="description">Description</label>
+        <!--Use the name `description` for the form control.-->
+        <textarea
+          id="description"
+          name="description"
+          placeholder="Input text"
+          rows="4"
+          cols="5"
+        ></textarea>
+        <span id="descriptionErrorMessage" class="text-danger">Description is required.</span>
+      </div>
+      <div class="separator"></div>
+      <h3>Authors</h3>
+      <div class="form__control">
+        <div class="course__flex">
+          <!--Use the name `author` for the form control.-->
+          <input type="text" id="author" placeholder="Input Author Name"/>
+          <app-button id="createAuthor"></app-button>
+        </div>
+        <span id="authorErrorMessage">New author should contain only latin letters and numbers.</span>
+        <div class="course__authors">
+          <!--Use the name `authors` for the form array.-->
+          ::Authors::
+        </div>
+      </div>
+      <div class="separator"></div>
+      <h3>Duration</h3>
+      <div class="form__control">
+        <div class="course__flex">
+          <!--Use the name `duration` for the form array.-->
+          <input type="number" id="duration" placeholder="Input duration"/>
+          <div class="course__duration">
+            ::Duration::
+          </div>
+        </div>
+        <span id="durationErrorMessage" class="text-danger">Duration is required.</span>
+      </div>
+      <div class="form__action">
+        <app-button></app-button>
+      </div>
+    </div>
+  </div>
+</form>

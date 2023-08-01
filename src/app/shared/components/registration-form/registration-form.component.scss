@@ -1,0 +1,9 @@
+@import 'src/app/shared/styles/styles';
+
+.registration-form {
+  width: 260px;
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

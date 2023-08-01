@@ -1,0 +1,38 @@
+@import "src/app/shared/styles/variables/colors";
+
+.title {
+  font-size: 32px;
+  font-weight: 900;
+}
+
+.course-info {
+  padding: 32px;
+  box-shadow: 0 0 4px rgb(0 0 0 / 25%);
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  margin: 32px 0;
+  min-height: 170px;
+  width: 80vw;
+  background-color: $color-white;
+
+  &__description {
+    flex: 2;
+    border-right: 1px solid #CFCFCF;
+
+  }
+
+  &__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 3px;
+    margin-left: 50px;
+  }
+}
+
+.navigation-block{
+  display: flex;
+  justify-content: flex-end;
+}

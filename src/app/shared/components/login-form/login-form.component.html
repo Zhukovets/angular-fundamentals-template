@@ -1,0 +1,29 @@
+<h2 class="text-align-center">Login</h2>
+<div class="app-plate">
+  <form #loginForm="ngForm">
+    <div class="login-form">
+      <div>
+        <div class="form__control">
+          <label for="email">Email</label>
+          <!--Use the name `email` for the form control.-->
+          <input type="text" id="email" placeholder="Input text"/>
+          <span id="emailErrorMessage" class="text-danger">Email is required.</span>
+        </div>
+        <div class="form__control">
+          <label for="password">Password</label>
+          <!--Use the name `password` for the form control.-->
+          <input type="password" id="password" placeholder="Input text"/>
+          <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
+        </div>
+      </div>
+      <div>
+        <div class="form__action">
+          <app-button></app-button>
+        </div>
+        <div class="form__text">
+          If you don't have an account you may <strong>Registration</strong>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

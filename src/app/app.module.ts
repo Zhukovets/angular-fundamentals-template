@@ -1,19 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SharedModule } from '@shared/shared.module';
 import { AppComponent } from '@app/app.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { MockDataService } from '@app/mock-data.service';
-import { AppLoader } from '@app/loader/loader.component';
+import { CourseInfoComponent } from '@features/course-info/course-info.component';
+import { NotAuthorizedGuard } from '@app/auth/guards/not-authorized.guard';
+import { AuthorizedGuard } from '@app/auth/guards/authorized.guard';
+import { CoursesStoreService } from '@app/services/courses-store.service';
+import { CoursesService } from '@app/services/courses.service';
 
 @NgModule({
-  declarations: [
-    AppComponent, AppLoader
-  ],
+  declarations: [AppComponent, CourseInfoComponent],
   imports: [
-    BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule,
+    BrowserModule,
+    SharedModule,
+    FontAwesomeModule,
   ],
-  providers: [MockDataService],
-  bootstrap: [AppComponent]
+  providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

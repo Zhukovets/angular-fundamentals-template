@@ -1,0 +1,52 @@
+.modal {
+    &__backdrop {
+        position: fixed;
+        display: flex;
+        left: 0;
+        top: 0;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    &__container {
+        background-color: #fff;
+        min-width: 500px;
+        min-height: 250px;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__title {
+        display: flex;
+        height: 50px;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #B5B5B5;
+        font-weight: bold;
+        font-size: 24px;
+    }
+
+    &__message {
+
+    }
+
+    &__icon {
+        cursor: pointer;
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &__btn {
+        &:not(:first-child) {
+            margin-left: 14px;
+        }
+    }
+}
