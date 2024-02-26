@@ -20,7 +20,7 @@ export class MockDataService {
             .pipe(map((response) => response.results));
     }
 
-    getPlatents(searchTerm?: string): Observable<any> {
+    getPlanets(searchTerm?: string): Observable<any> {
         this.planetsLoader$.next(true);
         const queryParams: string = searchTerm ? `?search=${searchTerm}` : '';
         return this.httpClient
