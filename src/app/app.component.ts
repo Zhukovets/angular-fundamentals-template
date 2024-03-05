@@ -46,11 +46,11 @@ export class AppComponent implements OnInit, OnDestroy {
     // 3. Add debounce to prevent API calls until user stop typing.
 
     this.charactersResults$ = this.searchTermByCharacters
-        .pipe
+        .pipe (
         // YOUR CODE STARTS HERE
 
         // YOUR CODE ENDS HERE
-        ();
+       );
   }
 
   loadCharactersAndPlanet(): void {
