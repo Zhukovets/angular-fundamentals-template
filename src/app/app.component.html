@@ -1,7 +1,7 @@
 <app-header>
 	<app-button
-		[buttonText]="currentButtonText"
-		[iconName]="currentIconName"
+		[buttonText]="headerButtonText"
+		[iconName]="headerButtonIconName"
 	></app-button>
 </app-header>
 <div class="app-root">
@@ -9,7 +9,12 @@
 	<!--<app-search></app-search>-->
 
 	<!-- Info component -->
-	<!--<app-info></app-info>-->
+	<app-info [text]="appInfoText" [title]="appInfoTitle">
+		<app-button
+			[buttonText]="appInfoButtonText"
+			[iconName]="appInfoButtonIconName"
+		></app-button>
+	</app-info>
 
 	<!-- Course Card component -->
 	<!--<app-course-card></app-course-card>-->
