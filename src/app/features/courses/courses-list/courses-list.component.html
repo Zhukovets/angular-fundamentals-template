@@ -1,1 +1,5 @@
-<p>courses-list works!</p>
+<ul>
+	<li *ngFor="let course of courses">
+		<app-course-info [course]="course"></app-course-info>
+	</li>
+</ul>
