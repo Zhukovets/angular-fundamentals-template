@@ -1,28 +1,34 @@
 <h2 class="text-align-center">Registration</h2>
 <div class="app-plate">
-  <div class="registration-form">
+  <form [formGroup]="registrationForm" class="registration-form">
     <div>
       <div class="form__control">
         <label for="name">Name</label>
         <!--Use the name `name` for the form control.-->
-        <input type="text" id="name" placeholder="Input text"/>
-        <span id="nameErrorMessage" class="text-danger">Name is required.</span>
+        <input type="text" id="name" formControlName="name" placeholder="Input name"/>
+        <div *ngIf="isFieldValid('name', 'required')" id="nameRequiredErrorMessage" class="text-danger">Name is required.</div>
+        <div *ngIf="isFieldValid('name', 'minlength')" id="nameLengthErrorMessage" class="text-danger">Minimum 6 characters required.</div>  
       </div>
       <div class="form__control">
         <!--Use the name `email` for the form control.-->
         <label for="email">Email</label>
-        <input type="text" id="email" placeholder="Input text"/>
-        <span id="emailErrorMessage" class="text-danger">Email is required.</span>
+        <input type="text" id="email" formControlName="email" placeholder="Input email"/>
+        <div *ngIf="isFieldValid('email', 'required')" id="emailRequiredErrorMessage" class="text-danger">Email is required.</div>
+        <div *ngIf="isFieldValid('email', 'invalidEmail')" id="emailInvalidErrorMessage" class="text-danger">Email is invalid.</div>
       </div>
       <div class="form__control">
         <!--Use the name `password` for the form control.-->
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Input text"/>
-        <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
+        <input type="password" id="password" formControlName="password" placeholder="Input password"/>
+        <div *ngIf="isFieldValid('password', 'required')" id="passwordRequiredErrorMessage" class="text-danger">Password is required.</div>
+        <div *ngIf="isFieldValid('password', 'minlength')" id="passwordLengthErrorMessage" class="text-danger">Minimum 6 characters required.</div>
       </div>
     </div>
     <div class="form__action">
-      <app-button></app-button>
+      <app-button buttonText="Register" (click)="onSubmit()"></app-button>
     </div>
-  </div>
+    <div class="form__text">
+      If you have an account you may <a routerLink="/login" class="a-none"><strong>Login</strong></a>
+    </div>
+  </form>
 </div>

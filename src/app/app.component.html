@@ -1,23 +1,14 @@
-<app-header></app-header>
+<app-header>
+  <div class="app-header__inline-items" *ngIf="isLogin">
+    <span class="app-header__ph-2">{{userName}}</span>
+    <app-button buttonText="Logout" (click)="logout()"></app-button>
+  </div>
+  <a *ngIf="!isLogin && router.url != '/login'" routerLink="/login" class="a-none">
+    <app-button buttonText="LogIn"></app-button>
+  </a>
+</app-header>
 <div class="app-root">
-  <!-- Search component -->
-  <!--<app-search></app-search>-->
-
-  <!-- Info component -->
-  <!--<app-info></app-info>-->
-
-  <!-- Course Card component -->
-  <!--<app-course-card></app-course-card>-->
-
-  <!-- Login Form component -->
-  <!--<app-login-form></app-login-form>-->
-
-  <!-- Login Form component -->
-  <!--<app-registration-form></app-registration-form>-->
-
-  <!-- Login Form component -->
-  <!--<app-course-form></app-course-form>-->
-
+  <router-outlet></router-outlet>
   <!-- Modal component -->
   <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->
 </div>

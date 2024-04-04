@@ -1,0 +1,27 @@
+<div *ngIf="isCourseEmpty">
+    <!-- Info component -->
+    <app-info title="Your List is Empty" text="Please use 'Add New Course' button to add your first course">
+      <a routerLink="/courses/add" *ngIf="isAdmin">
+        <app-button buttonText="Add New Course"></app-button>
+      </a>
+    </app-info>
+  </div>
+  
+  <div *ngIf="!isCourseEmpty">
+    <div class="course-list__header">
+      <app-search class="course-list__header__search" placeholder="Search courses" (search)="onSearch($event)"></app-search>
+      <a routerLink="/courses/add" class="course-list__header__addcourse" *ngIf="isAdmin">
+        <app-button buttonText="Add new course"></app-button>
+      </a>
+    </div>
+  
+    <div *ngIf="searchActive && courses.length==0">
+      No courses found!!
+    </div>
+  
+    <app-course-card *ngFor="let item of courses" [course]="item" [isEditable]="isEditable"
+      (clickOnShow)="onShowCourse($event)">
+      <app-button *ngIf="isAdmin" iconName="trash-can" [bgTransparent]="true" (click)="onDelete(item)"></app-button>
+      <app-button *ngIf="isAdmin" iconName="pencil" [bgTransparent]="true" (click)="onEdit(item)"></app-button>
+    </app-course-card>
+  </div>  

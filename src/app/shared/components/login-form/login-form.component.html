@@ -6,22 +6,37 @@
         <div class="form__control">
           <label for="email">Email</label>
           <!--Use the name `email` for the form control.-->
-          <input type="text" id="email" placeholder="Input text"/>
-          <span id="emailErrorMessage" class="text-danger">Email is required.</span>
+          <input type="text" id="email" name="email" [(ngModel)]="user.email" #email="ngModel" required
+            emailValidator placeholder="Input email" />
+          <span id="emailRequiredErrorMessage"
+            *ngIf="(loginForm.submitted || email.touched) && email.errors?.['required']" class="text-danger">Email is
+            required.</span>
+          <span id="emailInvalidErrorMessage"
+            *ngIf="(loginForm.submitted || email.touched) && email.errors?.['invalidEmail']" class="text-danger">Email
+            is invalid.</span>
         </div>
         <div class="form__control">
           <label for="password">Password</label>
           <!--Use the name `password` for the form control.-->
-          <input type="password" id="password" placeholder="Input text"/>
-          <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
+          <div style="position: relative;">
+            <input type="password" id="password" name="password" [(ngModel)]="user.password" #password="ngModel"
+              required minlength="6" placeholder="Input password" passwordToggle #toggleIcon="passwordToggle" />
+            <fa-icon [icon]="toggleIcon.iconName" class="overlay-icon"></fa-icon>
+          </div>
+          <span id="passwordRequiredErrorMessage"
+            *ngIf="(loginForm.submitted || password.touched) && password.errors?.['required']"
+            class="text-danger">Password is required.</span>
+          <span id="passwordLengthErrorMessage"
+            *ngIf="(loginForm.submitted || password.touched) && password.errors?.['minlength']"
+            class="text-danger">Minimum 6 characters required.</span>
         </div>
       </div>
       <div>
         <div class="form__action">
-          <app-button></app-button>
+          <app-button buttonText="Login" (click)="onSubmit()"></app-button>
         </div>
         <div class="form__text">
-          If you don't have an account you may <strong>Registration</strong>
+          If you don't have an account you may <a routerLink="/registration" class="a-none"><strong>Registration</strong></a>
         </div>
       </div>
     </div>

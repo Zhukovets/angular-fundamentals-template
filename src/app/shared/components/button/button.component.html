@@ -1,4 +1,7 @@
-<div class="app-button">
+<div class="app-button" [class.transparent]="bgTransparent">
   <!-- Replace the text below with your code -->
-  Button
+  <fa-icon *ngIf="iconName" size="2x" [icon]="iconName"></fa-icon>
+  <span *ngIf="buttonText">
+    {{buttonText}}
+  </span>
 </div>

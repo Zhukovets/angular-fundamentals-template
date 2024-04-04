@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
@@ -8,5 +9,11 @@ import { Component } from '@angular/core';
 export class SearchComponent {
   // Use the name `placeholder` for the @Input.
   // Use the name `search` for the @Output.
-}
 
+  @Input() placeholder: string = '';
+  @Output() search: EventEmitter<string> = new EventEmitter<string>();
+
+  searchCourse(input: HTMLInputElement){
+    this.search.emit(input.value);
+  }
+}

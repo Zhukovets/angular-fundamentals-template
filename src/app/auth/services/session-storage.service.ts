@@ -1,4 +1,5 @@
-import {Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 const TOKEN = 'SESSION_TOKEN'; // Use this constant for the session storage entry key
 // Add your code here
@@ -8,15 +9,25 @@ const TOKEN = 'SESSION_TOKEN'; // Use this constant for the session storage entr
 })
 export class SessionStorageService {
 
-  setToken(token: string){
-    // Add your code here
+  private window: Window;
+
+  constructor(@Inject(DOCUMENT) document: Document) {
+    this.window = document.defaultView as Window;
   }
 
-  getToken(){
+  setToken(token: string) {
     // Add your code here
+    this.window.sessionStorage.setItem(TOKEN, token);
   }
 
-  deleteToken(){
+  getToken(): string {
     // Add your code here
+    const token = this.window.sessionStorage.getItem(TOKEN);
+    return token ? token : '';
+  }
+
+  deleteToken() {
+    // Add your code here
+    this.window.sessionStorage.removeItem(TOKEN);
   }
 }

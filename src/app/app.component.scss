@@ -4,5 +4,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+}
+
+.app-header {
+  &__inline-items {
+    display: flex;
+    align-items: center;
+  }
+
+  &__user-name {
+    padding: 0 2rem;
+  }
 }

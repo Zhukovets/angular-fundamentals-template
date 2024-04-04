@@ -1,12 +1,17 @@
 @import 'src/app/shared/styles/styles';
 
 .course {
- min-width: 60vw;
+  min-width: 55vw;
+  padding: 2vw;
 
   &__flex {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+
+    &>* {
+      flex: .7;
+    }
 
     & input {
       flex: 1;
@@ -33,5 +38,54 @@
   &__icon {
     margin-left: 4px;
     cursor: pointer;
+  }
+
+  &__form {
+    margin-bottom: 3rem;
+  }
+
+  &__form__action {
+    display: flex;
+    justify-content: end;
+    margin-top: 2rem;
+  }
+
+  &__flex__row {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+  }
+
+  &__flex__column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  &__flex__4 {
+    flex: 4;
+  }
+
+  &__flex__2 {
+    flex: 2;
+  }
+
+  &__flex__1 {
+    display: flex;
+    flex: 1;
+  }
+
+  &__content__center {
+    align-items: center;
+  }
+
+  &__input__list {
+    border: none;
+    padding: .2rem 0;
+    width: auto;
+  }
+
+  &__input__list:focus {
+    outline: none;
   }
 }

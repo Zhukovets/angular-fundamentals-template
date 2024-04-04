@@ -3,33 +3,23 @@ $color-gray: #CFCFCF;
 $color-red: #FF0000;
 
 .app-plate {
-    width: 100%;
     min-height: 477px;
     background-color: $color-white;
     border: 1px solid $color-gray;
     border-radius: 4px;
-    padding: 32px;
+    padding: 70px;
     display: flex;
     justify-content: center;
 }
 
-.text-align-center {
-    text-align: center;
-}
-
-.app-error-text {
-    color: $color-red;
-    position: absolute;
-    margin-top: 4px;
-}
-
 .form {
     &__control {
+        position: relative;
         margin-bottom: 24px;
     }
 
     &__action {
-        margin-top: 54px;
+        margin-top: 24px;
     }
 
     &__text {
@@ -46,4 +36,9 @@ $color-red: #FF0000;
 
 .text-danger {
     color: red;
+}
+
+.a-none {
+    text-decoration: none !important;
+    color: #333;
 }

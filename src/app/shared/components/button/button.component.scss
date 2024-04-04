@@ -15,7 +15,34 @@
         background: #016486;
     }
 
+    &:focus {
+        background: #014489;
+    }
+
+    &:active {
+        background: #016447;
+
+    }
+
     &__single-icon {
         padding: 13px;
+    }
+}
+
+.app-button.transparent {
+    background: transparent;
+    color: #007298;
+    padding: 20px;
+
+    &:hover {
+        color: #016486;
+    }
+
+    &:focus {
+        color: #014489;
+    }
+
+    &:active {
+        color: #016447;
     }
 }

@@ -1,23 +1,25 @@
 @import "src/app/shared/styles/variables/colors";
 
-.course-card {
+.title {
+  font-size: 32px;
+  font-weight: 900;
+}
+
+.course-info {
   padding: 32px;
   box-shadow: 0 0 4px rgb(0 0 0 / 25%);
   border-radius: 4px;
-  border-left: 8px solid $color-dark-gray;
   display: flex;
   justify-content: space-between;
   margin: 32px 0;
   min-height: 170px;
-  width: 75vw;
+  width: 80vw;
   background-color: $color-white;
 
   &__description {
     flex: 2;
+    border-right: 1px solid #CFCFCF;
 
-    &-title {
-      font-weight: bold;
-    }
   }
 
   &__info {
@@ -25,20 +27,28 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 3px;
     margin-left: 50px;
-
-    &-text {
-      margin-top: 16px;
-    }
   }
+}
 
-  &__info-actions {
+.course-list__header {
+  display: flex;
+
+  &__search {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex: 2;
   }
 
-  &__buttons {
+  &__addcourse {
     display: flex;
+    flex: 2;
+    align-items: end;
+    justify-content: end;
   }
+}
+
+.navigation-block{
+  display: flex;
+  justify-content: flex-end;
 }
