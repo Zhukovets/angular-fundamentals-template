@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   combineLatest,
-  debounce,
+  debounceTime,
   filter,
   forkJoin,
   map,
@@ -9,7 +9,6 @@ import {
   Subject,
   Subscription,
   switchMap,
-  timer,
 } from 'rxjs';
 import { MockDataService } from './mock-data.service';
 
@@ -50,7 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.charactersResults$ = this.searchTermByCharacters
         .pipe(
         // YOUR CODE STARTS HERE
-        debounce(() => timer(350)),
+        debounceTime(350),
         filter((input: string) => input.length >= 3),
         switchMap((element: string) => this.mockDataService.getCharacters(element))
         // YOUR CODE ENDS HERE
@@ -71,6 +70,16 @@ export class AppComponent implements OnInit, OnDestroy {
         return [...characterNames, ...planetNames]
       })
     )
+
+    const planetAndCharactersResultsSubscription = this.planetAndCharactersResults$.subscribe((result) =>{
+      const resultCont = document.createElement("div");
+      resultCont.style.textAlign = "center"
+      resultCont.innerHTML = result.map((element: string) =>
+        `<div>${element}</div>`
+      ).join("");
+      document.body.append(resultCont)
+    })
+    this.subscriptions.push(planetAndCharactersResultsSubscription)
     // YOUR CODE ENDS HERE
   }
 
