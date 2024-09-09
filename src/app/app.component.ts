@@ -50,25 +50,26 @@ export class AppComponent implements OnInit, OnDestroy {
         .pipe
         // YOUR CODE STARTS HERE
     
-        // YOUR CODE ENDS HERE
+        
         (filter((inputValue) => inputValue.length >= 3),
         debounceTime(300),
         switchMap((inputValue) => this.mockDataService.getCharacters(inputValue)));
+        // YOUR CODE ENDS HERE
   }
 
   loadCharactersAndPlanet(): void {
     // 4. On clicking the button 'Load Characters And Planets', it is necessary to process two requests and combine the results of both requests into one result array. As a result, a list with the names of the characters and the names of the planets is displayed on the screen.
     // Your code should looks like this: this.planetAndCharactersResults$ = /* Your code */
+    
     // YOUR CODE STARTS HERE
+    
     this.planetAndCharactersResults$ = forkJoin({
       characters: this.mockDataService.getCharacters(),
-      planets: this.mockDataService.getPlanets(),
+      planets: this.mockDataService.getPlanets()
     }).pipe(
-      map(({ characters, planets }) => ({
-        characterNames: characters.map((character: any) => character.name),
-        planetNames: planets.map((planet: any) => planet.name),
-      }))
+      map(({ characters, planets }) => [...characters, ...planets])
     );
+    
     // YOUR CODE ENDS HERE
   }
 
