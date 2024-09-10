@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   combineLatest,
+  debounceTime,
   filter,
   forkJoin,
   map,
@@ -8,7 +9,7 @@ import {
   Subject,
   Subscription,
   switchMap,
-  debounceTime,
+  
 } from 'rxjs';
 import { MockDataService } from './mock-data.service';
 
@@ -49,9 +50,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.charactersResults$ = this.searchTermByCharacters
         .pipe (
         // YOUR CODE STARTS HERE
-        switchMap((searchTerm) => this.mockDataService.getCharacters(searchTerm)),
+        debounceTime(300),
         filter((searchTerm) => searchTerm.length >= 3),
-        debounceTime(300)
+        switchMap((searchTerm) => this.mockDataService.getCharacters(searchTerm))
+        
 
       );
         // YOUR CODE ENDS HERE
@@ -74,6 +76,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   initLoadingState(): void {
+    
     /* 5.1. Let's add loader logic to our page. For each request, we have an observable that contains the state of the request. When we send a request the value is true, when the request is completed, the value becomes false. You can get value data with mockDataService.getCharactersLoader() and mockDataService.getPlanetLoader().
 
     - Combine the value of each of the streams.
