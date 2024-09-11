@@ -9,3 +9,12 @@
     background-color: $color-white;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
 }
+
+.right-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 20px;
+    text-align: right;
+    color: #333E48;
+}
