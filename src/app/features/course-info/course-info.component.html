@@ -1,17 +1,16 @@
-<!-- Replace ::text:: with your code -->
-
-<div class="title">::Title::</div>
-<div class="course-info">
+<div class="title">{{course?.title}}</div>
+<div class="course-info" *ngIf="course">
   <div class="course-info__description">
-    ::Description::
+    <div class="course-info__description-title">Description:</div>
+    {{course.description}}
   </div>
   <div class="course-info__info">
-    <div><b>ID: </b><span class="course-info__info-id">::id::</span></div>
-    <div><b>Duration: </b><span class="course-info__info-duration">::duration::</span></div>
-    <div><b>Created: </b><span class="course-info__info-date">::date::</span></div>
-    <div><b>Authors: </b><span class="course-info__info-authors">::authors::</span></div>
+    <div><b class="course-key">ID: </b><span class="course-info__info-id">{{course.id}}</span></div>
+    <div><b class="course-key">Duration: </b><span class="course-info__info-duration"><b>{{math.trunc(course.duration/60)}}:{{course.duration%60 === 0 ? "00" : course.duration%60}}</b> hours</span></div>
+    <div><b class="course-key">Created: </b><span class="course-info__info-date">{{course.creationDate.getDay().toString().padStart(2,"0")}}.{{course.creationDate.getMonth().toString().padStart(2,"0")}}.{{course.creationDate.getFullYear()}}</span></div>
+    <div><b class="course-key">Authors: </b><span class="course-info__info-authors">{{course.authors}}</span></div>
   </div>
 </div>
 <div class="navigation-block">
-  <!--Enter your code here-->
+  <app-button [buttonText]="'back'" (click)="goBack()"></app-button>
 </div>

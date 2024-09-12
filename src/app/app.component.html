@@ -1,13 +1,26 @@
-<app-header></app-header>
+<app-header>
+  <div class="header-right">
+    <div *ngIf="loginStatus" class="user-name">Harry Potter</div>
+    <app-button
+      [buttonText]="loginStatus ? 'logout' : 'login'"
+      (changeLoggedStatus)="changeLoginStatus()"
+    ></app-button>
+  </div>
+</app-header>
 <div class="app-root">
   <!-- Search component -->
   <!--<app-search></app-search>-->
 
-  <!-- Info component -->
-  <!--<app-info></app-info>-->
+  <app-info [text]="'Please use &#8217;Add New Course&#8217; button to add your first course'" [title]="'Your List Is Empty'">
+    <app-button [buttonText]="'add new course'"></app-button>
+  </app-info>
 
   <!-- Course Card component -->
-  <!--<app-course-card></app-course-card>-->
+  <!-- <app-course-card></app-course-card> -->
+
+  <app-courses-list [editable]="true" [courses]="posts"></app-courses-list>
+
+  <app-course-info [course]="posts[0]"></app-course-info>
 
   <!-- Login Form component -->
   <!--<app-login-form></app-login-form>-->
