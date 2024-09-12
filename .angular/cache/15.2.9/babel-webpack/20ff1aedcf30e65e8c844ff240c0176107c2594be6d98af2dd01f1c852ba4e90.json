@@ -1,1 +1,0 @@
-{"ast":null,"code":"export { posts } from \"./mock\";","map":{"version":3,"mappings":"AAAA,SAASA,KAAK,QAAc,QAAQ","names":["posts"],"sourceRoot":"","sources":["C:\\Users\\olewn\\Desktop\\angular-fundamentals-template\\src\\app\\shared\\mocks\\index.ts"],"sourcesContent":["export { posts, Post } from \"./mock\";\r\n"]},"metadata":{},"sourceType":"module","externalDependencies":[]}
