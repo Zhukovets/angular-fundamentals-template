@@ -8,6 +8,8 @@ import { NotAuthorizedGuard } from '@app/auth/guards/not-authorized.guard';
 import { AuthorizedGuard } from '@app/auth/guards/authorized.guard';
 import { CoursesStoreService } from '@app/services/courses-store.service';
 import { CoursesService } from '@app/services/courses.service';
+import { CoursesModule } from './features/courses/courses.module';
+import { CoursesListModule } from './features/courses/courses-list/courses-list.module';
 
 @NgModule({
   declarations: [AppComponent, CourseInfoComponent],
@@ -15,6 +17,8 @@ import { CoursesService } from '@app/services/courses.service';
     BrowserModule,
     SharedModule,
     FontAwesomeModule,
+    CoursesModule,
+    CoursesListModule,
   ],
   providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService],
   bootstrap: [AppComponent],
