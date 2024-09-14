@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  //creationDate for testing the components
+  creationDate = new Date();
   title = 'courses-app';
 }
