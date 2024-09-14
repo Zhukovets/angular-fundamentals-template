@@ -31,4 +31,14 @@
       margin-top: 16px;
     }
   }
+
+  &__info-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 10px;
+  }
 }
