@@ -1,0 +1,11 @@
+<div class="courses-list">
+    <app-course-card
+      *ngFor="let course of courses"
+      [title]="course.title"
+      [description]="course.description"
+      [creationDate]="course.creationDate"
+      [duration]="course.duration"
+      [authors]="course.authors"
+      [editable]="this.editable">
+    </app-course-card>
+</div>
