@@ -6,7 +6,10 @@
   <app-search></app-search>
 
   <!-- Info component -->
-  <app-info></app-info>
+  <app-info [title]="'Your List Is Empty'" [text]="'Please use Add New Course button to add your first course.'">
+    <button class="btn btn-new">ADD NEW COURSE</button>
+  </app-info>
+  
 
   <!-- Course Card component -->
   <app-course-card></app-course-card>
@@ -19,6 +22,7 @@
 
   <!-- Login Form component -->
   <app-course-form></app-course-form>
+ 
 
   <!-- Modal component -->
   <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->
