@@ -1,0 +1,15 @@
+<!-- <ul>  <li *ngFor="let customer of customers">{{customer.name}}</li></ul> -->
+<ul class="courses-list">
+  <li>
+    <app-course-card
+      *ngFor="let course of courses"
+      [cardTitle]="course.title"
+      [cardDescription]="course.description"
+      [creationDate]="course.creationDate"
+      [cardDuration]="course.duration"
+      [cardAuthors]="course.authors"
+      [cardEditable]="editable"
+    >
+    </app-course-card>
+  </li>
+</ul>
