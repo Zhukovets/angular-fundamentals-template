@@ -27,6 +27,14 @@
     justify-content: space-between;
     margin-left: 50px;
 
+    &-actions {
+      display: flex;
+
+      .course-card__buttons{
+        display: flex;
+      }
+    }
+
     &-text {
       margin-top: 16px;
     }
