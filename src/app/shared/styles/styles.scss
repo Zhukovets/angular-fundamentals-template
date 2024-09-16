@@ -1,16 +1,14 @@
-$color-white: #fff;
-$color-gray: #CFCFCF;
-$color-red: #FF0000;
+@import "src/app/shared/styles/variables/colors";
 
 .app-plate {
     width: 100%;
     min-height: 477px;
+    display: flex;
+    justify-content: center;
     background-color: $color-white;
     border: 1px solid $color-gray;
     border-radius: 4px;
     padding: 32px;
-    display: flex;
-    justify-content: center;
 }
 
 .text-align-center {
@@ -18,9 +16,9 @@ $color-red: #FF0000;
 }
 
 .app-error-text {
-    color: $color-red;
     position: absolute;
     margin-top: 4px;
+    color: $color-red;
 }
 
 .form {
@@ -33,9 +31,9 @@ $color-red: #FF0000;
     }
 
     &__text {
+        flex-wrap: wrap;
         text-align: center;
         margin-top: 38px;
-      flex-wrap: wrap;
     }
 }
 
@@ -45,5 +43,6 @@ $color-red: #FF0000;
 }
 
 .text-danger {
-    color: red;
+    color: $color-red;
 }
+

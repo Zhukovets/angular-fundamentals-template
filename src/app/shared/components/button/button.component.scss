@@ -1,18 +1,47 @@
+@import "src/app/shared/styles/variables/colors";
+
 .app-button {
-    display: flex;
-    flex-direction: row;
+    @include flex-row;
     justify-content: center;
-    align-items: center;
-    padding: 13px 36px;
-    gap: 10px;
-    background: #007298;
+    background: $background-primary;
     border-radius: 4px;
-    color: #fff;
-    text-transform: uppercase;
+    border: 1px solid $color-primary;
+    color: $color-white;
+    transition: background 0.4s, color 0.4s, border 0.4s;
     cursor: pointer;
 
+    &__btn {
+        @include button;
+        padding: 13px 36px;
+        font-weight: bold;
+        font-size: inherit;
+        text-transform: uppercase;
+        line-height: 1.5rem;
+    }
+
+    &__icon {
+        @include button;
+        width: 60px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+
     &:hover {
-        background: #016486;
+        background: $background-block;
+        border: 1px solid $color-primary;
+        color: $color-primary;
+    }
+
+    &:focus {
+        box-shadow: 0 0 0 4px rgba($color-primary, 0.5);
+        background: darken($background-primary, 10%);
+        border: 1px solid darken($color-primary, 10%);
+    }
+
+    &:active {
+        background: lighten($background-primary, 5%);
+        border: 1px solid lighten($color-primary, 5%);
+        transform: scale(0.98);
     }
 
     &__single-icon {

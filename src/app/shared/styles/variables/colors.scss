@@ -2,3 +2,42 @@ $color-white: #FFF;
 $color-gray: #CFCFCF;
 $color-red: #FF0000;
 $color-dark-gray: #333E48;
+$color-primary: #007298;
+$color-black: #000000;
+
+/*background*/
+$background-block: #fff;
+$background-primary: #007298;
+$background-transparent: transparent;
+
+/*shadow*/
+$color-shadow: #00000040;
+
+/*font-size*/
+$font-size-default: 16px;
+
+@mixin flex-row {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+@mixin card-item {
+  background: $background-block;
+  box-shadow: 0 0 4px $color-shadow;
+  border-radius: 4px;
+  border-left: 8px solid $color-dark-gray;
+}
+
+@mixin button {
+  background: $background-transparent;
+  color: inherit;
+  font-weight: bold;
+  border: none;
+  cursor: inherit;
+}

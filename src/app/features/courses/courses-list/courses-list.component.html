@@ -1,0 +1,5 @@
+<section class="course-list"
+    *ngFor="let item of coursesList">
+    <app-course-card [cardItem] = item [cardText]="buttonTexts.show_course"></app-course-card>
+</section>
+

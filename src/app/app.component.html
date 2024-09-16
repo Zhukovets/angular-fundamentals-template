@@ -1,23 +1,35 @@
-<app-header></app-header>
-<div class="app-root">
-  <!-- Search component -->
-  <!--<app-search></app-search>-->
+    <app-header>
+        <span class="user-description">Hurry Potter</span>
+        <app-button buttonText={{buttonTexts.login}}></app-button>
+    </app-header>
 
-  <!-- Info component -->
-  <!--<app-info></app-info>-->
+    <div class="app-root">
+        <!-- Search component -->
+        <!--<app-search></app-search>-->
 
-  <!-- Course Card component -->
-  <!--<app-course-card></app-course-card>-->
+        <!--Info component-->
+        <app-info title ="Your List Is Empty"  text ="Please use Add new course button">
+            <app-button buttonText={{buttonTexts.add_new_course}}></app-button>
+        </app-info>
 
-  <!-- Login Form component -->
-  <!--<app-login-form></app-login-form>-->
+        <!-- Course Card component -->
+        <!--<app-course-card></app-course-card>-->
 
-  <!-- Login Form component -->
-  <!--<app-registration-form></app-registration-form>-->
+        <!-- Course Card List -->
+        <!--<app-courses-list></app-courses-list>-->
 
-  <!-- Login Form component -->
-  <!--<app-course-form></app-course-form>-->
+        <!-- Login Form component -->
+        <!--<app-login-form></app-login-form>-->
 
-  <!-- Modal component -->
-  <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->
-</div>
+        <!-- Login Form component -->
+        <!--<app-registration-form></app-registration-form>-->
+
+        <!-- Login Form component -->
+        <!--<app-course-form></app-course-form>-->
+
+        <!-- Modal component -->
+        <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->
+    </div>
+
+
+

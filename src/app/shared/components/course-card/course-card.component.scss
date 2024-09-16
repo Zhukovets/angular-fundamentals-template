@@ -1,34 +1,50 @@
 @import "src/app/shared/styles/variables/colors";
 
 .course-card {
-  padding: 32px;
-  box-shadow: 0 0 4px rgb(0 0 0 / 25%);
-  border-radius: 4px;
-  border-left: 8px solid $color-dark-gray;
-  display: flex;
+  @include card-item;
   justify-content: space-between;
-  margin: 32px 0;
   min-height: 170px;
   width: 80vw;
-  background-color: $color-white;
+  padding: 32px;
+  margin: 32px 0;
 
   &__description {
-    flex: 2;
-
     &-title {
+      font-size: 1.25rem;
       font-weight: bold;
+      line-height: 2.7rem;
+      color: $color-black;
     }
   }
 
   &__info {
-    flex: 1;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
-    margin-left: 50px;
+    gap: 5%;
+    line-height: 1.30rem;
+    font-weight: 300;
+    letter-spacing: 0.02rem;
+
+    &-description {
+      flex: 2;
+      height: 8.75rem;
+      overflow-y: auto;
+    }
 
     &-text {
-      margin-top: 16px;
+      @include flex-column;
+      justify-content: space-between;
+      flex: 1;
+    }
+
+    &-actions {
+      @include flex-row;
+      justify-content: space-between;
+    }
+
+    &_label {
+      font-weight: bold;
     }
   }
 }
