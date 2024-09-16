@@ -1,17 +1,18 @@
 <!-- Replace ::text:: with your code -->
-
-<div class="title">::Title::</div>
+<div class="title">{{courseInfo.title}}</div>
 <div class="course-info">
   <div class="course-info__description">
-    ::Description::
+      <p class="course-info__description_label">Description: </p>
+      {{ courseInfo.description }}
   </div>
   <div class="course-info__info">
-    <div><b>ID: </b><span class="course-info__info-id">::id::</span></div>
-    <div><b>Duration: </b><span class="course-info__info-duration">::duration::</span></div>
-    <div><b>Created: </b><span class="course-info__info-date">::date::</span></div>
-    <div><b>Authors: </b><span class="course-info__info-authors">::authors::</span></div>
+    <div><span class="course-info__info_label">ID: </span>{{ courseInfo.id }}</div>
+    <div><span class="course-info__info_label">Duration: </span> {{courseInfo.duration | duration}}</div>
+    <div><span class="course-info__info_label">Created: </span>{{courseInfo.creationDate | customDate}}</div>
+    <div><span class="course-info__info_label">Created: </span>{{courseInfo.authors.join(', ')}}</div>
   </div>
 </div>
 <div class="navigation-block">
   <!--Enter your code here-->
+    <app-button buttonText="{{buttonText.back}}"></app-button>
 </div>
