@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Card } from 'src/app/model/cardmodel';
+import { mockedCoursesList } from 'src/app/shared/mock/mock';
 
 @Component({
   selector: 'app-course-info',
@@ -6,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./course-info.component.scss']
 })
 export class CourseInfoComponent {
-  // Use the names for the input `course`.
+  @Input() course:Card = mockedCoursesList[1];
+  /* @Input() course!: {
+    title: string;
+    description: string;
+    id: string;
+    creationDate: Date;
+    duration: number;
+    authors: string[];
+  } */
 }

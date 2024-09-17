@@ -8,4 +8,14 @@
     padding: 0 30px;
     background-color: $color-white;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+
+    &__right {
+        display: flex-row;
+        gap:.6rem;
+    }
 }
+
+/* .app-header.right {
+    @include flex-row;
+    gap: 0.8rem;
+} */
