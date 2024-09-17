@@ -5,6 +5,4 @@ import { Component, Input } from "@angular/core";
   templateUrl: "./header.component.html",
   styleUrls: ["./header.component.scss"],
 })
-export class HeaderComponent {
-  @Input() userName: string = "";
-}
+export class HeaderComponent {}
