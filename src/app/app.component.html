@@ -6,7 +6,6 @@
 
     <div class="button-container">
       <app-button
-        header-button
         [buttonText]="loginButtonText"
         (clicked)="handleLogin()"
       ></app-button>
@@ -22,7 +21,7 @@
     [title]="'Your List Is Empty'"
     [text]="'Please use \'Add New Course\' button to add your first course'"
   >
-    <app-button info-button [buttonText]="'Add New Course'"></app-button>
+    <app-button [buttonText]="'Add New Course'"></app-button>
   </app-info>
 
   <!-- Course Card component -->
