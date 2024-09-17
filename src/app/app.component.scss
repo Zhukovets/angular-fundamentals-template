@@ -5,4 +5,11 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
+  box-sizing: border-box;
+}
+
+app-header ::ng-deep .header__account {
+  display: flex;
+  gap: 15px;
+  align-items: center;
 }

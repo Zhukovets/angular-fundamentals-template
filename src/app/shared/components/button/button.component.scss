@@ -10,12 +10,41 @@
     color: #fff;
     text-transform: uppercase;
     cursor: pointer;
+    transition: .2s ease-in-out;
+    font-weight: 600;
 
     &:hover {
         background: #016486;
     }
 
+    &:active {
+        background: #08526d;
+    }
+
     &__single-icon {
-        padding: 13px;
+        padding: 0px;
+        height: 100%;
+        width: auto;
+        background: unset;
+        
+        .ng-fa-icon {
+            transition: .2s ease-in-out;
+            color: #007298;
+        }
+
+        &:hover {
+            background: unset;
+            .ng-fa-icon {
+                color: #016486;
+            }
+        }
+
+        &:active {
+            background: unset;
+
+            .ng-fa-icon {
+                color: #08526d;
+            }
+        }
     }
 }

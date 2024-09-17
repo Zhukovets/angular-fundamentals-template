@@ -31,4 +31,16 @@
       margin-top: 16px;
     }
   }
+
+  .course-card__info-actions {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 10px;
+  }
+
+  .course-card__buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
 }
