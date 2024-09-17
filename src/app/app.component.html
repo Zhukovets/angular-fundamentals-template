@@ -1,13 +1,15 @@
 <app-header>
-  <button>Login</button>
+  <button class ="header_btn">Login</button>
 </app-header>
-<div class="app-root">
-  <!-- Search component -->
-  <app-search></app-search>
 
-  <!-- Info component -->
+<div class="app-root">
+  <app-button buttonText="User Secret" iconName="user-secret"></app-button>
+  <!-- Search component -->
+  <!--<app-search-></app-search->
+
+  <!- Info component -->
   <app-info [title]="'Your List Is Empty'" [text]="'Please use Add New Course button to add your first course.'">
-    <button class="btn btn-new">ADD NEW COURSE</button>
+    <button>ADD NEW COURSE</button>
   </app-info>
   
 
