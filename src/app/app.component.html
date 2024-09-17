@@ -1,10 +1,17 @@
 <app-header>
-  <p username *ngIf="isLoggedIn">Harry Potter</p>
-  <app-button
-    header-button
-    [buttonText]="loginButtonText"
-    (clicked)="handleLogin()"
-  ></app-button>
+  <div class="login-container">
+    <div class="name-container">
+      <p username *ngIf="isLoggedIn">Harry Potter</p>
+    </div>
+
+    <div class="button-container">
+      <app-button
+        header-button
+        [buttonText]="loginButtonText"
+        (clicked)="handleLogin()"
+      ></app-button>
+    </div>
+  </div>
 </app-header>
 <div class="app-root">
   <!-- Search component -->
