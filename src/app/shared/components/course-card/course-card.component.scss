@@ -31,4 +31,18 @@
       margin-top: 16px;
     }
   }
+
+  &__info-actions {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+
+    ::ng-deep [action-button] {
+      margin-left: 15px;
+    }
+  }
 }

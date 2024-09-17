@@ -1,4 +1,11 @@
-<div class="app-button">
+<div>
   <!-- Replace the text below with your code -->
-  Button
+  <button (click)="onClick()" class="app-button">
+    {{ buttonText }}
+    <fa-icon
+      *ngIf="iconName === 'trash-can'"
+      [icon]="['fas', 'trash-can']"
+    ></fa-icon>
+    <fa-icon *ngIf="iconName === 'pencil'" [icon]="['fas', 'pencil']"></fa-icon>
+  </button>
 </div>

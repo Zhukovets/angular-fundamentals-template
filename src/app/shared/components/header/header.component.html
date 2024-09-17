@@ -1,4 +1,11 @@
 <div class="app-header">
-  <img alt="logo" src="assets/logo.svg">
+  <img alt="logo" src="assets/logo.svg" />
   <!-- Enter your code here -->
+
+  <div class="name-container">
+    <ng-content select="[username]"></ng-content>
+  </div>
+  <div class="button-container">
+    <ng-content select="[header-button]"></ng-content>
+  </div>
 </div>

@@ -1,13 +1,61 @@
-<app-header></app-header>
+<app-header>
+  <p username *ngIf="isLoggedIn">Harry Potter</p>
+  <app-button
+    header-button
+    [buttonText]="loginButtonText"
+    (clicked)="handleLogin()"
+  ></app-button>
+</app-header>
 <div class="app-root">
   <!-- Search component -->
   <!--<app-search></app-search>-->
 
   <!-- Info component -->
-  <!--<app-info></app-info>-->
+  <app-info
+    [title]="'Your List Is Empty'"
+    [text]="'Please use \'Add New Course\' button to add your first course'"
+  >
+    <app-button info-button [buttonText]="'Add New Course'"></app-button>
+  </app-info>
 
   <!-- Course Card component -->
-  <!--<app-course-card></app-course-card>-->
+  <app-course-card
+    [title]="course.title"
+    [description]="course.description"
+    [authors]="course.authors"
+    [duration]="course.duration"
+    [creationDate]="course.creationDate"
+    [isEditable]="isEditable"
+    (clickOnShow)="handleShowCourse()"
+  >
+    <app-button
+      action-button
+      class="remove-button"
+      [iconName]="'trash-can'"
+      *ngIf="isEditable"
+    ></app-button>
+    <app-button
+      action-button
+      class="edit-button"
+      [iconName]="'pencil'"
+      *ngIf="isEditable"
+    ></app-button>
+  </app-course-card>
+
+  <app-course-info
+    [id]="course.id"
+    [title]="course.title"
+    [description]="course.description"
+    [authors]="course.authors"
+    [duration]="course.duration"
+    [creationDate]="course.creationDate"
+    [isEditable]="isEditable"
+    (clickOnShow)="handleShowCourse()"
+  >
+    <app-button back-button [buttonText]="'Back'"></app-button>
+  </app-course-info>
+
+  <app-course-list></app-course-list>
 
   <!-- Login Form component -->
   <!--<app-login-form></app-login-form>-->
