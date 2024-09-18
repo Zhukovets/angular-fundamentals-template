@@ -11,4 +11,10 @@ export class LoginFormComponent {
 
   email: string = '';
   password: string = '';
+  
+  onSubmit(form: any) {
+    if (form.valid) {
+      console.log('Form Submitted');
+    }
+  }
 }

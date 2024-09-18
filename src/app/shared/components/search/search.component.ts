@@ -8,4 +8,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class SearchComponent {
   @Input() placeholder: string = 'Search';
   @Output() search: EventEmitter<string> = new EventEmitter<string>();
+
+  searchQuery: string = '';
+
+  onSearch() {
+    if (this.searchQuery.trim()) {
+      this.search.emit(this.searchQuery.trim());
+    }
+  }
 }

@@ -1,6 +1,6 @@
 <h2 class="text-align-center">Login</h2>
 <div class="app-plate">
-  <form #loginForm="ngForm">
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
     <div class="login-form">
       <div>
         <div class="form__control">
@@ -44,7 +44,7 @@
       </div>
       <div>
         <div class="form__action">
-          <app-button buttonText="Login"></app-button>
+          <app-button type="submit" buttonText="Login"></app-button>
         </div>
         <div class="form__text">
           If you don't have an account you may <strong>Registration</strong>
