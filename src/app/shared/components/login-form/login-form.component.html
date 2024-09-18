@@ -30,14 +30,12 @@
               type="password"
               id="password"
               name="password"
-              appTogglePassword
-              #togglePassword="togglePassword"
               placeholder="Input text"
               [(ngModel)]="password"
               #passwordFormControl="ngModel"
               required
             />
-            <app-button iconName='eye' (click)="togglePassword.togglePassword()"></app-button>
+            <app-button iconName='eye'></app-button>
           </div>
         <span *ngIf="(loginForm.submitted || passwordFormControl.touched) && passwordFormControl.errors?.['required']" class="text-danger">
           Password is required.
