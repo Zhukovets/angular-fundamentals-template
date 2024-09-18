@@ -35,3 +35,50 @@
     cursor: pointer;
   }
 }
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & app-button {
+    margin-left: 16px;
+  }
+}
+
+input.ng-invalid.ng-touched,
+input.ng-invalid.ng-dirty {
+  border-color: $color-red;
+}
+
+.form__action {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.input-author-group {
+  display: flex;
+  align-items: flex-end;
+}
+
+.input-author-group input {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.authorlist-flex {
+  flex: 2;
+
+  & li {
+    margin-right: 50%;
+  }
+}
+
+.courselist-flex {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

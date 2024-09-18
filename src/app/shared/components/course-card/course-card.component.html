@@ -9,8 +9,8 @@
                 <b>Authors: </b>
                 {{ authors.join(', ') }}
             </div>
-            <div><b>Duration: </b><span class="course-card__duration">{{ duration }} hours</span></div>
-            <div><b>Created: </b><span class="course-card__date">{{ creationDate }}</span></div>
+            <div><b>Duration: </b><span class="course-card__duration">{{ duration | duration }}</span></div>
+            <div><b>Created: </b><span class="course-card__date">{{ creationDate | customDate }}</span></div>
         </div>
         <div class="course-card__info-actions">
             <app-button buttonText="Show course"></app-button>
