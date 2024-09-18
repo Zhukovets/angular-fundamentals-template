@@ -1,4 +1,4 @@
 <div class="app-search">
-  <input type="text" placeholder="Input text">
-  <app-button></app-button>
+  <input type="text" placeholder="{{ placeholder }}" name="search" />
+  <app-button (click)="onSearch()" buttonText="Search"></app-button>
 </div>

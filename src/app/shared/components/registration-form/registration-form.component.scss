@@ -7,3 +7,27 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+input {
+  border-color: $color-gray;
+}
+
+input.ng-invalid.ng-touched,
+input.ng-invalid.ng-dirty {
+  border-color: $color-red;
+}
+
+//sadly I couldnt place the app-button inside the input field while maintaining a decent look
+.password-flexcontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-flexcontainer input {
+  flex: 1;
+}
+
+.password-flexcontainer app-button {
+  width: 30%;
+}
