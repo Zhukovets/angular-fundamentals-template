@@ -1,13 +1,17 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import {
+  // pobiera najbardziej aktualne dane, laczy je i wysyla do obserwtora jak tablice
   combineLatest,
+  // opóźnia wywołanie funkcji o podany czas
   debounceTime,
   filter,
+  // pozwala na pobranie danych z kilku źródeł. Wynik zwraca, dopiero gdy dane zostaną pobrane  wszystkich strumieni danych.
   forkJoin,
-  map,
   Observable,
+  //  Do subjecta można się zasubskrybować, ale jednocześnie udostępnia nam on też metody obserwatora (next/error/complete)
   Subject,
   Subscription,
+  // emituje wartości wewnętrznego Observable, ale każda nowa wartość emitowana przez strumień źródłowy powoduje anulowanie poprzedniego wewnętrznego Observable i utworzenie nowego
   switchMap,
 } from "rxjs";
 import { MockDataService } from "./mock-data.service";
