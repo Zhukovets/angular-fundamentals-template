@@ -23,7 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
   charactersResults$!: Observable<any>;
   planetAndCharactersResults$!: Observable<any>;
   isLoading: boolean = false;
-  subscriptions: Subscription[] = [];
+  Subscription = new Subscription();
 
   constructor(private mockDataService: MockDataService) {}
 
@@ -53,9 +53,10 @@ export class AppComponent implements OnInit, OnDestroy {
         debounceTime(300),
         filter((searchTerm) => searchTerm.length >= 3),
         switchMap((searchTerm) => this.mockDataService.getCharacters(searchTerm))
-        
-
       );
+        const characterSubscription = this.charactersResults$.subscribe();
+        this.Subscription.add(characterSubscription);
+      
         // YOUR CODE ENDS HERE
         
   }
@@ -72,7 +73,8 @@ export class AppComponent implements OnInit, OnDestroy {
         return [...characters.map((char: any) => char.name), ...planets.map((planet: any) => planet.name)];
     })
   );
-  
+  const planetCharacterSubscription = this.planetAndCharactersResults$.subscribe();
+    this.Subscription.add(planetCharacterSubscription);
   
     // YOUR CODE ENDS HERE
   }
@@ -91,7 +93,7 @@ export class AppComponent implements OnInit, OnDestroy {
     ]).subscribe(([charactersLoading, planetsLoading]) => {
       this.isLoading = this.areAllValuesTrue([charactersLoading, planetsLoading]);
     });
-    this.subscriptions.push(loadingSubscription);
+    this.Subscription.add(loadingSubscription);
     // YOUR CODE ENDS HERE
   }
 
@@ -100,7 +102,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // 5.2 Unsubscribe from all subscriptions
     // YOUR CODE STARTS HERE
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
+    this.Subscription.unsubscribe();
     // YOUR CODE ENDS HERE
   }
 
@@ -108,3 +110,6 @@ export class AppComponent implements OnInit, OnDestroy {
     return elements.every((el) => el);
   }
 }
+
+
+
