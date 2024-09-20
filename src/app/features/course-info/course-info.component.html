@@ -3,6 +3,7 @@
 <div class="title">{{ title }}</div>
 <div class="course-info">
   <div class="course-info__description">
+    <h3>Description</h3>
     {{ description }}
   </div>
   <div class="course-info__info">
@@ -14,7 +15,8 @@
       ><span class="course-info__info-duration">{{ duration }}</span>
     </div>
     <div>
-      <b>Created: </b><span class="course-info__info-date">{{ date }}</span>
+      <b>Created: </b
+      ><span class="course-info__info-date">{{ date | date }} </span>
     </div>
     <div>
       <b>Authors: </b
@@ -24,4 +26,5 @@
 </div>
 <div class="navigation-block">
   <!--Enter your code here-->
+  <ng-content></ng-content>
 </div>
