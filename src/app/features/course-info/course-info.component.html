@@ -6,8 +6,8 @@
   </div>
   <div class="course-info__info">
     <div><b class="course-key">ID: </b><span class="course-info__info-id">{{course.id}}</span></div>
-    <div><b class="course-key">Duration: </b><span class="course-info__info-duration"><b>{{math.trunc(course.duration/60)}}:{{course.duration%60 === 0 ? "00" : course.duration%60}}</b> hours</span></div>
-    <div><b class="course-key">Created: </b><span class="course-info__info-date">{{course.creationDate.getDay().toString().padStart(2,"0")}}.{{course.creationDate.getMonth().toString().padStart(2,"0")}}.{{course.creationDate.getFullYear()}}</span></div>
+    <div><b class="course-key">Duration: </b><span class="course-info__info-duration">{{course.duration | duration}}</span></div>
+    <div><b class="course-key">Created: </b><span class="course-info__info-date">{{course.creationDate | customDate}}</span></div>
     <div><b class="course-key">Authors: </b><span class="course-info__info-authors">{{course.authors}}</span></div>
   </div>
 </div>

@@ -1,56 +1,111 @@
-<!-- Replace ::text:: with your code -->
 <h2>Create / Edit Course</h2>
-<form>
+<form [formGroup]="courseForm">
   <div class="app-plate">
     <div class="course">
       <h3>Main Info</h3>
-      <div class="form__control">
+
+      <div class="form__control" *ngIf="courseForm.controls['title'] as titleControl">
         <label for="title">Title</label>
-        <!--Use the name `title` for the form control.-->
-        <input type="text" id="title" placeholder="Input text"/>
-        <span id="titleErrorMessage" class="text-danger">Title is required.</span>
+        <input [ngStyle]="{ 'border-color': ((titleControl.invalid && titleControl.touched) || (submitted && titleControl.invalid) ? '#FF0000' : '#CFCFCF')}" type="text" id="title" formControlName="title" placeholder="Input text"/>
+
+        <ng-container *ngIf="(titleControl.touched || submitted) && titleControl.invalid">
+          <span *ngIf="titleControl.hasError('required')" id="titleErrorMessage" class="text-danger">Title is required.</span>
+          <span *ngIf="titleControl.hasError('minlength')" id="titleErrorMessage" class="text-danger">Title is too short.</span>
+        </ng-container>
       </div>
-      <div class="form__control">
+
+      <div class="form__control" *ngIf="courseForm.controls['description'] as descControl">
         <label for="description">Description</label>
-        <!--Use the name `description` for the form control.-->
         <textarea
+          [ngStyle]="{ 'border-color': ((descControl.invalid && descControl.touched) || (submitted && descControl.invalid) ? '#FF0000' : '#CFCFCF')}"
           id="description"
+          formControlName="description"
           name="description"
           placeholder="Input text"
           rows="4"
           cols="5"
         ></textarea>
-        <span id="descriptionErrorMessage" class="text-danger">Description is required.</span>
+
+        <ng-container *ngIf="(descControl.touched || submitted) && descControl.invalid">
+          <span *ngIf="descControl.hasError('required')" id="descriptionErrorMessage" class="text-danger">Description is required.</span>
+          <span *ngIf="descControl.hasError('minlength')" id="descriptionErrorMessage" class="text-danger">Description is too short.</span>
+        </ng-container>
       </div>
-      <div class="separator"></div>
-      <h3>Authors</h3>
-      <div class="form__control">
-        <div class="course__flex">
-          <!--Use the name `author` for the form control.-->
-          <input type="text" id="author" placeholder="Input Author Name"/>
-          <app-button id="createAuthor"></app-button>
-        </div>
-        <span id="authorErrorMessage">New author should contain only latin letters and numbers.</span>
-        <div class="course__authors">
-          <!--Use the name `authors` for the form array.-->
-          ::Authors::
-        </div>
-      </div>
-      <div class="separator"></div>
-      <h3>Duration</h3>
-      <div class="form__control">
-        <div class="course__flex">
-          <!--Use the name `duration` for the form array.-->
-          <input type="number" id="duration" placeholder="Input duration"/>
-          <div class="course__duration">
-            ::Duration::
+
+      <div class="authors-etc">
+        <div class="left">
+          <h3>Duration</h3>
+          <div class="form__control" *ngIf="courseForm.controls['duration'] as durationControl">
+            <label for="duration">Duration</label>
+            <div class="course__flex">
+              <input [ngStyle]="{ 'border-color': ((durationControl.invalid && durationControl.touched) || (submitted && durationControl.invalid) ? '#FF0000' : '#CFCFCF')}" class="special__input" type="number" id="duration" formControlName="duration" placeholder="Input duration"/>
+              <div class="course__duration">
+                {{ +courseForm.controls['duration'].value | duration}}
+              </div>
+            </div>
+    
+            <ng-container *ngIf="(durationControl.touched || submitted) && durationControl.invalid">
+              <span *ngIf="durationControl.hasError('required')" id="durationErrorMessage" class="text-danger">Duration is required.</span>
+              <span *ngIf="durationControl.hasError('minlength')" id="durationErrorMessage" class="text-danger">Duration is invalid.</span>
+            </ng-container>
+          </div>
+    
+          <h3>Authors</h3>
+          <div class="form__control" *ngIf="courseForm.controls['author'] as authorControl">
+            <label for="author">Author Name</label>
+            <div class="course__flex">
+              <input class="special__input" type="text" id="author" placeholder="Input text" formControlName="author"/>
+              <app-button id="createAuthor" (parentFunction)="createNewAuthor()" [buttonText]="'create author'"></app-button>
+            </div>
+            
+            <ng-container *ngIf="(authorControl.touched || submitted) && authorControl.invalid">
+              <span *ngIf="authorControl.hasError('pattern')" id="authorErrorMessage" class="text-danger">New author should contain only latin letters and numbers</span>
+            </ng-container>
+    
+            <div class="course__authors" formArrayName="authors">
+              <h3>Authors list:</h3>
+              
+              <ng-container *ngIf="getAuthors().controls.length === 0">
+                <div class="empty-message">empty</div>
+              </ng-container>
+  
+              <div *ngFor="let auth of getAuthors().controls; index as i" [formGroupName]="i" class="authors">
+                <div class="author">
+                  <div>{{auth.value.author}}</div>
+                  <div class="btns">
+                    <app-button [iconName]="'plus'" [reversed]="true" (parentFunction)="addToCourseAuthors(i)"></app-button>
+                    <app-button [iconName]="'trash-can'" [reversed]="true" (parentFunction)="deleteAuthor(i)"></app-button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <span id="durationErrorMessage" class="text-danger">Duration is required.</span>
+  
+        <div class="right">
+          <div class="course__authors__right" formArrayName="courseAuthors">
+            <h2>Course Authors:</h2>
+            
+            <ng-container *ngIf="getCourseAuthors().controls.length === 0">
+              <div class="empty-message">Author list is empty</div>
+            </ng-container>
+
+            <div *ngFor="let auth of getCourseAuthors().controls; index as i" [formGroupName]="i" class="course-authors">
+              <div class="course-author">
+                <div class="author-name">{{auth.value.author}}</div>
+                <app-button [iconName]="'trash-can'" [reversed]="true" (parentFunction)="removeFromCourseAuthors(i)"></app-button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="form__action">
-        <app-button></app-button>
-      </div>
+
     </div>
   </div>
 </form>
+<div class="form__action">
+  <div class="buttons">
+    <app-button [buttonText]="'cancel'"></app-button>
+    <app-button type="submit" (parentFunction)="submit()" [buttonText]="'create course'"></app-button>
+  </div>
+</div>

@@ -16,10 +16,12 @@ export class ButtonComponent {
   @Input() buttonText?: string;
   @Input() iconName?: any;
   @Input() reversed: boolean = false;
+  @Input() width_max: boolean = false;
+  @Input() font_size?: number;
 
-  @Output() changeLoggedStatus = new EventEmitter<void>();
+  @Output() parentFunction = new EventEmitter<void>();
 
   changeLoginStatus() {
-    this.changeLoggedStatus.emit();
+    this.parentFunction.emit();
   }
 }

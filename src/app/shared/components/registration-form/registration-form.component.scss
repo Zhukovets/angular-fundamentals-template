@@ -6,4 +6,22 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  .login-link {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .password-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    
+    .toggle-icon {
+      position: absolute;
+      top: 18px;
+      right: 10px;
+    }
+  }
 }

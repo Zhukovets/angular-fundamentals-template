@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { Post, posts } from "./shared/mocks";
+import { posts } from "./shared/mocks";
 
 @Component({
   selector: "app-root",
@@ -8,9 +8,9 @@ import { Post, posts } from "./shared/mocks";
 })
 export class AppComponent {
   title = "courses-app";
+  posts = posts;
 
   public loginStatus: boolean = false;
-  public posts: Post[] = posts;
 
   changeLoginStatus() {
     this.loginStatus = !this.loginStatus;
