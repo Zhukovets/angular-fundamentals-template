@@ -20,7 +20,7 @@
     </div>
     <div class="course-card__info-actions">
       <div class="course-card__buttons">
-        <ng-content></ng-content>
+        <ng-content *ngIf="isEditable"></ng-content>
         <!--Enter your code here-->
       </div>
     </div>

@@ -16,7 +16,7 @@
   <!-- Course Card component -->
   <app-course-card
     title="Angular"
-    description="Lorem ipsum"
+    [description]="lorem_ipsum"
     [authors]="['Dave Haisenberg', 'Tony Ja']"
     [duration]="2.3"
   >
@@ -27,6 +27,19 @@
     ></app-button>
   </app-course-card>
 
+  <app-course-card
+    title="Java"
+    [description]="lorem_ipsum"
+    [authors]="['Dave Haisenberg', 'Tony Ja']"
+    [duration]="2.3"
+  >
+    <app-button
+      [isEditable]="false"
+      button_text="Show course"
+      icon_name="trash"
+      second_icon_name="pencil"
+    ></app-button>
+  </app-course-card>
   <!-- Login Form component -->
   <!--<app-login-form></app-login-form>-->
 
