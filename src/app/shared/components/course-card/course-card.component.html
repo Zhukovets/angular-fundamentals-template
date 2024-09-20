@@ -10,8 +10,8 @@
               <b>Authors: </b>
               {{ authors }}
             </div>
-            <div><b>Duration: </b><span class="course-card__duration">{{ getFormattedDuration(duration) }} hours</span></div>
-            <div><b>Created: </b><span class="course-card__date">{{ getFormattedDate(creationDate) }}</span></div>
+            <div><b>Duration: </b><span class="course-card__duration">{{ duration | duration }} hours</span></div>
+            <div><b>Created: </b><span class="course-card__date">{{ creationDate | date }}</span></div>
         </div>
         <div class="course-card__info-actions">
             <app-button buttonText="SHOW COURSE" (click)="onShowCourse()"></app-button>

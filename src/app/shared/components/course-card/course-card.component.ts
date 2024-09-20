@@ -19,17 +19,8 @@ export class CourseCardComponent {
   constructor(private datePipe: DatePipe){}
 
   onShowCourse(): void{
-    console.log("showcourse");
     this.clickOnShow.emit();
   }
 
-  getFormattedDate(date: Date): string {
-    return this.datePipe.transform(date, 'dd.MM.yyyy') || '';
-  }
-
-  getFormattedDuration(duration: number): string {
-    const hours = Math.floor(duration / 60);
-    const minutes = duration % 60;
-    return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
-  }
+  
 }
