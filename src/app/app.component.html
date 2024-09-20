@@ -1,15 +1,31 @@
 <app-header>
-  <app-button></app-button>
+  <app-button button_text="Login"></app-button>
 </app-header>
 <div class="app-root">
   <!-- Search component -->
   <!--<app-search></app-search>-->
 
   <!-- Info component -->
-  <!--<app-info></app-info>-->
+  <app-info
+    title="Your list is empty"
+    text="Please use 'Add new course' button to add your first course"
+  >
+    <app-button button_text="Add new course"></app-button>
+  </app-info>
 
   <!-- Course Card component -->
-  <!--<app-course-card></app-course-card>-->
+  <app-course-card
+    title="Angular"
+    description="Lorem ipsum"
+    [authors]="['Dave Haisenberg', 'Tony Ja']"
+    [duration]="2.3"
+  >
+    <app-button
+      button_text="Show course"
+      icon_name="trash"
+      second_icon_name="pencil"
+    ></app-button>
+  </app-course-card>
 
   <!-- Login Form component -->
   <!--<app-login-form></app-login-form>-->

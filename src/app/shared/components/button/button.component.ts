@@ -17,8 +17,10 @@ export class ButtonComponent {
     library.addIconPacks(fas);
   }
 
-  @Input() button_text: string = "Login";
+  @Input() isEditable: boolean = true;
+  @Input() button_text: string = "";
   @Input() icon_name: string = "";
+  @Input() second_icon_name: string = "";
 
   iconMap: { [key: string]: any } = {
     coffee: faCoffee,
@@ -31,9 +33,11 @@ export class ButtonComponent {
   faPencil = faPencil;
 
   selectedIcon: any;
+  secondSelectedIcon: any;
 
   ngOnChanges() {
     this.selectedIcon = this.iconMap[this.icon_name] || null;
+    this.secondSelectedIcon = this.iconMap[this.second_icon_name] || null;
   }
   // Use the names for the inputs `buttonText` and `iconName`.
 }
