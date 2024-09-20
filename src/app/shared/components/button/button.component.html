@@ -1,4 +1,9 @@
-<div class="app-button">
-  <!-- Replace the text below with your code -->
-  <button>{{ button_text }}</button>
+<div class="container">
+  <div class="app-button">
+    <span>{{ button_text }}</span>
+  </div>
+
+  <div *ngIf="selectedIcon" class="app-button__single-icon">
+    <fa-icon [icon]="selectedIcon"></fa-icon>
+  </div>
 </div>
