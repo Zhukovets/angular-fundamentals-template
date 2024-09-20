@@ -5,24 +5,70 @@
       <div class="form__control">
         <label for="name">Name</label>
         <!--Use the name `name` for the form control.-->
-        <input type="text" id="name" placeholder="Input text"/>
-        <span id="nameErrorMessage" class="text-danger">Name is required.</span>
+        <input
+          type="text"
+          id="name"
+          placeholder="Input text"
+          name="name"
+          ngModel
+          required
+          #name="ngModel"
+        />
+        <span
+          *ngIf="name.touched && name.invalid"
+          id="nameErrorMessage"
+          class="text-danger"
+          >Name is required.</span
+        >
       </div>
       <div class="form__control">
         <!--Use the name `email` for the form control.-->
         <label for="email">Email</label>
-        <input type="text" id="email" placeholder="Input text"/>
-        <span id="emailErrorMessage" class="text-danger">Email is required.</span>
+        <input
+          type="text"
+          id="email"
+          placeholder="Input text"
+          name="email"
+          ngModel
+          required
+          #email="ngModel"
+          emailValidator
+        />
+        <span
+          *ngIf="email.touched && email.invalid"
+          id="emailErrorMessage"
+          class="text-danger"
+          >Email is required.</span
+        >
       </div>
       <div class="form__control">
         <!--Use the name `password` for the form control.-->
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Input text"/>
-        <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
+        <input
+          type="password"
+          id="password"
+          placeholder="Input text"
+          name="password"
+          ngModel
+          required
+          #password="ngModel"
+        />
+        <span
+          *ngIf="password.touched && password.invalid"
+          id="passwordErrorMessage"
+          class="text-danger"
+          >Password is required.</span
+        >
       </div>
     </div>
-    <div class="form__action">
-      <app-button></app-button>
+    <div class="form__action button-container">
+      <a routerLink="/login">
+        <app-button button_text="Register"></app-button>
+      </a>
+    </div>
+    <div class="form__text">
+      Already have an account?
+      <a routerLink="/login"> <strong> Login</strong></a>
     </div>
   </div>
 </div>
