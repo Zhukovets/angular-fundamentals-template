@@ -1,28 +1,47 @@
 <h2 class="text-align-center">Registration</h2>
 <div class="app-plate">
   <div class="registration-form">
-    <div>
-      <div class="form__control">
-        <label for="name">Name</label>
-        <!--Use the name `name` for the form control.-->
-        <input type="text" id="name" placeholder="Input text"/>
-        <span id="nameErrorMessage" class="text-danger">Name is required.</span>
+    <form [formGroup]="registrationForm">
+      <div>
+        <div class="form__control" *ngIf="registrationForm.controls['name'] as nameControl">
+          <label for="name">Name</label>
+
+          <input [ngStyle]="{ 'border-color': ((nameControl.invalid && nameControl.touched) || (submitted && nameControl.invalid) ? '#FF0000' : '#CFCFCF')}" type="text" id="name" formControlName="name" placeholder="Input text"/>
+
+          <span *ngIf="(nameControl.touched || submitted) && nameControl.hasError('required')" id="emailErrorMessage" class="text-danger">Name is required.</span>
+          <span *ngIf="(nameControl.touched || submitted) && nameControl.hasError('minlength')" id="passwordErrorMessage" class="text-danger">Name is too short.</span>
+        </div>
+
+        <div class="form__control" *ngIf="registrationForm.controls['email'] as emailControl">
+          <label for="email">Email</label>
+
+          <input [ngStyle]="{ 'border-color': ((emailControl.invalid && emailControl.touched) || (submitted && emailControl.invalid) ? '#FF0000' : '#CFCFCF')}" type="text" id="email" formControlName="email" emailValidator placeholder="Input text"/>
+
+          <span *ngIf="(emailControl.touched || submitted) && emailControl.hasError('required')" id="emailErrorMessage" class="text-danger">Email is required.</span>
+          <span *ngIf="(emailControl.touched || submitted) && emailControl.hasError('invalidEmail') && !emailControl.hasError('required')" id="passwordErrorMessage" class="text-danger">Email is invalid.</span>
+        </div>
+
+        <div class="form__control" *ngIf="registrationForm.controls['password'] as passwordControl">
+          <label for="password">Password</label>
+
+          <div class="password-input">
+            <input [ngStyle]="{ 'border-color': ((passwordControl.invalid && passwordControl.touched) || (submitted && passwordControl.invalid) ? '#FF0000' : '#CFCFCF')}" type="password" id="password" formControlName="password" togglePassword #btn="togglePassword" placeholder="Input text"/>
+            <app-button class="toggle-icon" [iconName]="isVisible ? 'eye' : 'eye-slash'" [reversed]="true" [font_size]="15" (parentFunction)="btn.toggle()" (parentFunction)="changeVisibility()" ></app-button>
+          </div>
+
+          <span *ngIf="(passwordControl.touched || submitted) && passwordControl.hasError('required')" id="passwordErrorMessage" class="text-danger">Password is required.</span>
+          <span *ngIf="(passwordControl.touched || submitted) && passwordControl.hasError('minlength')" id="passwordErrorMessage" class="text-danger">Password is invalid.</span>
+        </div>
+
       </div>
-      <div class="form__control">
-        <!--Use the name `email` for the form control.-->
-        <label for="email">Email</label>
-        <input type="text" id="email" placeholder="Input text"/>
-        <span id="emailErrorMessage" class="text-danger">Email is required.</span>
+      <div>
+        <div class="form__action">
+          <app-button type="submit" (parentFunction)="submitRegistration()" [buttonText]="'login'" [width_max]="true"></app-button>
+        </div>
+        <div class="form__text">
+          If you have an account you may <strong class="login-link" (click)="goToLogin()">Login</strong>
+        </div>
       </div>
-      <div class="form__control">
-        <!--Use the name `password` for the form control.-->
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Input text"/>
-        <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
-      </div>
-    </div>
-    <div class="form__action">
-      <app-button></app-button>
-    </div>
+    </form>
   </div>
 </div>

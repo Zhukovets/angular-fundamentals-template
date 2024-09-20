@@ -24,6 +24,28 @@
   &__authors {
     margin-top: 8px;
     display: flex;
+    flex-direction: column;
+
+    &__right {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .author {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      .btns {
+        display: flex;
+        flex-direction: row;
+      }
+
+    }
 
     &-item {
       margin-right: 10px;
@@ -33,5 +55,53 @@
   &__icon {
     margin-left: 4px;
     cursor: pointer;
+  }
+
+  .authors-etc {
+    display: flex;
+    .left {
+      flex: 3;
+    }
+
+    .right {
+      flex: 2;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .course-authors {
+        display: flex;
+        flex-direction: column;
+
+        .course-author {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
+
+.form__control__75 {
+  width: 75%;
+
+  .special__input {
+    width: 400px;
+  }
+}
+
+.form__action {
+  display: flex;
+  justify-content: flex-end;
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    app-button {
+      margin-left: 20px;
+
+    }
   }
 }

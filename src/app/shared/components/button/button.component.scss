@@ -1,3 +1,11 @@
+:host {
+    -webkit-user-select: none;
+   -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
 .app-button {
     display: flex;
     flex-direction: row;
@@ -10,9 +18,20 @@
     color: #fff;
     text-transform: uppercase;
     cursor: pointer;
+    width: fit-content;
+    block-size: fit-content;
 
     &:hover {
         background: #016486;
+    }
+
+    &:active {
+        box-shadow: 2px 2px 5px #016486;
+    }
+
+    &:focus {
+        background: black;
+        color: white;
     }
 
     &__single-icon {
