@@ -47,12 +47,13 @@
       <div class="form__control">
         <div class="course__flex">
           <div formGroupName="newAuthor">
-            <input type="text" id="author" placeholder="Input Author Name" formControlName="name"/>
+            <input type="text" id="author" placeholder="Input Author Name" formControlName="name" latinLetterValidator/>
           </div>
           <app-button id="createAuthor" buttonText="CREATE AUTHOR" (buttonClick)="addAuthor()"></app-button>
         </div>
         <span *ngIf="courseForm.get('newAuthor.name')?.touched && courseForm.get('newAuthor.name')?.invalid"
-          id="authorErrorMessage">New author should contain only latin letters and numbers.
+          id="authorErrorMessage" class="text-danger">
+          New author should contain only latin letters and numbers.
         </span>
         <div class="course__authors">
           <ul>
