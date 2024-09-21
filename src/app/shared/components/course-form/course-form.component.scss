@@ -1,7 +1,7 @@
-@import 'src/app/shared/styles/styles';
+@import "src/app/shared/styles/styles";
 
 .course {
- min-width: 60vw;
+  min-width: 60vw;
 
   &__flex {
     display: flex;
@@ -34,4 +34,24 @@
     margin-left: 4px;
     cursor: pointer;
   }
+}
+
+.buttons-container {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  justify-items: center;
+  align-items: center;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red !important;
+}
+
+.form__control input {
+  border: 1px solid black;
+}
+
+.form__control textarea {
+  border: 1px solid black;
 }
