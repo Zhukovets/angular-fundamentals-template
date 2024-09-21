@@ -1,24 +1,21 @@
-<!-- Replace ::text:: with your code -->
 <h2>Create / Edit Course</h2>
-<form #courseForm="ngForm">
+<form [formGroup]="courseForm">
   <div class="app-plate">
     <div class="course">
       <h3>Main Info</h3>
       <div class="form__control">
         <label for="title">Title</label>
-        <!--Use the name `title` for the form control.-->
         <input
           type="text"
           id="title"
           placeholder="Input text"
-          minlength="2"
-          required
-          ngModel
-          name="title"
-          #title="ngModel"
+          formControlName="title"
         />
         <span
-          *ngIf="title.invalid && (title.touched || courseForm.submitted)"
+          *ngIf="
+            courseForm.get('title')?.invalid &&
+            (courseForm.get('title')?.touched || submitted)
+          "
           id="titleErrorMessage"
           class="text-danger"
           >Title is required.</span
@@ -26,21 +23,17 @@
       </div>
       <div class="form__control">
         <label for="description">Description</label>
-        <!--Use the name `description` for the form control.-->
         <textarea
-          minlength="2"
           id="description"
-          name="description"
           placeholder="Input text"
           rows="4"
           cols="5"
-          required
-          ngModel
-          #description="ngModel"
+          formControlName="description"
         ></textarea>
         <span
           *ngIf="
-            description.invalid && (description.touched || courseForm.submitted)
+            courseForm.get('description')?.invalid &&
+            (courseForm.get('description')?.touched || submitted)
           "
           id="descriptionErrorMessage"
           class="text-danger"
@@ -51,54 +44,59 @@
       <h3>Authors</h3>
       <div class="form__control">
         <div class="course__flex">
-          <!--Use the name `author` for the form control.-->
           <input
             type="text"
             id="author"
             placeholder="Input Author Name"
-            minlength="2"
-            name="author_name"
-            ngModel
-            #author_name="ngModel"
+            formControlName="author_name"
           />
           <app-button
             id="createAuthor"
             button_text="Create author"
+            (click)="addAuthor()"
           ></app-button>
         </div>
         <span
           *ngIf="
-            author_name.invalid && (author_name.touched || courseForm.submitted)
+            courseForm.get('createAuthor')?.invalid &&
+            (courseForm.get('createAuthor')?.touched || submitted)
           "
           id="authorErrorMessage"
           >New author should contain only latin letters and numbers.</span
         >
         <div class="course__authors">
-          <!--Use the name `authors` for the form array.-->
-          ::Authors::
+          <ul class="authors-list">
+            <li
+              *ngFor="let author of authors; track: author"
+              class="authors-list-item"
+            >
+              Id: {{ author.id }}. Name: {{ author.name }}
+              <app-button button_text="Remove" (click)="removeAuthor(author)">
+              </app-button>
+            </li>
+          </ul>
         </div>
       </div>
       <div class="separator"></div>
       <h3>Duration</h3>
       <div class="form__control">
         <div class="course__flex">
-          <!--Use the name `duration` for the form array.-->
           <input
             type="number"
             id="duration"
             placeholder="Input duration"
-            required
-            name="duration"
-            ngModel
-            #duration="ngModel"
+            formControlName="duration"
           />
-          <div class="course__duration">::Duration::</div>
+          <div class="course__duration"></div>
         </div>
         <span
-          *ngIf="duration.invalid && (duration.touched || courseForm.submitted)"
+          *ngIf="
+            courseForm.get('duration')?.invalid &&
+            (courseForm.get('duration')?.touched || submitted)
+          "
           id="durationErrorMessage"
           class="text-danger"
-          >Duration is required.</span
+          >Duration is required and must be greater than 0.</span
         >
       </div>
       <div class="form__action"></div>

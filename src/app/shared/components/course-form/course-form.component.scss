@@ -48,10 +48,27 @@ input.ng-invalid.ng-touched {
   border: 1px solid red !important;
 }
 
+textarea.ng-invalid.ng-touched {
+  border: 1px solid red !important;
+}
+
 .form__control input {
   border: 1px solid black;
 }
 
 .form__control textarea {
   border: 1px solid black;
+}
+.authors-list-item {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.authors-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: start;
 }
