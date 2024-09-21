@@ -87,7 +87,12 @@
             placeholder="Input duration"
             formControlName="duration"
           />
-          <div class="course__duration"></div>
+          <div class="course__duration">
+            <strong>
+              {{ getDurationFormatted(courseForm.get("duration")?.value || 0) }}
+            </strong>
+            hours
+          </div>
         </div>
         <span
           *ngIf="
