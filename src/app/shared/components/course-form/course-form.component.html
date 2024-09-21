@@ -49,7 +49,7 @@
           <div formGroupName="newAuthor">
             <input type="text" id="author" placeholder="Input Author Name" formControlName="name"/>
           </div>
-          <app-button buttonText="CREATE AUTHOR" (buttonClick)="addAuthor()"></app-button>
+          <app-button id="createAuthor" buttonText="CREATE AUTHOR" (buttonClick)="addAuthor()"></app-button>
         </div>
         <span *ngIf="courseForm.get('newAuthor.name')?.touched && courseForm.get('newAuthor.name')?.invalid"
           id="authorErrorMessage">New author should contain only latin letters and numbers.

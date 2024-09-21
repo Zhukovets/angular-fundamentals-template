@@ -52,5 +52,5 @@ export class CourseFormComponent {
       this.courseForm.markAllAsTouched();
     }
   }
-  
+
 }
