@@ -23,4 +23,11 @@ export class AppComponent {
   isEditable: boolean = true;
 
   handleShowCourse(): void {}
+
+  searchValue: string = "";
+
+  onSearch(searchQuery: string): void {
+    console.log("Search query:", searchQuery);
+    // Add logic to handle the search input
+  }
 }

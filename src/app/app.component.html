@@ -3,7 +3,6 @@
     <div class="name-container">
       <p username *ngIf="isLoggedIn">Harry Potter</p>
     </div>
-
     <div class="button-container">
       <app-button
         [buttonText]="loginButtonText"
@@ -14,7 +13,13 @@
 </app-header>
 <div class="app-root">
   <!-- Search component -->
-  <!--<app-search></app-search>-->
+  <app-search>
+    <app-button
+      search-button
+      [buttonText]="'Search'"
+      (clicked)="onSearch(searchValue)"
+    ></app-button>
+  </app-search>
 
   <!-- Info component -->
   <app-info
@@ -64,13 +69,19 @@
   <app-course-list></app-course-list>
 
   <!-- Login Form component -->
-  <!--<app-login-form></app-login-form>-->
+  <app-login-form>
+    <app-button login-button [buttonText]="'Login'"></app-button>
+  </app-login-form>
 
   <!-- Login Form component -->
-  <!--<app-registration-form></app-registration-form>-->
+  <app-registration-form
+    ><app-button login-button [buttonText]="'Login'"></app-button
+  ></app-registration-form>
 
   <!-- Login Form component -->
-  <!--<app-course-form></app-course-form>-->
+  <app-course-form>
+    <app-button author-button [buttonText]="'Create Author'"></app-button>
+  </app-course-form>
 
   <!-- Modal component -->
   <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->

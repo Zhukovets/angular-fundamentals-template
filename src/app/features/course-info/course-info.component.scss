@@ -33,6 +33,10 @@
 
   &__info-duration {
     font-weight: bold;
+
+    .duration-text {
+      font-weight: normal;
+    }
   }
 }
 

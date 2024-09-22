@@ -1,9 +1,29 @@
 import { Directive } from "@angular/core";
+import {
+  NG_VALIDATORS,
+  AbstractControl,
+  Validator,
+  ValidationErrors,
+} from "@angular/forms";
 
 @Directive({
-    selector: '[emailValidator]',
-    providers: [/*Add your code here*/]
+  selector: "[emailValidator]",
+  providers: [
+    {
+      provide: NG_VALIDATORS,
+      useExisting: EmailValidatorDirective,
+      multi: true,
+    },
+  ],
 })
-export class EmailValidatorDirective {
-    // Add your code here
+export class EmailValidatorDirective implements Validator {
+  private emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  validate(
+    control: AbstractControl<string, string>
+  ): { emailInvalid: boolean } | null {
+    const email = control.value;
+    const valid = this.emailRegex.test(email);
+    return valid ? null : { emailInvalid: true };
+  }
 }

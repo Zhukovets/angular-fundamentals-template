@@ -14,4 +14,9 @@ export class CourseListComponent {
   @Input() isEditable: boolean = false;
 
   @Output() handleShowCourse(): void {}
+
+  onSearch(searchQuery: string): void {
+    console.log("Search query:", searchQuery);
+    // Add logic to filter courses based on the search query
+  }
 }
