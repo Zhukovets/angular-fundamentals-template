@@ -14,7 +14,7 @@ export class SearchComponent {
   searchTerm: string = '';
   buttonTexts = ButtonText;
 
-  onItemSearch(data: string) {
+  onItemSearch() {
    this.search.emit(this.searchTerm);
   }
 

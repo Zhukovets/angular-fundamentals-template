@@ -14,18 +14,16 @@
                        placeholder="Input text"
                        formControlName="title"/>
                 <!--<span id="titleErrorMessage" class="text-danger">Title is required.</span>-->
-                <ng-container *ngIf="inputTitle || ( courseForm.get('title')?.invalid &&
-                                         courseForm.get('title')?.touched)">
-                    <small
-                            class="text-danger"
-                            *ngIf="courseForm.get('title')?.errors?.['required']">
-                        Title is required!
-                    </small>
-                    <small
-                            class="text-danger"
-                            *ngIf="courseForm.get('title')?.errors?.['minlength']">
-                        Title should contain not be less than 2 characters!
-                    </small>
+                <ng-container *ngIf="inputTitle || ( courseForm.controls['title']?.invalid &&
+                                         courseForm.controls['title']?.touched)">
+                    <span id="titleErrorMessage" class="text-danger">
+                        <ng-container  *ngIf="courseForm.controls['title']?.errors?.['required']">
+                            Title is required.
+                        </ng-container>
+                        <ng-container *ngIf="courseForm.controls['title']?.errors?.['minlength']">
+                              Title should contain not be less than 2 characters.
+                        </ng-container>
+                    </span>
                 </ng-container>
             </div>
             <!--Description-->
@@ -43,16 +41,14 @@
                 <ng-container *ngIf="inputDescription || ( courseForm.controls['description']?.invalid &&
                                          courseForm.controls['description']?.touched)">
                     <span id="descriptionErrorMessage" class="text-danger">
-                          <small
-                                  class="text-danger"
+                          <ng-container
                                   *ngIf="courseForm.controls['description']?.errors?.['required']">
-                                  Description is required!
-                         </small>
-                        <small
-                                class="text-danger"
+                                  Description is required.
+                         </ng-container>
+                        <ng-container
                                 *ngIf="courseForm.controls['description']?.errors?.['minlength']">
-                            Description should contain not be less than 2 characters!
-                        </small>
+                               Description must be at least 2 characters long.
+                        </ng-container>
                     </span>
                 </ng-container>
             </div>
@@ -80,16 +76,15 @@
                 <ng-container *ngIf="inputDuration || ( courseForm.controls['duration']?.invalid &&
                                          courseForm.controls['duration']?.touched)">
                     <span id="durationErrorMessage" class="text-danger">
-                        <small
-                                   class="text-danger"
+                        <ng-container
                                    *ngIf="courseForm.controls['duration']?.errors?.['required']">
-                                    Duration is required!
-                        </small>
-                        <small
-                                class="text-danger"
+                                    Duration is required.
+                        </ng-container>
+                        <ng-container
+
                                 *ngIf="courseForm.controls['duration']?.errors?.['min']">
-                            Duration should be not less than 0
-                        </small>
+                                Duration should be not less than 0
+                        </ng-container>
                     </span>
                 </ng-container>
             </div>
@@ -122,8 +117,7 @@
                         </div>
                         <ng-container *ngIf="inputAuthor || ( courseForm.controls['author']?.invalid &&
                                          courseForm.controls['author']?.touched)">
-                            <span id="authorErrorMessage"
-                                  class="text-danger"
+                            <span id="authorErrorMessage" class="text-danger"
                                   *ngIf="courseForm.controls['author']?.errors?.['pattern']">
                                 New author should contain only latin letters and numbers
                             </span>

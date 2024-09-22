@@ -17,17 +17,14 @@
                             required
                             (ngModelChange)="onInputEmailChange()"
                     />
-                    <ng-container
-                            *ngIf="inputEmail || (email.touched || loginForm.submitted)">
-                        <span
-                                class="text-danger"
-                                *ngIf="email.errors?.['required']">
-                            Email is required.
-                        </span>
-                        <span
-                                class="text-danger"
-                                *ngIf="email.errors?.['invalidEmail']">
-                            Please enter a valid email!
+                    <ng-container *ngIf="inputEmail || (email.touched || loginForm.submitted)">
+                        <span id="emailErrorMessage" class="text-danger">
+                            <ng-container *ngIf="email.errors?.['required']">
+                                Email is required.
+                            </ng-container>
+                               <ng-container *ngIf="email.errors?.['invalidEmail']">
+                               Please enter a valid email.
+                            </ng-container>
                         </span>
                     </ng-container>
                 </div>
@@ -59,15 +56,13 @@
 <!--                        </button>-->
                     </div>
                     <ng-container *ngIf="inputPassword || (password.touched || loginForm.submitted)">
-                        <span
-                                class="text-danger"
-                                *ngIf="password.errors?.['required']">
-                            Password is required.
-                        </span>
-                        <span
-                                class="text-danger"
-                                *ngIf="password.errors?.['minlength']">
-                            Password should contain no less than 6 characters!
+                        <span id="passwordErrorMessage" class="text-danger">
+                            <ng-container *ngIf="password.errors?.['required']">
+                                 Password is required.
+                            </ng-container>
+                            <ng-container *ngIf="password.errors?.['minlength']">
+                                Password should contain no less than 6 characters.
+                            </ng-container>
                         </span>
                     </ng-container>
                 </div>
