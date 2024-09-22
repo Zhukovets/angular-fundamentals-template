@@ -1,5 +1,5 @@
 import { Component, Input, Output } from "@angular/core";
-import { SearchComponent } from "@app/shared/components";
+
 import { mockedCoursesList } from "@app/shared/mocks/mock";
 
 @Component({

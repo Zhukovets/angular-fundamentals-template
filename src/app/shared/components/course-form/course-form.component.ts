@@ -9,30 +9,26 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
   styleUrls: ["./course-form.component.scss"],
 })
 export class CourseFormComponent implements OnInit {
-  courseForm!: FormGroup;
+  courseForm: FormGroup = this.fb.group({
+    title: ["", [Validators.required, Validators.minLength(2)]],
+    description: ["", [Validators.required, Validators.minLength(2)]],
+    author: ["", [Validators.pattern(/^[a-zA-Z0-9\s]+$/)]],
+    duration: [0, [Validators.required, Validators.min(0)]],
+    authors: this.fb.array([]),
+  });
   submitted = false;
-  authorsList: any[] = [];
+  authorsList: any[] = [
+    { id: 1, name: "Author 1" },
+    { id: 2, name: "Author 2" },
+  ];
   courseAuthors: any[] = [];
 
   constructor(public fb: FormBuilder, public library: FaIconLibrary) {
     library.addIconPacks(fas);
   }
+  ngOnInit(): void {}
 
   // Use the names `title`, `description`, `author`, 'authors' (for authors list), `duration` for the form controls.
-  ngOnInit(): void {
-    this.courseForm = this.fb.group({
-      title: ["", [Validators.required, Validators.minLength(2)]],
-      description: ["", [Validators.required, Validators.minLength(2)]],
-      author: ["", [Validators.pattern(/^[a-zA-Z0-9\s]+$/)]],
-      duration: [0, [Validators.required, Validators.min(0)]],
-      authors: this.fb.array([]),
-    });
-
-    this.authorsList = [
-      { id: 1, name: "Author 1" },
-      { id: 2, name: "Author 2" },
-    ];
-  }
 
   createAuthor(): void {
     const authorName = this.courseForm.controls["author"]?.value;

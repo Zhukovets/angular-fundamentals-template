@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { CoursesListComponent } from "./courses-list.component";
+import { SharedModule } from "@app/shared/shared.module";
 
 describe("CoursesListComponent", () => {
   let component: CoursesListComponent;

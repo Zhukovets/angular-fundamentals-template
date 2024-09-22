@@ -33,8 +33,14 @@ const components = [
 const pipes = [DurationPipe, CustomDatePipe];
 
 @NgModule({
-  declarations: [...components, ...pipes, EmailValidatorDirective],
-  imports: [CommonModule, FontAwesomeModule, FormsModule, ReactiveFormsModule],
+  declarations: [...components, DurationPipe, EmailValidatorDirective],
+  imports: [
+    CommonModule,
+    CustomDatePipe,
+    FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   exports: [...components, ...pipes],
 })
 export class SharedModule {}
