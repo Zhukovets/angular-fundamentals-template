@@ -21,7 +21,7 @@ export class RegistrationFormComponent {
     public library: FaIconLibrary
   ) {
     library.addIconPacks(fas);
-    this.form = new FormGroup({
+    this.registrationForm = new FormGroup({
       name: new FormControl("", [Validators.required, Validators.minLength(6)]),
       email: new FormControl("", [
         Validators.required,
@@ -34,35 +34,18 @@ export class RegistrationFormComponent {
     });
   }
 
-  form: any;
   authors: string[] = [];
   durationTime: number = 0;
 
   get name() {
-    return this.form.get("name");
+    return this.registrationForm.get("name");
   }
 
   get email() {
-    return this.form.get("email");
+    return this.registrationForm.get("email");
   }
 
   get password() {
-    return this.form.get("password");
-  }
-
-  removeAuthor(author: string) {
-    this.authors = this.authors.filter((a) => a !== author);
-  }
-
-  createAuthor(author: string) {
-    this.authors.push(author);
-  }
-
-  getDurationFormatted(minutes: number): string {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    return `${hours.toString().padStart(2, "0")}:${mins
-      .toString()
-      .padStart(2, "0")}`;
+    return this.registrationForm.get("password");
   }
 }

@@ -1,6 +1,6 @@
 <h2 class="text-align-center">Registration</h2>
 <div class="app-plate">
-  <div class="registration-form" [formGroup]="form">
+  <div class="registration-form" [formGroup]="registrationForm">
     <div>
       <div class="form__control">
         <label for="name">Name</label>
@@ -14,7 +14,11 @@
           minlength="6"
         />
         <span
-          *ngIf="name.invalid && (name.dirty || name.touched)"
+          *ngIf="
+            registrationForm.controls['name'].invalid &&
+            (registrationForm.controls['name'].dirty ||
+              registrationForm.controls['name'].touched)
+          "
           id="nameErrorMessage"
           class="text-danger"
           >Name is required.</span
@@ -31,7 +35,11 @@
           required
         />
         <span
-          *ngIf="email.invalid && (email.dirty || email.touched)"
+          *ngIf="
+            registrationForm.controls['email'].invalid &&
+            (registrationForm.controls['email'].dirty ||
+              registrationForm.controls['email'].touched)
+          "
           id="emailErrorMessage"
           class="text-danger"
           >Email is required.</span
@@ -48,7 +56,11 @@
           required
         />
         <span
-          *ngIf="password.invalid && (password.dirty || password.touched)"
+          *ngIf="
+            registrationForm.controls['password'].invalid &&
+            (registrationForm.controls['password'].dirty ||
+              registrationForm.controls['password'].touched)
+          "
           id="passwordErrorMessage"
           class="text-danger"
           >Password is required.</span
