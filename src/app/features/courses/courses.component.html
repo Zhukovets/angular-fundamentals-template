@@ -1,1 +1,6 @@
-<p>courses works!</p>
+<app-search [placeholder]="'Search courses...'" (search)="onSearch($event)"></app-search>
+
+<div class="courses-list">
+  <app-courses-list></app-courses-list>
+</div>
+

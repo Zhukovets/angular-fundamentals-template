@@ -9,13 +9,9 @@
     background-color: $color-white;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
 
-    &__right {
-        display: flex-row;
-        gap:.6rem;
+    .header-content {
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
 }
-
-/* .app-header.right {
-    @include flex-row;
-    gap: 0.8rem;
-} */

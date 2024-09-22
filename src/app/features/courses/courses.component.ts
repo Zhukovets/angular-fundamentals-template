@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent {
+  courses = [];
 
+  onSearch(searchTerm: string): void {
+    console.log('User searched for:', searchTerm);
+    // Implement logic to filter courses based on the search term
+  }
 }

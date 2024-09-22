@@ -2,37 +2,31 @@
   <div class="app-header-account-details">
     <p>Username</p>
     <!-- <app-button buttonText="Logout"></app-button> -->
-    <app-button [buttonText]="'Logout'" [iconName]="'sign-out'"></app-button>
+    <app-button buttonText="Logout" [iconName]="'sign-out'"></app-button>
   </div>
 </app-header>
 
 <div class="app-root">
+
   <app-info title="Your list is Empty" text="Please use 'Add New Course' button to add your first course">
-    <app-button buttonText="Add new course"></app-button>
     <!-- <app-button [buttonText]="'Learn More'" [iconName]="'info-circle'"></app-button> -->
   </app-info>
 
+  <app-search></app-search>
+
   <app-course-card [editable] ="true">
-    <app-button [iconName]="['fas', 'trash-can']"></app-button>
-    <app-button [iconName]="['fas', 'pencil']"></app-button>
+    <!-- <app-button [iconName]="['fas', 'trash-can']"></app-button>
+    <app-button [iconName]="['fas', 'pencil']"></app-button> -->
   </app-course-card>
-  <!-- Search component -->
-  <!--<app-search></app-search>-->
+  <!-- <app-courses-list></app-courses-list> -->
 
-  <!-- Info component -->
-  <!--<app-info></app-info>-->
 
-  <!-- Course Card component -->
-  <!--<app-course-card></app-course-card>-->
 
-  <!-- Login Form component -->
-  <!--<app-login-form></app-login-form>-->
+  <app-login-form></app-login-form>
 
-  <!-- Login Form component -->
-  <!--<app-registration-form></app-registration-form>-->
+  <app-registration-form></app-registration-form>
 
-  <!-- Login Form component -->
-  <!--<app-course-form></app-course-form>-->
+  <app-course-form></app-course-form>
 
   <!-- Modal component -->
   <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->

@@ -1,6 +1,6 @@
 <div class="app-info">
-  <!-- Replace ::text:: with your code -->
   <div class="app-info__header">{{title}}</div>
-  <div class="app-info__title">{{text}}</div>
+  <div *ngIf="text" class="app-info__title">{{text}}</div>
+  <app-button buttonText="Add new course"></app-button>
   <ng-content></ng-content>
 </div>

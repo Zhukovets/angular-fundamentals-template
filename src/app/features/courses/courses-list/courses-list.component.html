@@ -1,11 +1,15 @@
-<!-- <p>courses-list works!</p> -->
-<div class="courses-list" *ngFor="let course of courses">
-    <app-course-card
-    [title]="course.title" 
-    [description]="course.description"
-    [creationDate]="course.creationDate"
-    [duration]="course.duration"
-    [authors]="course.authors"
-    [editable]="editable">    
+<div class="courses-list">
+    <app-course-card *ngFor="let course of courses"
+                    [title]="course.title"
+                    [description]="course.description"
+                    [creationDate]="course.creationDate"
+                    [duration]="course.duration"
+                    [authors]="course.authors"
+                    [editable]="editable"
+                    (clickOnShow)="onShowCourse(course)">
+        <ng-container *ngIf="editable">
+            <app-button (click)="onEditCourse(course)" [iconName]="['fas', 'trash-can']"></app-button>
+            <app-button (click)="onDeleteCourse(course)" [iconName]="['fas', 'pencil']"></app-button>
+        </ng-container>
     </app-course-card>
 </div>

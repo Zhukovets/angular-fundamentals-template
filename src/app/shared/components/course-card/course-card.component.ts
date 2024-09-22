@@ -11,11 +11,11 @@ export class CourseCardComponent {
   @Input() creationDate!: Date;
   @Input() duration!: number;
   @Input() authors!: string[];
-  @Input() editable: boolean = false;
+  @Input() editable: boolean = true;
 
   @Output() clickOnShow = new EventEmitter<void>();
 
-  showCourse(): void {
+  onShowCourse(): void {
     this.clickOnShow.emit();
   }
 }

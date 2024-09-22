@@ -8,13 +8,10 @@ import { mockedCoursesList } from 'src/app/shared/mock/mock';
   styleUrls: ['./course-info.component.scss']
 })
 export class CourseInfoComponent {
-  @Input() course:Card = mockedCoursesList[1];
-  /* @Input() course!: {
-    title: string;
-    description: string;
-    id: string;
-    creationDate: Date;
-    duration: number;
-    authors: string[];
-  } */
+  @Input() title!: string;
+  @Input() description!: string;
+  @Input() id!: string;
+  @Input() creationDate!: Date;
+  @Input() duration!: number;
+  @Input() authors!: string[];
 }
