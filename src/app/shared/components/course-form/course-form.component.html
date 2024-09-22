@@ -1,14 +1,14 @@
 <!-- Replace ::text:: with your code -->
 <h2>Create / Edit Course</h2>
-<form>
+<form [formGroup]="courseForm">
   <div class="app-plate">
     <div class="course">
       <h3>Main Info</h3>
       <div class="form__control">
         <label for="title">Title</label>
         <!--Use the name `title` for the form control.-->
-        <input type="text" id="title" placeholder="Input text"/>
-        <span id="titleErrorMessage" class="text-danger">Title is required.</span>
+        <input type="text" id="title" placeholder="Input text" formControlName="title"/>
+        <span *ngIf="courseForm.get('title')?.invalid && courseForm.get('title')?.touched" id="titleErrorMessage" class="text-danger">Title is required and must be at least 2 characters.</span>
       </div>
       <div class="form__control">
         <label for="description">Description</label>
@@ -19,38 +19,59 @@
           placeholder="Input text"
           rows="4"
           cols="5"
+          formControlName="description"
         ></textarea>
-        <span id="descriptionErrorMessage" class="text-danger">Description is required.</span>
-      </div>
-      <div class="separator"></div>
-      <h3>Authors</h3>
-      <div class="form__control">
-        <div class="course__flex">
-          <!--Use the name `author` for the form control.-->
-          <input type="text" id="author" placeholder="Input Author Name"/>
-          <app-button id="createAuthor"></app-button>
-        </div>
-        <span id="authorErrorMessage">New author should contain only latin letters and numbers.</span>
-        <div class="course__authors">
-          <!--Use the name `authors` for the form array.-->
-          ::Authors::
-        </div>
+        <span *ngIf="courseForm.get('description')?.invalid && courseForm.get('description')?.touched" id="descriptionErrorMessage" class="text-danger">Description is required and must be at least 2 characters.</span>
       </div>
       <div class="separator"></div>
       <h3>Duration</h3>
       <div class="form__control">
         <div class="course__flex">
           <!--Use the name `duration` for the form array.-->
-          <input type="number" id="duration" placeholder="Input duration"/>
+          <input type="number" id="duration" placeholder="Input duration" formControlName="duration"/>
           <div class="course__duration">
-            ::Duration::
+            {{ courseForm.get('duration')?.value | duration }} hours
           </div>
         </div>
-        <span id="durationErrorMessage" class="text-danger">Duration is required.</span>
+        <span *ngIf="courseForm.get('duration')?.invalid && courseForm.get('duration')?.touched" id="durationErrorMessage" class="text-danger">Duration is required and must be greater than 0.</span>
       </div>
-      <div class="form__action">
-        <app-button></app-button>
+      <div class="separator"></div>
+      <h3>Authors</h3>
+      <div class="form__control" formGroupName="newAuthor">
+        <div class="course__flex">
+          <!--Use the name `author` for the form control.-->
+          <input type="text" id="author" placeholder="Input Author Name" formControlName="author"/>
+          <app-button id="createAuthor" buttonText="Create author" (click)="createAuthor()"></app-button>
+        </div>
+        <span *ngIf="courseForm.get('newAuthor.author')?.invalid && courseForm.get('newAuthor.author')?.touched" id="authorErrorMessage" class="text-danger">New author should contain at least 2 characters and only Latin letters or numbers.</span>
+      </div>
+      <div class="available__authors">
+        <h4>Authors List</h4>
+        <ul>
+          <li *ngFor="let author of availableAuthors">
+            {{ author.name }}
+            <app-button [iconName]="['fas', 'plus']" (click)="addAuthorToCourse(author)"></app-button>
+          </li>
+        </ul>
+      </div>
+      <div class="course__authors">
+        <h4>Course Authors:</h4>
+        <!--Use the name `authors` for the form array.-->
+        <ul>
+          <li *ngFor="let author of authors.controls; let i = index">
+            {{ author.value.name }}
+            <app-button [iconName]="['fas', 'trash-can']" (click)="removeAuthorFromCourse(i)"></app-button>
+          </li>
+        </ul>
+        <p *ngIf="authors.length === 0">Author list is empty</p>
+      </div>
+      <div class="form__action course-form__buttons">
+        <app-button buttonText="cancel"></app-button>
+        <div (click)="onSubmit()">
+          <app-button buttonText="create course"></app-button>
+        </div>
       </div>
     </div>
   </div>
 </form>
+

@@ -6,19 +6,27 @@
         <div class="form__control">
           <label for="email">Email</label>
           <!--Use the name `email` for the form control.-->
-          <input type="text" id="email" placeholder="Input text"/>
-          <span id="emailErrorMessage" class="text-danger">Email is required.</span>
+          <input  type="text" id="email" name="email" [(ngModel)]="email" #emailField="ngModel" placeholder="Input text" required emailValidator/>
+          <span *ngIf="(emailField.errors?.['required'] && (emailField.touched || loginForm.submitted))" class="text-danger">
+            Email is required.
+          </span>
+          <span *ngIf="(emailField.errors?.['invalidEmail'] && (emailField.touched || loginForm.submitted))" class="text-danger">
+            Invalid email format.
+          </span>
         </div>
         <div class="form__control">
           <label for="password">Password</label>
           <!--Use the name `password` for the form control.-->
-          <input type="password" id="password" placeholder="Input text"/>
-          <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
+          <div class="password-input-container">
+            <input type="password" id="password" name="password" [(ngModel)]="password" #passwordField="ngModel" placeholder="Input text" required appTogglePassword #togglePassword="togglePassword"/>
+            <app-button (click)="togglePassword.toggleVisibility()" class="toggle-password" [iconName]="togglePassword.isVisible ? 'eye' : 'eye-slash'"></app-button>
+          </div>
+          <span *ngIf="(passwordField.errors?.['required'] && (passwordField.touched || loginForm.submitted))" id="passwordErrorMessage" class="text-danger">Password is required.</span>
         </div>
       </div>
       <div>
-        <div class="form__action">
-          <app-button></app-button>
+        <div class="form__action" (click)="onSubmit(loginForm)">
+          <app-button buttonText="Login"></app-button>
         </div>
         <div class="form__text">
           If you don't have an account you may <strong>Registration</strong>

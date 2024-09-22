@@ -23,7 +23,6 @@
 
   &__authors {
     margin-top: 8px;
-    display: flex;
 
     &-item {
       margin-right: 10px;
@@ -33,5 +32,35 @@
   &__icon {
     margin-left: 4px;
     cursor: pointer;
+  }
+}
+
+.course-form__buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.available__authors {
+  ul{
+    padding: 0;
+    li{
+      display: flex;
+      list-style-type: none;
+      gap: 1rem;
+      align-items: center;
+    }
+  }
+}
+
+.course__authors {
+  ul{
+    padding: 0;
+    li{
+      display: flex;
+      list-style-type: none;
+      gap: 1rem;
+      align-items: center;
+    }
   }
 }

@@ -47,3 +47,28 @@ $color-red: #FF0000;
 .text-danger {
     color: red;
 }
+
+.link-strong {
+    text-decoration: none;
+    color: #333E48;
+}
+
+
+.password-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .password-input-container input {
+    padding-right: 50px; 
+  }
+  
+  .toggle-password {
+    position: absolute;
+    right: 10px; 
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+  }
