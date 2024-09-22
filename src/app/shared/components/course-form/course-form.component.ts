@@ -21,8 +21,8 @@ export class CourseFormComponent {
       title: ['', [Validators.required, Validators.minLength(2)]],
       description: ['', [Validators.required, Validators.minLength(2)]],
       authors: this.fb.array([]),
-      newAuthor: this.fb.group({
-        author: ['', [Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9 ]+$')]],
+      author: this.fb.group({
+        name: ['', [Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9 ]+$')]],
       }),
       duration: ['', [Validators.required, Validators.min(0)]],
     });
@@ -33,11 +33,12 @@ export class CourseFormComponent {
   }
 
   addAuthor(): void {
-    const nestedGroup = this.courseForm.get('newAuthor') as FormGroup;
-    const newAuthorControl = this.courseForm.get('newAuthor')?.get('author');
+    const nestedGroup = this.courseForm.get('author') as FormGroup;
+    const newAuthorControl = this.courseForm.get('author')?.get('name');
     const authorName = newAuthorControl?.value;
     
     if (authorName && nestedGroup?.valid) {
+      console.log('belép');
       this.authors.push(this.fb.control(authorName));
       newAuthorControl?.setValue('');
     }
