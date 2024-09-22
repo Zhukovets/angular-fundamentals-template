@@ -58,7 +58,7 @@
         <div class="course__authors">
           <ul>
             <li *ngFor="let author of authors.controls; let i = index">
-              {{ author.value }}
+              {{ author.value.name }}
               <app-button iconName="trash-can" (buttonClick)="removeAuthor(i)"></app-button>
             </li>
           </ul>

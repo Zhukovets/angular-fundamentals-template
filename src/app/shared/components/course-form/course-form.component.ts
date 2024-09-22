@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-course-form',
@@ -36,11 +37,13 @@ export class CourseFormComponent {
     const nestedGroup = this.courseForm.get('author') as FormGroup;
     const newAuthorControl = this.courseForm.get('author')?.get('name');
     const authorName = newAuthorControl?.value;
-    
+    const authorId = uuidv4();
+
     if (authorName && nestedGroup?.valid) {
-      console.log('belép');
-      this.authors.push(this.fb.control(authorName));
-      newAuthorControl?.setValue('');
+      this.authors.push(this.fb.group({
+        id: [authorId],
+        name: [authorName]
+      }));      newAuthorControl?.setValue('');
     }
     nestedGroup.markAllAsTouched();
   }
