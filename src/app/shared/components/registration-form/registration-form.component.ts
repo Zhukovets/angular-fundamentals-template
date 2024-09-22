@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ButtonText} from "@app/models/const";
+import { emailValidator } from '@app/shared/directives/email.directive';
 
 @Component({
     selector: 'app-registration-form',
@@ -18,7 +19,7 @@ export class RegistrationFormComponent implements OnInit {
         ["password", false]
     ]);
 
-    protected readonly buttonTexts = ButtonText;
+     buttonTexts = ButtonText;
 
     get inputName() {
         return this.inputNames.get('name');
@@ -38,7 +39,7 @@ export class RegistrationFormComponent implements OnInit {
                 [Validators.required,
                     Validators.minLength(this.minLengthName)]),
 
-            email: new FormControl('', Validators.required),
+            email: new FormControl('', [Validators.required, emailValidator()]),
             password: new FormControl('',
                 [Validators.required,
                     Validators.minLength(this.minLengthPassword)]),
@@ -46,7 +47,7 @@ export class RegistrationFormComponent implements OnInit {
 
         //Subscribtions
         this.inputNames.forEach((val, key) => {
-            this.registrationForm.get(key)?.valueChanges.subscribe(value => {
+            this.registrationForm.controls[key]?.valueChanges.subscribe(value => {
                 this.inputNames.set(key, true);
             });
         })

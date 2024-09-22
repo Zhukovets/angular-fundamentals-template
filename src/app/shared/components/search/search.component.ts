@@ -9,7 +9,7 @@ import {ButtonText} from "@app/models/const";
 export class SearchComponent {
   // Use the name `placeholder` for the @Input.
   // Use the name `search` for the @Output.
-  @Input() placeholder: string = '';
+  @Input() placeholder: string = 'Enter your search query';
   @Output() search = new EventEmitter<string>();
   searchTerm: string = '';
   buttonTexts = ButtonText;

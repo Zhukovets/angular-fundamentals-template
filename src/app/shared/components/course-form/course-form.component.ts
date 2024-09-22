@@ -52,11 +52,11 @@ export class CourseFormComponent implements OnInit {
     }
 
     getFormsControls(): FormArray {
-        return this.courseForm.get("authors") as FormArray;
+        return this.courseForm.controls['authors'] as FormArray;
     }
 
     getFormsControlsCourse(): FormArray {
-        return this.courseForm.get("courseAuthors") as FormArray;
+        return this.courseForm.controls['courseAuthors'] as FormArray;
     }
 
     addCourseAuthor(item: Author) {
@@ -71,11 +71,11 @@ export class CourseFormComponent implements OnInit {
     addAuthor(data: string) {
         let temp: Author = {
             id: uuidv4(),
-            name: this.courseForm.get('author')?.value.trim()
+            name: this.courseForm.controls['author']?.value.trim()
         }
         const authors = this.getFormsControls();
         this.inserCourseAuthor(authors, temp);
-        this.courseForm.get('author')?.patchValue('')
+        this.courseForm.controls['author']?.patchValue('')
     }
 
     inserCourseAuthor(param: FormArray, item: Author) {
@@ -125,7 +125,7 @@ export class CourseFormComponent implements OnInit {
 
         //Subscribtions
         this.inputNames.forEach((val, key) => {
-            this.courseForm.get(key)?.valueChanges.subscribe(value => {
+            this.courseForm.controls[key]?.valueChanges.subscribe(value => {
                 this.inputNames.set(key, true);
 
                 if (key === "duration") {

@@ -40,22 +40,22 @@
                         cols="5"
                         formControlName="description"
                 ></textarea>
-                <ng-container *ngIf="inputDescription || ( courseForm.get('description')?.invalid &&
-                                         courseForm.get('description')?.touched)">
-                    <span
-                            class="text-danger"
-                            *ngIf="courseForm.get('description')?.errors?.['required']">
-                        Description is required!
-                    </span>
-                    <span
-                            class="text-danger"
-                            *ngIf="courseForm.get('description')?.errors?.['minlength']">
-                        Description should contain not be less than 2 characters!
+                <ng-container *ngIf="inputDescription || ( courseForm.controls['description']?.invalid &&
+                                         courseForm.controls['description']?.touched)">
+                    <span id="descriptionErrorMessage" class="text-danger">
+                          <small
+                                  class="text-danger"
+                                  *ngIf="courseForm.controls['description']?.errors?.['required']">
+                                  Description is required!
+                         </small>
+                        <small
+                                class="text-danger"
+                                *ngIf="courseForm.controls['description']?.errors?.['minlength']">
+                            Description should contain not be less than 2 characters!
+                        </small>
                     </span>
                 </ng-container>
-                <!--<span id="descriptionErrorMessage" class="text-danger">Description is required.</span>-->
             </div>
-
             <h3 class="form__heading">Duration</h3>
             <div class="form__control">
                 <div class="form__wrapper">
@@ -69,27 +69,29 @@
                                formControlName="duration"
                         />
                         <span [ngClass]="{
-                                 'form__span-invalid': courseForm.get('duration')?.errors?.['min']
-                                 || courseForm.get('duration')?.errors?.['required']
+                                 'form__span-invalid': courseForm.controls['duration']?.errors?.['min']
+                                 || courseForm.controls['duration']?.errors?.['required']
                                   }"
                               class="form__duration"
-                        >{{ this.durationValue | duration }} </span>
+                        >{{ this.durationValue | duration }}
+                        </span>
                     </div>
                 </div>
-                <ng-container *ngIf="inputDuration || ( courseForm.get('duration')?.invalid &&
-                                         courseForm.get('duration')?.touched)">
-                    <span
-                            class="text-danger"
-                            *ngIf="courseForm.get('duration')?.errors?.['required']">
-                        Duration is required!
-                    </span>
-                    <span
-                            class="text-danger"
-                            *ngIf="courseForm.get('duration')?.errors?.['min']">
-                        Duration should be not less than 0
+                <ng-container *ngIf="inputDuration || ( courseForm.controls['duration']?.invalid &&
+                                         courseForm.controls['duration']?.touched)">
+                    <span id="durationErrorMessage" class="text-danger">
+                        <small
+                                   class="text-danger"
+                                   *ngIf="courseForm.controls['duration']?.errors?.['required']">
+                                    Duration is required!
+                        </small>
+                        <small
+                                class="text-danger"
+                                *ngIf="courseForm.controls['duration']?.errors?.['min']">
+                            Duration should be not less than 0
+                        </small>
                     </span>
                 </ng-container>
-                <!--<span id="durationErrorMessage" class="text-danger">Duration is required.</span>-->
             </div>
             <section class="form__authors">
                 <div class="form__authors-list">
@@ -111,22 +113,21 @@
                                         [btnMod]=true
                                         [buttonText]=buttonTexts.create_author
                                         [buttonType]="'button'"
-                                        [disabled]="!inputAuthor || !!(courseForm.get('author')?.invalid && courseForm.get('author')?.touched)
-                                        || courseForm.get('author')?.value === ''"
+                                        [disabled]="!inputAuthor || !!(courseForm.controls['author']?.invalid && courseForm.controls['author']?.touched)
+                                        || courseForm.controls['author']?.value === ''"
                                         (clickButton)="addAuthor($event)"
                                         id="createAuthor">
                                 </app-button>
                             </div>
                         </div>
-                        <ng-container *ngIf="inputAuthor || ( courseForm.get('author')?.invalid &&
-                                         courseForm.get('author')?.touched)">
-                            <span
-                                    class="text-danger"
-                                    *ngIf="courseForm.get('author')?.errors?.['pattern']">
+                        <ng-container *ngIf="inputAuthor || ( courseForm.controls['author']?.invalid &&
+                                         courseForm.controls['author']?.touched)">
+                            <span id="authorErrorMessage"
+                                  class="text-danger"
+                                  *ngIf="courseForm.controls['author']?.errors?.['pattern']">
                                 New author should contain only latin letters and numbers
                             </span>
                         </ng-container>
-                        <!--<span id="authorErrorMessage">New author should contain only latin letters and numbers.</span>-->
                     </div>
                 </div>
                 <div class="form__wrapper form__wrapper_course">

@@ -42,23 +42,21 @@
                                #password="ngModel"
                                placeholder="Input text"
                                minlength="6"
-                               appTogglePassword
-                               #pasToggle="togglePassword"
                                required
                                (ngModelChange)="onInputPasswordChange()"
                         />
-                        <button class="password-wrapper__icon"
-                                type="button"
-                                (click)="pasToggle.onClick($event)"
-                               >
-                            <ng-container *ngIf="pasToggle.isVisible(); then eyeBlock else eyeSlashBlock"></ng-container>
-                            <ng-template #eyeBlock>
-                                <fa-icon [icon]="['fas', 'eye']"></fa-icon>
-                            </ng-template>
-                            <ng-template #eyeSlashBlock>
-                                <fa-icon [icon]="['fas', 'eye-slash']"></fa-icon>
-                            </ng-template>
-                        </button>
+<!--                        <button class="password-wrapper__icon"-->
+<!--                                type="button"-->
+<!--                                (click)="pasToggle.onClick($event)"-->
+<!--                               >-->
+<!--                            <ng-container *ngIf="pasToggle.isVisible(); then eyeBlock else eyeSlashBlock"></ng-container>-->
+<!--                            <ng-template #eyeBlock>-->
+<!--                                <fa-icon [icon]="['fas', 'eye']"></fa-icon>-->
+<!--                            </ng-template>-->
+<!--                            <ng-template #eyeSlashBlock>-->
+<!--                                <fa-icon [icon]="['fas', 'eye-slash']"></fa-icon>-->
+<!--                            </ng-template>-->
+<!--                        </button>-->
                     </div>
                     <ng-container *ngIf="inputPassword || (password.touched || loginForm.submitted)">
                         <span

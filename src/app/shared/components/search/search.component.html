@@ -1,7 +1,7 @@
 <div class="app-search">
     <form class="form-search" (ngSubmit)="onSearchSubmit()">
         <input type="text" name="search" class="form-search__input"
-               [placeholder]="'Input text'"
+               [placeholder]="placeholder"
                [(ngModel)]="searchTerm"
         >
         <app-button

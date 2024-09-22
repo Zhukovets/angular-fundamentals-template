@@ -1,6 +1,6 @@
 <h2 class="text-align-center">Registration</h2>
 <div class="app-plate app-plate__padding-large">
-    <form [formGroup]="registrationForm">
+    <form [formGroup]="registrationForm" novalidate>
         <div class="registration-form">
             <div>
                 <div class="form__control">
@@ -9,44 +9,42 @@
                     <input type="text"
                            id="name"
                            placeholder="Input text"
-                           formControlName="name"/>
+                           formControlName="name"
+                    />
                     <ng-container *ngIf="inputName || ( registrationForm.get('name')?.invalid &&
                                          registrationForm.get('name')?.touched)">
-                        <small
-                                class="text-danger"
-                                *ngIf="registrationForm.get('name')?.errors?.['required']">
-                            Name is required.
-                        </small>
-                        <small
-                                class="text-danger"
-                                *ngIf="registrationForm.get('name')?.errors?.['minlength']">
-                            Name should contain not be less than 6 symbols!
-                        </small>
+                        <span id="nameErrorMessage" class="text-danger">
+                            <small
+                                    *ngIf="registrationForm.get('name')?.errors?.['required']">
+                                    Name is required.
+                            </small>
+                            <small
+                                     *ngIf="registrationForm.get('name')?.errors?.['minlength']">
+                                     Name should not be less than 6 symbols.
+                            </small>
+                        </span>
                     </ng-container>
-                    <!--<span id="nameErrorMessage" class="text-danger">Name is required.</span>-->
                 </div>
                 <div class="form__control">
                     <!--Use the name `email` for the form control.-->
                     <label for="email">Email</label>
-                    <input type="text"
+                    <input type="email"
                            id="email"
                            placeholder="Input text"
-                           emailValidator
                            formControlName="email"/>
                     <ng-container *ngIf="inputEmail || ( registrationForm.get('name')?.invalid &&
                                          registrationForm.get('email')?.touched)">
-                        <span
-                                class="text-danger"
-                                *ngIf="registrationForm.get('email')?.errors?.['required']">
-                            Email is required.
-                        </span>
-                        <span
-                                class="text-danger"
-                                *ngIf="registrationForm.get('email')?.errors?.['invalidEmail']">
-                            Please enter a valid email!
+                        <span id="emailErrorMessage" class="text-danger">
+                             <small
+                                     *ngIf="registrationForm.get('email')?.errors?.['required']">
+                                     Email is required.
+                             </small>
+                            <small
+                                    *ngIf="registrationForm.get('email')?.errors?.['invalidEmail']">
+                                    Please enter a valid email!
+                            </small>
                         </span>
                     </ng-container>
-                    <!--<span id="emailErrorMessage" class="text-danger">Email is required.</span>-->
                 </div>
                 <div class="form__control">
                     <!--Use the name `password` for the form control.-->
@@ -63,7 +61,8 @@
                                 type="button"
                                 (click)="pasToggle.onClick($event)"
                         >
-                            <ng-container *ngIf="pasToggle.isVisible(); then eyeBlock else eyeSlashBlock"></ng-container>
+                            <ng-container
+                                    *ngIf="pasToggle.isVisible(); then eyeBlock else eyeSlashBlock"></ng-container>
                             <ng-template #eyeBlock>
                                 <fa-icon [icon]="['fas', 'eye']"></fa-icon>
                             </ng-template>
@@ -74,15 +73,17 @@
                     </div>
                     <ng-container *ngIf="inputPassword || ( registrationForm.get('password')?.invalid &&
                                          registrationForm.get('password')?.touched)">
-                        <span
-                                class="text-danger"
-                                *ngIf="registrationForm.get('password')?.errors?.['required']">
-                            Password is required.
-                        </span>
-                        <span
-                                class="text-danger"
-                                *ngIf="registrationForm.get('password')?.errors?.['minlength']">
-                            Password should contain not be less than 6 symbols!
+                        <span id="passwordErrorMessage" class="text-danger">
+                             <small
+                                     class="text-danger"
+                                     *ngIf="registrationForm.get('password')?.errors?.['required']">
+                                    Password is required.
+                            </small>
+                            <small
+                                    class="text-danger"
+                                    *ngIf="registrationForm.get('password')?.errors?.['minlength']">
+                                    Password should contain not be less than 6 symbols!
+                            </small>
                         </span>
                     </ng-container>
                     <!--<span id="passwordErrorMessage" class="text-danger">Password is required.</span>-->
