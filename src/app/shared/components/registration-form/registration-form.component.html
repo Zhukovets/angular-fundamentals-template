@@ -29,7 +29,8 @@
                     <input type="email"
                            id="email"
                            placeholder="Input text"
-                           formControlName="email"/>
+                           formControlName="email"
+                           emailValidator/>
                     <ng-container *ngIf="inputEmail || ( registrationForm.controls['name']?.invalid &&
                                          registrationForm.controls['email']?.touched)">
                         <span id="emailErrorMessage" class="text-danger">
@@ -91,9 +92,9 @@
                         [btnMod]=true
                         [buttonText]=buttonTexts.login
                         [buttonType]="'submit'"
-                        [disabled]="registrationForm.controls['name']?.invalid ?? true ||
-                        registrationForm.controls['email']?.invalid ?? true ||
-                        registrationForm.controls['password']?.invalid ?? true">
+                        [disabled]="registrationForm.controls['name'].invalid ||
+                        registrationForm.controls['email'].invalid ||
+                        registrationForm.controls['password'].invalid">
                 </app-button>
                 <span class="form__text">
                         If you have an account you may

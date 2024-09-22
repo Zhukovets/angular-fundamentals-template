@@ -65,8 +65,8 @@
                                formControlName="duration"
                         />
                         <span [ngClass]="{
-                                 'form__span-invalid': courseForm.controls['duration']?.errors?.['min']
-                                 || courseForm.controls['duration']?.errors?.['required']
+                                 'form__span-invalid': courseForm.controls['duration'].errors?.['min']
+                                 || courseForm.controls['duration'].errors?.['required']
                                   }"
                               class="form__duration"
                         >{{ this.durationValue | duration }}
@@ -108,8 +108,8 @@
                                         [btnMod]=true
                                         [buttonText]=buttonTexts.create_author
                                         [buttonType]="'button'"
-                                        [disabled]="!inputAuthor || !!(courseForm.controls['author']?.invalid && courseForm.controls['author']?.touched)
-                                        || courseForm.controls['author']?.value === ''"
+                                        [disabled]="!inputAuthor || !!(courseForm.controls['author'].invalid && courseForm.controls['author'].touched)
+                                        || courseForm.controls['author'].value === ''"
                                         (clickButton)="addAuthor($event)"
                                         id="createAuthor">
                                 </app-button>

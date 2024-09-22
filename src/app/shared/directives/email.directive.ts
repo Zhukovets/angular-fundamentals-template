@@ -14,13 +14,3 @@ export class EmailValidatorDirective implements Validator {
     }
 }
 
-export function emailValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-        if (control.value == null || control.value === '') {
-            return null;
-        }
-        const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
-        const valid = emailRegex.test(control.value);
-        return valid ? null : { invalidEmail: true };
-    };
-}

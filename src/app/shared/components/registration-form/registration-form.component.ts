@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ButtonText} from "@app/models/const";
-import { emailValidator } from '@app/shared/directives/email.directive';
 
 @Component({
     selector: 'app-registration-form',
@@ -39,7 +38,7 @@ export class RegistrationFormComponent implements OnInit {
                 [Validators.required,
                     Validators.minLength(this.minLengthName)]),
 
-            email: new FormControl('', [Validators.required, emailValidator()]),
+            email: new FormControl('', [Validators.required]),
             password: new FormControl('',
                 [Validators.required,
                     Validators.minLength(this.minLengthPassword)]),

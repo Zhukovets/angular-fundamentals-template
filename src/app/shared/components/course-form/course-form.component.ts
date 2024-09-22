@@ -28,10 +28,10 @@ export class CourseFormComponent implements OnInit {
     courseAuthors: Author[] = [];
 
     inputNames: Map<string, boolean> = new Map([
-        ["title", false],
-        ["description", false],
-        ["duration", false],
-        ["author", false],
+        ['title', false],
+        ['description', false],
+        ['duration', false],
+        ['author', false],
     ]);
     durationValue: number = 0;
 
@@ -65,7 +65,7 @@ export class CourseFormComponent implements OnInit {
         const authors = this.getFormsControls();
         authors.removeAt(index);
         const courseAuthors = this.getFormsControlsCourse();
-        this.inserCourseAuthor(courseAuthors, item);
+        this.insertCourseAuthor(courseAuthors, item);
     }
 
     addAuthor(data: string) {
@@ -74,11 +74,11 @@ export class CourseFormComponent implements OnInit {
             name: this.courseForm.controls['author']?.value.trim()
         }
         const authors = this.getFormsControls();
-        this.inserCourseAuthor(authors, temp);
+        this.insertCourseAuthor(authors, temp);
         this.courseForm.controls['author']?.patchValue('')
     }
 
-    inserCourseAuthor(param: FormArray, item: Author) {
+    insertCourseAuthor(param: FormArray, item: Author) {
         param.push(
             new FormGroup({
                 id: new FormControl(item.id),
@@ -92,7 +92,7 @@ export class CourseFormComponent implements OnInit {
         const authors = this.getFormsControlsCourse();
         authors.removeAt(index);
         const authorsNew = this.getFormsControls();
-        this.inserCourseAuthor(authorsNew, item)
+        this.insertCourseAuthor(authorsNew, item)
     }
 
     deleteAuthor(arr: Author[], id: string): number {
@@ -118,12 +118,12 @@ export class CourseFormComponent implements OnInit {
             "description": ["", [Validators.required,
                 Validators.minLength(this.minLength)]],
             "duration": ["", [Validators.required, Validators.min(0)]],
-            "author": ["", [Validators.pattern('^[a-zA-Z0-9 ]*$')]],
+            "author": ["", [Validators.pattern('^[a-zA-Z0-9 ]*$'), Validators.minLength(this.minLength)]],
             "authors": this.fb.array(this.fillAuthorList(this.authorsList)),
             "courseAuthors": this.fb.array(this.fillAuthorList(this.courseAuthors)),
         });
 
-        //Subscribtions
+        //Subscriptions
         this.inputNames.forEach((val, key) => {
             this.courseForm.controls[key]?.valueChanges.subscribe(value => {
                 this.inputNames.set(key, true);
