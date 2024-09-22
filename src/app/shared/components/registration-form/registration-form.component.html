@@ -1,21 +1,17 @@
 <h2 class="text-align-center">Registration</h2>
 <div class="app-plate">
-  <div class="registration-form">
+  <div class="registration-form" [formGroup]="form">
     <div>
       <div class="form__control">
         <label for="name">Name</label>
-        <!--Use the name `name` for the form control.-->
         <input
           type="text"
           id="name"
           placeholder="Input text"
-          name="name"
-          ngModel
-          required
-          #name="ngModel"
+          formControlName="name"
         />
         <span
-          *ngIf="name.touched && name.invalid"
+          *ngIf="name.invalid && (name.dirty || name.touched)"
           id="nameErrorMessage"
           class="text-danger"
           >Name is required.</span
@@ -28,14 +24,10 @@
           type="text"
           id="email"
           placeholder="Input text"
-          name="email"
-          ngModel
-          required
-          #email="ngModel"
-          emailValidator
+          formControlName="email"
         />
         <span
-          *ngIf="email.touched && email.invalid"
+          *ngIf="email.invalid && (email.dirty || email.touched)"
           id="emailErrorMessage"
           class="text-danger"
           >Email is required.</span
@@ -48,27 +40,18 @@
           type="password"
           id="password"
           placeholder="Input text"
-          name="password"
-          ngModel
-          required
-          #password="ngModel"
+          formControlName="password"
         />
         <span
-          *ngIf="password.touched && password.invalid"
+          *ngIf="password.invalid && (password.dirty || password.touched)"
           id="passwordErrorMessage"
           class="text-danger"
           >Password is required.</span
         >
       </div>
     </div>
-    <div class="form__action button-container">
-      <a routerLink="/login">
-        <app-button button_text="Register"></app-button>
-      </a>
-    </div>
-    <div class="form__text">
-      Already have an account?
-      <a routerLink="/login"> <strong> Login</strong></a>
+    <div class="form__action">
+      <app-button button_text="Submit"></app-button>
     </div>
   </div>
 </div>

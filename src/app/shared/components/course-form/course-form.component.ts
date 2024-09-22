@@ -1,5 +1,10 @@
 import { Component } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
 import { FaIconLibrary } from "@fortawesome/angular-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 
@@ -14,50 +19,49 @@ export class CourseFormComponent {
     public library: FaIconLibrary
   ) {
     library.addIconPacks(fas);
-  }
-  courseForm!: FormGroup;
-  authors: any[] = [];
-  durationText: string = "";
-  submitted = false;
-
-  ngOnInit(): void {
-    this.courseForm = this.fb.group({
-      title: ["", [Validators.required, Validators.minLength(2)]],
-      description: ["", [Validators.required, Validators.minLength(2)]],
-      author_name: ["", Validators.pattern("[a-zA-Z0-9 ]*")],
-      duration: ["", [Validators.required, Validators.min(1)]],
-    });
-
-    this.courseForm.get("duration")?.valueChanges.subscribe((value) => {
-      this.durationText = `${value} minutes`;
+    this.form = new FormGroup({
+      title: new FormControl("", [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
+      description: new FormControl("", [
+        Validators.required,
+        Validators.minLength(10),
+      ]),
+      author: new FormControl("", [
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z0-9 ]+$/),
+      ]),
+      duration: new FormControl(0, [Validators.required, Validators.min(1)]),
     });
   }
 
-  addAuthor() {
-    const authorName = this.courseForm.get("author_name")?.value;
-    if (
-      authorName &&
-      !this.authors.some((author) => author.name === authorName)
-    ) {
-      const authorId = Math.random().toString(36).substr(2, 9);
-      this.authors.push({ id: authorId, name: authorName });
-      this.courseForm.get("author_name")?.reset();
-    }
+  form: any;
+  authors: string[] = [];
+  durationTime: number = 0;
+
+  get title() {
+    return this.form.get("title");
+  }
+
+  get description() {
+    return this.form.get("description");
+  }
+
+  get author() {
+    return this.form.get("author");
+  }
+
+  get duration() {
+    return this.form.get("duration");
   }
 
   removeAuthor(author: string) {
     this.authors = this.authors.filter((a) => a !== author);
   }
 
-  onSubmit() {
-    if (this.courseForm.valid) {
-      const courseData = this.courseForm.value;
-      courseData.authors = this.authors;
-      console.log("Form submitted:", courseData);
-    } else {
-      console.log("Form is invalid");
-      this.courseForm.markAllAsTouched();
-    }
+  createAuthor(author: string) {
+    this.authors.push(author);
   }
 
   getDurationFormatted(minutes: number): string {
