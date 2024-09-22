@@ -11,6 +11,7 @@
             id="name" 
             formControlName="name" 
             placeholder="Input your name"
+            required
           />
           <span class="text-danger" *ngIf="submitted && f['name'].errors?.['required']">Name is required.</span>
           <span class="text-danger" *ngIf="submitted && f['name'].errors?.['minlength']">Name must be at least 6 characters long.</span>
@@ -23,6 +24,7 @@
             id="email" 
             formControlName="email" 
             placeholder="Input your email"
+            required
           />
           <span class="text-danger" *ngIf="submitted && f['email'].errors?.['required']">Email is required.</span>
           <span class="text-danger" *ngIf="submitted && f['email'].errors?.['invalidEmail']">Invalid email format.</span>
@@ -38,6 +40,7 @@
               placeholder="Input your password"
               appTogglePassword
               #passwordDirective="togglePassword"
+              required
             />
             <fa-icon [icon]="passwordDirective.isVisible() ? 'eye-slash' : 'eye'" (click)="passwordDirective.toggleVisibility()"></fa-icon>
           </div>
