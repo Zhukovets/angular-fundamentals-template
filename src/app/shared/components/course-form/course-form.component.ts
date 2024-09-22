@@ -43,7 +43,8 @@ export class CourseFormComponent {
       this.authors.push(this.fb.group({
         id: [authorId],
         name: [authorName]
-      }));      newAuthorControl?.setValue('');
+      }));
+      newAuthorControl?.setValue('');
     }
     nestedGroup.markAllAsTouched();
   }
