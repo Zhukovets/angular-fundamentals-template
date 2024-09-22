@@ -7,8 +7,10 @@
       <div class="form__control">
         <label for="title">Title</label>
         <!--Use the name `title` for the form control.-->
-        <input type="text" id="title" placeholder="Input text"/>
-        <span id="titleErrorMessage" class="text-danger">Title is required.</span>
+        <input type="text" id="title" placeholder="Input text" formControlName="title"/>
+        <span *ngIf="courseForm.controls['title'].invalid && courseForm.controls['title'].touched" class="text-danger">
+          Title is required and must be at least 3 characters long.
+        </span>
       </div>
       <div class="form__control">
         <label for="description">Description</label>
@@ -20,20 +22,32 @@
           rows="4"
           cols="5"
         ></textarea>
-        <span id="descriptionErrorMessage" class="text-danger">Description is required.</span>
+        <span *ngIf="courseForm.controls['description'].invalid && courseForm.controls['description'].touched" class="text-danger">
+          Description is required.
+        </span>
       </div>
       <div class="separator"></div>
       <h3>Authors</h3>
       <div class="form__control">
         <div class="course__flex">
           <!--Use the name `author` for the form control.-->
-          <input type="text" id="author" placeholder="Input Author Name"/>
-          <app-button id="createAuthor"></app-button>
+          <input type="text" id="author" placeholder="Input Author Name" formControlName="author"/>
+          <app-button id="createAuthor" (click)="addAuthor()">Create Author</app-button>
         </div>
         <span id="authorErrorMessage">New author should contain only latin letters and numbers.</span>
         <div class="course__authors">
           <!--Use the name `authors` for the form array.-->
-          ::Authors::
+          <div class="course__authors">
+            <ul>
+              <li *ngFor="let author of authors.controls; let i = index">
+                {{ author.value }}
+                <button type="button" (click)="removeAuthor(i)">
+                  Remove
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
         </div>
       </div>
       <div class="separator"></div>
@@ -41,15 +55,18 @@
       <div class="form__control">
         <div class="course__flex">
           <!--Use the name `duration` for the form array.-->
-          <input type="number" id="duration" placeholder="Input duration"/>
-          <div class="course__duration">
-            ::Duration::
-          </div>
+          <input type="number" id="duration" placeholder="Input duration" formControlName="duration"/>
+          <div class="course__duration">{{ courseForm.controls['duration'].value || '00:00' }} hours</div>
         </div>
-        <span id="durationErrorMessage" class="text-danger">Duration is required.</span>
+        </div>
+        <span *ngIf="courseForm.controls['duration'].invalid && courseForm.controls['duration'].touched" class="text-danger">
+          Duration is required and must be at least 1 hour.
+        </span>
       </div>
       <div class="form__action">
-        <app-button></app-button>
+        <app-button [disabled]="courseForm.invalid" type="submit">
+          Create Course</app-button>
+          <app-button>Cancel</app-button>
       </div>
     </div>
   </div>

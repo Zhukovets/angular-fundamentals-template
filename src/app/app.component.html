@@ -1,10 +1,19 @@
 <app-header></app-header>
 <div class="app-root">
+
+  <app-header>
+    <span>Welcome, User!</span>
+    <app-button [buttonText]="'Logout'" [iconName]="'sign-out'"></app-button>
+  </app-header>
+  
+
   <!-- Search component -->
   <!--<app-search></app-search>-->
 
   <!-- Info component -->
-  <!--<app-info></app-info>-->
+  <app-info [title]="'Important Notice'" [text]="'Please complete the registration process.'">
+    <app-button [buttonText]="'Learn More'" [iconName]="'info-circle'"></app-button>
+  </app-info>
 
   <!-- Course Card component -->
   <!--<app-course-card></app-course-card>-->
