@@ -9,6 +9,9 @@
           id="name"
           placeholder="Input text"
           formControlName="name"
+          required
+          emailValidator
+          minlength="6"
         />
         <span
           *ngIf="name.invalid && (name.dirty || name.touched)"
@@ -25,6 +28,7 @@
           id="email"
           placeholder="Input text"
           formControlName="email"
+          required
         />
         <span
           *ngIf="email.invalid && (email.dirty || email.touched)"
@@ -41,6 +45,7 @@
           id="password"
           placeholder="Input text"
           formControlName="password"
+          required
         />
         <span
           *ngIf="password.invalid && (password.dirty || password.touched)"
