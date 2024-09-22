@@ -125,13 +125,15 @@ export class CourseFormComponent implements OnInit {
 
         //Subscriptions
         this.inputNames.forEach((val, key) => {
-            this.courseForm.controls[key]?.valueChanges.subscribe(value => {
-                this.inputNames.set(key, true);
-
-                if (key === "duration") {
-                    this.durationValue = value;
-                }
-            });
+            const control = this.courseForm.controls[key];
+            if (control) {
+                this.courseForm.controls[key]?.valueChanges.subscribe(value => {
+                    this.inputNames.set(key, true);
+                    if (key === "duration") {
+                        this.durationValue = value;
+                    }
+                });
+            }
         })
     }
 
