@@ -10,8 +10,13 @@
               <b>Authors: </b>
               {{ course.authors}}
             </div>
-            <div><b>Duration: </b><span class="course-card__duration">{{ course.duration }}</span></div>
-            <div><b>Created: </b><span class="course-card__date">{{ course.creationDate }}</span></div>
+            <div>
+                <b>Duration: </b><span class="course-card__duration">{{ course.duration | duration }}&nbsp;<span *ngIf="course.duration < 61; else plural">hour</span>
+                <ng-template #plural>
+                    <span>hours</span>
+                </ng-template></span>
+            </div>
+            <div><b>Created: </b><span class="course-card__date">{{ course.creationDate | customDate }}</span></div>
         </div>
         <div class="course-card__info-actions">
             <app-button buttonText="Show Course" (click)="onShowCourse(course)"></app-button>

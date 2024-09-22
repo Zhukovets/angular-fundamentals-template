@@ -7,3 +7,10 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+
+input {
+  &.ng-invalid.ng-touched {
+    border-color: #FF0000;
+  }
+}

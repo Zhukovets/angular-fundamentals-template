@@ -7,8 +7,15 @@
   </div>
   <div class="course-info__info">
     <div><b>ID: </b><span class="course-info__info-id">{{ course.id }}</span></div>
-    <div><b>Duration: </b><span class="course-info__info-duration">{{ course.duration }}</span></div>
-    <div><b>Created: </b><span class="course-info__info-date">{{ course.creationDate }}</span></div>
+    <div>
+      <b>Duration: </b>
+      <span class="course-info__info-duration">{{ course.duration | duration }}&nbsp;<span *ngIf="course.duration < 61; else plural">hour</span>
+        <ng-template #plural>
+          <span>hours</span>
+        </ng-template>
+      </span>
+    </div>
+    <div><b>Created: </b><span class="course-info__info-date">{{ course.creationDate | customDate }}</span></div>
     <div><b>Authors: </b><span class="course-info__info-authors">{{ course.authors }}</span></div>
   </div>
 </div>

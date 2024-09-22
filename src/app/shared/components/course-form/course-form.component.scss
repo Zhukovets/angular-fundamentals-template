@@ -34,4 +34,10 @@
     margin-left: 4px;
     cursor: pointer;
   }
+
+  input, textarea {
+    &.ng-invalid.ng-touched {
+      border-color: #FF0000;
+    }
+  }
 }
