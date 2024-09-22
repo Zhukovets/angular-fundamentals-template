@@ -12,7 +12,11 @@ export class CourseFormComponent implements OnInit {
   courseForm: FormGroup = this.fb.group({
     title: ["", [Validators.required, Validators.minLength(2)]],
     description: ["", [Validators.required, Validators.minLength(2)]],
-    author: ["", [Validators.pattern(/^[a-zA-Z0-9\s]+$/)]],
+    author: [
+      "",
+      [Validators.pattern(/^[a-zA-Z0-9\s]+$/)],
+      Validators.minLength(2),
+    ],
     duration: [0, [Validators.required, Validators.min(0)]],
     authors: this.fb.array([]),
   });
