@@ -1,37 +1,93 @@
 @import 'src/app/shared/styles/styles';
 
-.course {
+.form {
  min-width: 60vw;
 
-  &__flex {
+  &__label {
+    font-size: .85rem;
+    line-height: 1.25rem;
+  }
+
+  &__heading {
+    font-size: 1.5rem;
+    margin-bottom: 1.4rem;
+  }
+
+  &__wrapper {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+    flex-flow:column nowrap;
 
-    & input {
-      flex: 1;
+    &_course {
+      justify-self: self-end;
     }
 
-    & app-button {
-      margin-left: 16px;
-    }
-
-    & .course__duration {
-      margin-left: 16px;
+    &_mod {
+      max-height: 9rem;
+      padding-top: 1.5rem;
+      overflow-y: auto;
     }
   }
 
-  &__authors {
-    margin-top: 8px;
-    display: flex;
+  &__wrapper-input {
+    @include flex-row;
+    width: 100%;
+    gap: 1rem;
 
-    &-item {
-      margin-right: 10px;
+    input {
+      width: 400px; /*temporary*/
     }
+  }
+
+  &__author-name {
+    display: inline-flex;
+    padding: 5px 0;
+  }
+
+  &__span-invalid {
+    opacity: 0;
+  }
+
+  &__duration {
+    display: inline-flex;
+  }
+
+  &__authors {
+    display: grid;
+    grid-template-columns: 75% 25%;
+    align-items: start;
+  }
+
+  &__authors-course,
+  &__authors-list
+  {
+    display: flex;
+    flex-flow:column nowrap;
+  }
+
+  &__action {
+    @include flex-row;
+    justify-content: flex-end;
+    gap: 1.25rem;
   }
 
   &__icon {
     margin-left: 4px;
     cursor: pointer;
   }
+
+  &__message {
+    text-align: center;
+  }
 }
+
+input.ng-invalid,
+textarea.ng-invalid {
+  border-color: $color-red;
+}
+
+input.ng-pristine,
+textarea.ng-pristine {
+  border: 1px solid $color-gray;
+}
+
+

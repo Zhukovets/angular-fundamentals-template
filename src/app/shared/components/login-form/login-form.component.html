@@ -1,29 +1,94 @@
 <h2 class="text-align-center">Login</h2>
-<div class="app-plate">
-  <form #loginForm="ngForm">
-    <div class="login-form">
-      <div>
-        <div class="form__control">
-          <label for="email">Email</label>
-          <!--Use the name `email` for the form control.-->
-          <input type="text" id="email" placeholder="Input text"/>
-          <span id="emailErrorMessage" class="text-danger">Email is required.</span>
+<div class="app-plate app-plate__padding-large">
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="login-form">
+            <div>
+                <div class="form__control">
+                    <label for="email">Email</label>
+                    <!--Use the name `email` for the form control.-->
+                    <input
+                            type="text"
+                            id="email"
+                            name="email"
+                            ngModel
+                            #email="ngModel"
+                            emailValidator
+                            placeholder="Input text"
+                            required
+                            (ngModelChange)="onInputEmailChange()"
+                    />
+                    <ng-container
+                            *ngIf="inputEmail || (email.touched || loginForm.submitted)">
+                        <span
+                                class="text-danger"
+                                *ngIf="email.errors?.['required']">
+                            Email is required.
+                        </span>
+                        <span
+                                class="text-danger"
+                                *ngIf="email.errors?.['invalidEmail']">
+                            Please enter a valid email!
+                        </span>
+                    </ng-container>
+                </div>
+                <div class="form__control">
+                    <label for="password">Password</label>
+                    <!--Use the name `password` for the form control.-->
+                    <div class="password-wrapper">
+                        <input type="password"
+                               id="password"
+                               name="password"
+                               ngModel
+                               #password="ngModel"
+                               placeholder="Input text"
+                               minlength="6"
+                               appTogglePassword
+                               #pasToggle="togglePassword"
+                               required
+                               (ngModelChange)="onInputPasswordChange()"
+                        />
+                        <button class="password-wrapper__icon"
+                                type="button"
+                                (click)="pasToggle.onClick($event)"
+                               >
+                            <ng-container *ngIf="pasToggle.isVisible(); then eyeBlock else eyeSlashBlock"></ng-container>
+                            <ng-template #eyeBlock>
+                                <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+                            </ng-template>
+                            <ng-template #eyeSlashBlock>
+                                <fa-icon [icon]="['fas', 'eye-slash']"></fa-icon>
+                            </ng-template>
+                        </button>
+                    </div>
+                    <ng-container *ngIf="inputPassword || (password.touched || loginForm.submitted)">
+                        <span
+                                class="text-danger"
+                                *ngIf="password.errors?.['required']">
+                            Password is required.
+                        </span>
+                        <span
+                                class="text-danger"
+                                *ngIf="password.errors?.['minlength']">
+                            Password should contain no less than 6 characters!
+                        </span>
+                    </ng-container>
+                </div>
+                <div>
+                    <div class="form__action">
+                        <app-button
+                                [btnDefault]=true
+                                [btnMod]=true
+                                [buttonText]=buttonTexts.login
+                                [buttonType]="'submit'"
+                                [disabled]="(email?.invalid ?? true) || (password?.invalid ?? true)">
+                        </app-button>
+                    </div>
+                    <span class="form__text">
+                        If you don't have an account you may
+                        <a class="form__link">Registration</a>
+                    </span>
+                </div>
+            </div>
         </div>
-        <div class="form__control">
-          <label for="password">Password</label>
-          <!--Use the name `password` for the form control.-->
-          <input type="password" id="password" placeholder="Input text"/>
-          <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
-        </div>
-      </div>
-      <div>
-        <div class="form__action">
-          <app-button></app-button>
-        </div>
-        <div class="form__text">
-          If you don't have an account you may <strong>Registration</strong>
-        </div>
-      </div>
-    </div>
-  </form>
+    </form>
 </div>

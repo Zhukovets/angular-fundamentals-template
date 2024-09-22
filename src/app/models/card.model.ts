@@ -1,5 +1,5 @@
-export interface CardItem {
-    id?: number;
+interface CardItem {
+    id?: string;
     title: string;
     description: string;
     creationDate: Date;
@@ -7,3 +7,14 @@ export interface CardItem {
     authors: string[];
 }
 
+interface Author {
+    id: string;
+    name: string;
+}
+
+interface AuthDate {
+    email: string;
+    password: string;
+}
+
+export { Author, CardItem, AuthDate }

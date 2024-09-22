@@ -1,15 +1,14 @@
-<div class="app-button">
-    <ng-container *ngIf="iconName">
-        <button class="app-button__icon">
-            <fa-icon [icon]="['fas', iconName]" ></fa-icon>
-        </button>
-    </ng-container>
-    <ng-container *ngIf="buttonText">
-        <button class="app-button__btn">
-            {{ buttonText }}
-        </button>
-    </ng-container>
-<!--   Replace the text below with your code -->
-</div>
+<ng-container *ngIf="iconName">
+    <button [ngClass]="setCurrentClasses()" (click)="buttonClick()">
+        <fa-icon [icon]="['fas', iconName]"></fa-icon>
+    </button>
+</ng-container>
+<ng-container *ngIf="buttonText" >
+    <button  [ngClass]="setCurrentClasses()" [type]=buttonType [disabled]="disabled" (click)="buttonClick()">
+        {{ buttonText }}
+    </button>
+</ng-container>
+<!--Replace the text below with your code -->
+
 
 

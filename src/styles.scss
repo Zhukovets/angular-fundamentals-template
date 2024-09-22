@@ -27,19 +27,17 @@ html, body {
   color: $color-dark-gray;
   margin: 0;
   padding: 0;
+  user-select: none;
 }
 
 input,
 textarea {
   width: 100%;
   display: inline-block;
-  padding: 12px 16px;
+  padding: 14px 16px;
   border: 1px solid $color-gray;
   border-radius: 4px;
-  //font-size: 16px;
-  margin-top: 4px;
   resize: none;
-  //font-family: "Open Sans", sans-serif;
 }
 
 input:invalid,
@@ -47,9 +45,17 @@ textarea:invalid {
   border-color: $color-red;
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 label {
   font-weight: bold;
-  //font-size: 16px;
 }
 
 h2 {
@@ -60,3 +66,22 @@ h2 {
   font-size: .87rem;
   letter-spacing: .05rem;
 }
+
+/* Styling the scrollbar*/
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $color-gray;
+  border-radius: 6px;
+  border: 2px solid $color-white;
+}
+
+::-webkit-scrollbar-track {
+  background: $color-white;
+  border-radius: 6px;
+}
+
+

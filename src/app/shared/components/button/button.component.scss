@@ -11,8 +11,8 @@
     cursor: pointer;
 
     &__btn {
-        @include button;
-        padding: 13px 36px;
+        width: 100%;
+        padding: 11px 36px;
         font-weight: bold;
         font-size: inherit;
         text-transform: uppercase;
@@ -20,10 +20,18 @@
     }
 
     &__icon {
-        @include button;
         width: 60px;
         height: 50px;
         font-size: 1.5rem;
+    }
+
+    &__icon-plus {
+        width: .8rem;
+        height: .8rem;
+        font-size: .8rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
     }
 
     &:hover {
@@ -44,7 +52,14 @@
         transform: scale(0.98);
     }
 
+    &:disabled {
+        pointer-events: none;
+        background: lighten($background-primary, 15%);
+        border: none;
+    }
+
     &__single-icon {
         padding: 13px;
     }
+
 }

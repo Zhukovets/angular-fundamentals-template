@@ -1,1 +1,14 @@
-<p>courses works!</p>
+<section class="app-courses">
+    <div class="app-courses__wrapper">
+        <app-search (search)="search($event)"></app-search>
+        <app-button
+                [btnDefault]=true
+                [btnMod]=true
+                [buttonText]=buttonTexts.add_new_course
+                [buttonType]="'button'">
+        </app-button>
+    </div>
+    <app-courses-list
+            [coursesList] = "getListCourses(coursesList)">
+    </app-courses-list>
+</section>

@@ -1,28 +1,108 @@
 <h2 class="text-align-center">Registration</h2>
-<div class="app-plate">
-  <div class="registration-form">
-    <div>
-      <div class="form__control">
-        <label for="name">Name</label>
-        <!--Use the name `name` for the form control.-->
-        <input type="text" id="name" placeholder="Input text"/>
-        <span id="nameErrorMessage" class="text-danger">Name is required.</span>
-      </div>
-      <div class="form__control">
-        <!--Use the name `email` for the form control.-->
-        <label for="email">Email</label>
-        <input type="text" id="email" placeholder="Input text"/>
-        <span id="emailErrorMessage" class="text-danger">Email is required.</span>
-      </div>
-      <div class="form__control">
-        <!--Use the name `password` for the form control.-->
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Input text"/>
-        <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
-      </div>
-    </div>
-    <div class="form__action">
-      <app-button></app-button>
-    </div>
-  </div>
+<div class="app-plate app-plate__padding-large">
+    <form [formGroup]="registrationForm">
+        <div class="registration-form">
+            <div>
+                <div class="form__control">
+                    <label for="name">Name</label>
+                    <!--Use the name `name` for the form control.-->
+                    <input type="text"
+                           id="name"
+                           placeholder="Input text"
+                           formControlName="name"/>
+                    <ng-container *ngIf="inputName || ( registrationForm.get('name')?.invalid &&
+                                         registrationForm.get('name')?.touched)">
+                        <small
+                                class="text-danger"
+                                *ngIf="registrationForm.get('name')?.errors?.['required']">
+                            Name is required.
+                        </small>
+                        <small
+                                class="text-danger"
+                                *ngIf="registrationForm.get('name')?.errors?.['minlength']">
+                            Name should contain not be less than 6 symbols!
+                        </small>
+                    </ng-container>
+                    <!--<span id="nameErrorMessage" class="text-danger">Name is required.</span>-->
+                </div>
+                <div class="form__control">
+                    <!--Use the name `email` for the form control.-->
+                    <label for="email">Email</label>
+                    <input type="text"
+                           id="email"
+                           placeholder="Input text"
+                           emailValidator
+                           formControlName="email"/>
+                    <ng-container *ngIf="inputEmail || ( registrationForm.get('name')?.invalid &&
+                                         registrationForm.get('email')?.touched)">
+                        <span
+                                class="text-danger"
+                                *ngIf="registrationForm.get('email')?.errors?.['required']">
+                            Email is required.
+                        </span>
+                        <span
+                                class="text-danger"
+                                *ngIf="registrationForm.get('email')?.errors?.['invalidEmail']">
+                            Please enter a valid email!
+                        </span>
+                    </ng-container>
+                    <!--<span id="emailErrorMessage" class="text-danger">Email is required.</span>-->
+                </div>
+                <div class="form__control">
+                    <!--Use the name `password` for the form control.-->
+                    <label for="password">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password"
+                               id="password"
+                               placeholder="Input text"
+                               formControlName="password"
+                               appTogglePassword
+                               #pasToggle="togglePassword"
+                        />
+                        <button class="password-wrapper__icon"
+                                type="button"
+                                (click)="pasToggle.onClick($event)"
+                        >
+                            <ng-container *ngIf="pasToggle.isVisible(); then eyeBlock else eyeSlashBlock"></ng-container>
+                            <ng-template #eyeBlock>
+                                <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+                            </ng-template>
+                            <ng-template #eyeSlashBlock>
+                                <fa-icon [icon]="['fas', 'eye-slash']"></fa-icon>
+                            </ng-template>
+                        </button>
+                    </div>
+                    <ng-container *ngIf="inputPassword || ( registrationForm.get('password')?.invalid &&
+                                         registrationForm.get('password')?.touched)">
+                        <span
+                                class="text-danger"
+                                *ngIf="registrationForm.get('password')?.errors?.['required']">
+                            Password is required.
+                        </span>
+                        <span
+                                class="text-danger"
+                                *ngIf="registrationForm.get('password')?.errors?.['minlength']">
+                            Password should contain not be less than 6 symbols!
+                        </span>
+                    </ng-container>
+                    <!--<span id="passwordErrorMessage" class="text-danger">Password is required.</span>-->
+                </div>
+            </div>
+            <div class="form__action">
+                <app-button
+                        [btnDefault]=true
+                        [btnMod]=true
+                        [buttonText]=buttonTexts.login
+                        [buttonType]="'submit'"
+                        [disabled]="registrationForm.get('name')?.invalid ?? true ||
+                        registrationForm.get('email')?.invalid ?? true ||
+                        registrationForm.get('password')?.invalid ?? true">
+                </app-button>
+                <span class="form__text">
+                        If you have an account you may
+                        <a class="form__link form__link_login">Login</a>
+                </span>
+            </div>
+        </div>
+    </form>
 </div>

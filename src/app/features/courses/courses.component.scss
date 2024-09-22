@@ -1,0 +1,8 @@
+@import 'src/app/shared/styles/variables/colors.scss';
+
+.app-courses {
+    &__wrapper {
+        @include flex-row;
+        justify-content: space-between;
+    }
+}

@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import { CardItem } from 'src/app/models/card.model';
 import { ButtonText } from 'src/app/models/const';
-import  mockCardItems  from 'src/app/shared/mocks/mocks';
+import  { mockedCoursesList }  from 'src/app/shared/mocks/mocks';
 
 @Component({
   selector: 'app-course-info',
@@ -11,7 +11,6 @@ import  mockCardItems  from 'src/app/shared/mocks/mocks';
 export class CourseInfoComponent {
   // Use the names for the input `course`.
   buttonText = ButtonText;
-  @Input() courseInfo:CardItem = mockCardItems[0];// for the sample
-
+  @Input() courseInfo:CardItem = mockedCoursesList[0];// for the sample
 
 }

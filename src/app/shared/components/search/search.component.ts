@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Input, Output,} from '@angular/core';
+import {ButtonText} from "@app/models/const";
 
 @Component({
   selector: 'app-search',
@@ -8,5 +9,17 @@ import { Component } from '@angular/core';
 export class SearchComponent {
   // Use the name `placeholder` for the @Input.
   // Use the name `search` for the @Output.
+  @Input() placeholder: string = '';
+  @Output() search = new EventEmitter<string>();
+  searchTerm: string = '';
+  buttonTexts = ButtonText;
+
+  onItemSearch(data: string) {
+   this.search.emit(this.searchTerm);
+  }
+
+  onSearchSubmit() {
+
+  }
 }
 

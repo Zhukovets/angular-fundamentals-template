@@ -13,6 +13,7 @@
  enum ButtonIcon {
     pencil = 'pencil',
     trash = 'trash',
+    plus = 'plus',
 }
 
 export { ButtonText, ButtonIcon }

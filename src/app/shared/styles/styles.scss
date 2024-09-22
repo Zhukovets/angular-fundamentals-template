@@ -8,7 +8,14 @@
     background-color: $color-white;
     border: 1px solid $color-gray;
     border-radius: 4px;
-    padding: 32px;
+
+    &__padding-small {
+        padding: 2.5rem 5rem;
+    }
+
+    &__padding-large {
+        padding: 4rem 9rem;
+    }
 }
 
 .text-align-center {
@@ -27,7 +34,7 @@
     }
 
     &__action {
-        margin-top: 54px;
+        margin-top: 34px;
     }
 
     &__text {

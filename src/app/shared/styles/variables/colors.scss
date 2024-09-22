@@ -33,11 +33,3 @@ $font-size-default: 16px;
   border-radius: 4px;
   border-left: 8px solid $color-dark-gray;
 }
-
-@mixin button {
-  background: $background-transparent;
-  color: inherit;
-  font-weight: bold;
-  border: none;
-  cursor: inherit;
-}

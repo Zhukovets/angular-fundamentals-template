@@ -1,9 +1,24 @@
 @import 'src/app/shared/styles/styles.scss';
 
 .login-form {
-  width: 260px;
-  margin-top: 36px;
+  width: 286px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+input.ng-pristine {
+  border: 1px solid $color-gray;
+}
+
+.password-wrapper {
+  @include flex-row;
+  position: relative;
+
+  &__icon {
+    position: absolute;
+    right: 1.3rem ;
+    border: none;
+    background: $color-white;
+  }
 }
