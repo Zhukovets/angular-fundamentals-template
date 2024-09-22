@@ -26,9 +26,7 @@ export class CourseFormComponent {
       description: ['', [Validators.required, Validators.minLength(2)]],
       duration: [0, [Validators.required, Validators.min(0)]],
       authors: this.fb.array([]),
-      newAuthor: this.fb.group({
-        author: ['', [Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9]*$')]]
-      })
+      author: ['', [Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9]*$')]]
     });
   }
   
@@ -53,11 +51,11 @@ export class CourseFormComponent {
   }
 
   createAuthor(): void {
-    const authorName = this.courseForm.get('newAuthor.author')?.value
+    const authorName = this.courseForm.get('author')?.value
     if(authorName) {
       const newAuthor = {id: this.generateAuthorId(), name: authorName};
       this.availableAuthors.push(newAuthor);
-      this.courseForm.get('newAuthor')?.reset();
+      this.courseForm.get('author')?.reset();
     }
   }
 

@@ -12,12 +12,8 @@ export class SearchComponent {
   userSearchInput!: string;
 
   sendSearch(): void {
-    if(this.userSearchInput) {
-      this.search.emit(this.userSearchInput)
-      console.log(this.userSearchInput)
-    } else {
-      console.log('Need to add value for search')
-    }
+      this.search.emit(this.userSearchInput || '')
+      console.log(this.userSearchInput || 'No input provided')
   }
 
   

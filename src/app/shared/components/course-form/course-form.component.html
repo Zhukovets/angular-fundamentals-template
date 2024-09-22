@@ -37,13 +37,13 @@
       </div>
       <div class="separator"></div>
       <h3>Authors</h3>
-      <div class="form__control" formGroupName="newAuthor">
+      <div class="form__control">
         <div class="course__flex">
           <!--Use the name `author` for the form control.-->
           <input type="text" id="author" placeholder="Input Author Name" formControlName="author"/>
           <app-button id="createAuthor" buttonText="Create author" (click)="createAuthor()"></app-button>
         </div>
-        <span *ngIf="courseForm.get('newAuthor.author')?.invalid && courseForm.get('newAuthor.author')?.touched" id="authorErrorMessage" class="text-danger">New author should contain at least 2 characters and only Latin letters or numbers.</span>
+        <span *ngIf="courseForm.get('author')?.invalid && courseForm.get('author')?.touched" id="authorErrorMessage" class="text-danger">New author should contain at least 2 characters and only Latin letters or numbers.</span>
       </div>
       <div class="available__authors">
         <h4>Authors List</h4>
