@@ -6,33 +6,28 @@
         <div class="form__control">
           <label for="name">Name</label>
           <!--Use the name `name` for the form control.-->
-          <input type="text" id="name" formControlName="name" placeholder="Input text"/>
-          <span *ngIf="name?.errors?.['required'] && name?.touched" class="text-danger">
-            Name is required.
-          </span>
-          <span *ngIf="name?.errors?.['minlength'] && name?.touched" class="text-danger">
-            Name must be at least 6 characters long.
-          </span>
+          <input type="text" id="name" placeholder="Input text" formControlName="name"/>
+          <div *ngIf="registrationForm.get('name')?.touched">
+            <span id="nameErrorMessage" class="text-danger" *ngIf="registrationForm.get('name')?.errors?.['required']">Name is required.</span>
+          </div>
         </div>
         <div class="form__control">
           <!--Use the name `email` for the form control.-->
-          <label for="regEmail">Email</label>
-          <input type="text" id="regEmail" formControlName="email" placeholder="Input text" emailValidator/>
-          <span *ngIf="email?.errors?.['required'] && email?.touched" class="text-danger">
-            Email is required.
-          </span>
-          <span *ngIf="email?.errors?.['invalidEmail'] && email?.touched" class="text-danger">
-            Invalid email format.
-          </span>
+          <label for="email">Email</label>
+          <input type="text" id="email" name="email" placeholder="Input text" formControlName="email" emailValidator/>
+          <div *ngIf="registrationForm.get('email')?.touched">
+            <span id="emailErrorMessage" class="text-danger" *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required.</span>
+            <span id="emailErrorMessage" class="text-danger" *ngIf="registrationForm.get('email')?.errors?.['invalidEmail']">Email is not valid.</span>
+          </div>
         </div>
         <div class="form__control">
           <!--Use the name `password` for the form control.-->
-          <label for="regPassword">Password</label>
-          <div class="password-input-container">
-            <input type="password" id="regPassword" formControlName="password" placeholder="Input text"/>
-            
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Input text" formControlName="password"/>
+          <div *ngIf="registrationForm.get('password')?.touched">
+            <span id="passwordErrorMessage" class="text-danger" *ngIf="registrationForm.get('password')?.errors?.['required']">Password is required.</span>
+            <span id="passwordErrorMessageLength" class="text-danger" *ngIf="registrationForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters length.</span>
           </div>
-          <span *ngIf="password?.errors?.['required'] && password?.touched" class="text-danger">Password is required.</span>
         </div>
       </div>
       <div class="form__action" (click)="onSubmit()">

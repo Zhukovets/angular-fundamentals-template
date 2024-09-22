@@ -7,11 +7,9 @@
           <label for="email">Email</label>
           <!--Use the name `email` for the form control.-->
           <input  type="text" id="email" name="email" [(ngModel)]="email" #emailField="ngModel" placeholder="Input text" required emailValidator/>
-          <span *ngIf="(emailField.errors?.['required'] && (emailField.touched || loginForm.submitted))" class="text-danger">
-            Email is required.
-          </span>
-          <span *ngIf="(emailField.errors?.['invalidEmail'] && (emailField.touched || loginForm.submitted))" class="text-danger">
-            Invalid email format.
+          <span id="emailErrorMessage" class="text-danger" *ngIf="loginForm.submitted || emailField.touched">
+            <span *ngIf="emailField.errors?.['required']">Email is required.</span>
+            <span *ngIf="emailField.errors?.['invalidEmail']">Email is not valid.</span>
           </span>
         </div>
         <div class="form__control">
