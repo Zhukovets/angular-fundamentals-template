@@ -17,6 +17,7 @@ import {v4 as uuidv4} from 'uuid';
 export class CourseFormComponent implements OnInit {
     constructor(public fb: FormBuilder, public library: FaIconLibrary) {
         library.addIconPacks(fas);
+        this.initForm()
     }
 
     @Input() authorsList: Author[] = mockedAuthorsList; //temporary
@@ -110,8 +111,7 @@ export class CourseFormComponent implements OnInit {
         });
     }
 
-    public ngOnInit(): void {
-
+    initForm(): void {
         this.courseForm = this.fb.group({
             "title": ["", [Validators.required,
                 Validators.minLength(this.minLength)]],
@@ -122,6 +122,9 @@ export class CourseFormComponent implements OnInit {
             "authors": this.fb.array(this.fillAuthorList(this.authorsList)),
             "courseAuthors": this.fb.array(this.fillAuthorList(this.courseAuthors)),
         });
+    }
+
+    public ngOnInit(): void {
 
         //Subscriptions
         this.inputNames.forEach((val, key) => {
