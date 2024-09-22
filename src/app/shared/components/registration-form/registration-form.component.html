@@ -1,61 +1,71 @@
 <h2 class="text-align-center">Registration</h2>
 <div class="app-plate">
-  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()"></form>
-  <div class="registration-form">
-    <div>
-      <div class="form__control">
-        <label for="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          formControlName="name"
-          placeholder="Input text"
-        />
-        <span
-          *ngIf="f['name'].invalid && (f['name'].touched || submitted)"
-          id="nameErrorMessage"
-          class="text-danger"
-          ><span *ngIf="f['name'].errors?.['required']">Name is required.</span>
-        </span>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div class="registration-form">
+      <div>
+        <div class="form__control">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            placeholder="Input text"
+            required
+          />
+          <span
+            *ngIf="f['name'].invalid && (f['name'].touched || submitted)"
+            id="nameErrorMessage"
+            class="text-danger"
+            ><span *ngIf="f['name'].errors?.['required']"
+              >Name is required.</span
+            >
+          </span>
+        </div>
+        <div class="form__control">
+          <label for="email">Email</label>
+          <input
+            type="text"
+            id="email"
+            formControlName="email"
+            placeholder="Input text"
+            required
+            emailValidator
+          />
+          <span
+            *ngIf="f['email'].invalid && (f['email'].touched || submitted)"
+            id="emailErrorMessage"
+            class="text-danger"
+          >
+            <span *ngIf="f['email'].errors?.['required']"
+              >Email is required.</span
+            >
+            <span *ngIf="f['email'].errors?.['emailInvalid']"
+              >Email format is invalid.</span
+            >
+          </span>
+        </div>
+        <div class="form__control">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            placeholder="Input text"
+            required
+          />
+          <span
+            *ngIf="
+              f['password'].invalid && (f['password'].touched || submitted)
+            "
+            id="passwordErrorMessage"
+            class="text-danger"
+            >Password is required.</span
+          >
+        </div>
       </div>
-      <div class="form__control">
-        <label for="email">Email</label>
-        <input
-          type="text"
-          id="email"
-          formControlName="email"
-          placeholder="Input text"
-          required
-          ngModel
-          emailValidator
-        />
-        <span
-          *ngIf="f['email'].invalid && (f['email'].touched || submitted)"
-          id="emailErrorMessage"
-          class="text-danger"
-          ><span *ngIf="f['email'].errors?.['required']"
-            >Email is required.</span
-          ></span
-        >
-      </div>
-      <div class="form__control">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          formControlName="password"
-          placeholder="Input text"
-        />
-        <span
-          *ngIf="f['password'].invalid && (f['password'].touched || submitted)"
-          id="passwordErrorMessage"
-          class="text-danger"
-          >Password is required.</span
-        >
+      <div class="form__action">
+        <ng-content select="[login-button]"></ng-content>
       </div>
     </div>
-    <div class="form__action">
-      <ng-content select="[login-button]"></ng-content>
-    </div>
-  </div>
+  </form>
 </div>

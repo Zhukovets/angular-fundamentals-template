@@ -4,5 +4,5 @@
     placeholder="{{ placeholder }}"
     [(ngModel)]="searchValue"
   />
-  <ng-content select="[search-button]"></ng-content>
+  <button class="app-button" (click)="onSearch()">Search</button>
 </div>

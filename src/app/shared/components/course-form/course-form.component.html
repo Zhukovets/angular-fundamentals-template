@@ -15,13 +15,15 @@
         />
         <span
           *ngIf="f['title'].invalid && (f['title'].touched || submitted)"
-          id="titleErrorMessage"
           class="text-danger"
-          ><span
-            *ngIf="f['title'].errors?.['required'] || f['title'].errors?.['minLength']"
-            >Title is required.</span
-          ></span
         >
+          <span *ngIf="f['title'].errors?.['required']"
+            >Title is required.</span
+          >
+          <span *ngIf="f['title'].errors?.['minlength']"
+            >Title must be at least 2 characters long.</span
+          >
+        </span>
       </div>
       <div class="form__control">
         <label for="description">Description</label>
@@ -37,13 +39,15 @@
           *ngIf="
             f['description'].invalid && (f['description'].touched || submitted)
           "
-          id="descriptionErrorMessage"
           class="text-danger"
-          ><span
-            *ngIf="f['description'].errors?.['required'] || f['description'].errors?.['minLength']"
-            >Description is required.</span
-          ></span
         >
+          <span *ngIf="f['description'].errors?.['required']"
+            >Description is required.</span
+          >
+          <span *ngIf="f['description'].errors?.['minlength']"
+            >Description must be at least 2 characters long.</span
+          >
+        </span>
       </div>
 
       <h3>Duration</h3>
