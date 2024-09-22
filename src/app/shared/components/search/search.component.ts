@@ -15,6 +15,8 @@ export class SearchComponent {
   searchValue: string = "";
 
   onSearch(): void {
-    this.search.emit(this.searchValue);
+    if (this.searchValue.trim()) {
+      this.search.emit(this.searchValue);
+    }
   }
 }
