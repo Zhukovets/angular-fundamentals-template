@@ -22,6 +22,7 @@ export class CourseFormComponent {
       title: ['', [Validators.required, Validators.minLength(2)]],
       description: ['', [Validators.required, Validators.minLength(2)]],
       authors: this.fb.array([]),
+      courseAuthors: this.fb.array([]),
       author: this.fb.group({
         name: ['', [Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9 ]+$')]],
       }),
@@ -33,6 +34,10 @@ export class CourseFormComponent {
     return this.courseForm.get('authors') as FormArray;
   }
 
+  get courseAuthors(): FormArray {
+    return this.courseForm.get('courseAuthors') as FormArray;
+  }
+
   addAuthor(): void {
     const nestedGroup = this.courseForm.get('author') as FormGroup;
     const newAuthorControl = this.courseForm.get('author')?.get('name');
@@ -40,6 +45,10 @@ export class CourseFormComponent {
     const authorId = uuidv4();
 
     if (authorName && nestedGroup?.valid) {
+      this.courseAuthors.push(this.fb.group({
+        id: [authorId],
+        name: [authorName]
+      }));
       this.authors.push(this.fb.group({
         id: [authorId],
         name: [authorName]
@@ -50,7 +59,13 @@ export class CourseFormComponent {
   }
 
   removeAuthor(index: number): void {
+    console.log('author removed');
     this.authors.removeAt(index);
+  }
+
+  removeCourseAuthor(index: number): void {
+    console.log('course author removed');
+    this.courseAuthors.removeAt(index);
   }
 
   onSubmit(): void {

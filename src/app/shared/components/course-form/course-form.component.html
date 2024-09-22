@@ -56,12 +56,22 @@
           New author should contain only latin letters and numbers.
         </span>
         <div class="course__authors">
+          <div>Authors
           <ul>
             <li *ngFor="let author of authors.controls; let i = index">
               {{ author.value.name }}
               <app-button iconName="trash-can" (buttonClick)="removeAuthor(i)"></app-button>
             </li>
           </ul>
+          </div><br>
+          <div>Course Authors
+          <ul>
+            <li *ngFor="let author of courseAuthors.controls; let i = index">
+              {{ author.value.name }}
+              <app-button iconName="trash-can" (buttonClick)="removeCourseAuthor(i)"></app-button>
+            </li>
+          </ul>
+          </div>
         </div>
       </div>
       <div class="form__action">
