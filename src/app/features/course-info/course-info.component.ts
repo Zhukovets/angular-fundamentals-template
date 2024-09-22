@@ -17,7 +17,6 @@ export class CourseInfoComponent {
   }
   ngOnInit() {
     this.authors = this.getAuthorsByIds(this.authors);
-    this.duration = this.formatDuration(this.duration);
   }
 
   @Input() isEditable: boolean = false;
@@ -32,14 +31,5 @@ export class CourseInfoComponent {
     return mockedAuthorsList
       .filter((author) => authorIds.includes(author.id))
       .map((author) => author.name);
-  }
-
-  formatDuration(duration: number | string) {
-    if (typeof duration === "number") {
-      const hours = Math.floor(duration / 60);
-      const minutes = duration % 60;
-      return `${hours}:${minutes}`;
-    }
-    return "";
   }
 }

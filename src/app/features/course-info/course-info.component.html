@@ -13,7 +13,8 @@
     <div>
       <b>Duration: </b
       ><span class="course-info__info-duration"
-        >{{ duration }} <span class="duration-text">hours</span></span
+        >{{ +duration | duration }}
+        <span class="duration-text">hours</span></span
       >
     </div>
     <div>

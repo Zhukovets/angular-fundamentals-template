@@ -9,13 +9,15 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
   styleUrls: ["./course-form.component.scss"],
 })
 export class CourseFormComponent implements OnInit {
-  constructor(public fb: FormBuilder, public library: FaIconLibrary) {
-    library.addIconPacks(fas);
-  }
   courseForm!: FormGroup;
   submitted = false;
   authorsList: any[] = [];
   courseAuthors: any[] = [];
+
+  constructor(public fb: FormBuilder, public library: FaIconLibrary) {
+    library.addIconPacks(fas);
+  }
+
   // Use the names `title`, `description`, `author`, 'authors' (for authors list), `duration` for the form controls.
   ngOnInit(): void {
     this.courseForm = this.fb.group({
@@ -30,6 +32,15 @@ export class CourseFormComponent implements OnInit {
       { id: 1, name: "Author 1" },
       { id: 2, name: "Author 2" },
     ];
+  }
+
+  createAuthor(): void {
+    const authorName = this.courseForm.controls["author"]?.value;
+    if (authorName) {
+      const newAuthor = { id: Date.now(), name: authorName };
+      this.authorsList.push(newAuthor);
+      this.courseForm.get("author")?.reset();
+    }
   }
 
   get authors(): FormArray {
@@ -48,24 +59,19 @@ export class CourseFormComponent implements OnInit {
     this.authors.removeAt(index);
   }
 
-  createAuthor(): void {
-    const authorName = this.courseForm.get("author")?.value;
-    if (authorName) {
-      const newAuthor = { id: Date.now(), name: authorName };
-      this.authorsList.push(newAuthor);
-      this.courseForm.get("author")?.reset();
-    }
+  removeAuthorFromAuthors(author: any): void {
+    this.authorsList = this.authorsList.filter((a) => a.id !== author.id);
   }
 
   onSubmit(): void {
-    if (this.courseForm.valid) {
-      console.log("Form Submitted", this.courseForm.value);
-      // Handle login logic here
-    } else {
-      console.log("Form is invalid");
-      this.courseForm.markAllAsTouched();
+    this.submitted = true;
+    if (this.courseForm.invalid) {
+      return;
     }
+    this.courseForm.value;
   }
+
+  onCancel(): void {}
 
   get f() {
     return this.courseForm.controls;

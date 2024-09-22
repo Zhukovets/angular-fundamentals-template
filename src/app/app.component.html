@@ -13,7 +13,7 @@
 </app-header>
 <div class="app-root">
   <!-- Search component -->
-  <app-search> </app-search>
+  <app-search />
 
   <!-- Info component -->
   <app-info
@@ -63,19 +63,21 @@
   <app-course-list></app-course-list>
 
   <!-- Login Form component -->
-  <app-login-form>
-    <app-button login-button [buttonText]="'Login'"></app-button>
+  <app-login-form class="app-login-form">
+    <app-button
+      class="login-button"
+      login-button
+      [buttonText]="'Login'"
+    ></app-button>
   </app-login-form>
 
   <!-- Login Form component -->
-  <app-registration-form
-    ><app-button login-button [buttonText]="'Login'"></app-button
-  ></app-registration-form>
+  <app-registration-form>
+    <app-button login-button [buttonText]="'Login'"></app-button>
+  </app-registration-form>
 
   <!-- Login Form component -->
-  <app-course-form>
-    <app-button author-button [buttonText]="'Create Author'"></app-button>
-  </app-course-form>
+  <app-course-form />
 
   <!-- Modal component -->
   <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->

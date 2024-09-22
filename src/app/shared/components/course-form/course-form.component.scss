@@ -1,7 +1,7 @@
-@import 'src/app/shared/styles/styles';
+@import "src/app/shared/styles/styles";
 
 .course {
- min-width: 60vw;
+  min-width: 60vw;
 
   &__flex {
     display: flex;
@@ -33,5 +33,40 @@
   &__icon {
     margin-left: 4px;
     cursor: pointer;
+  }
+
+  & .course-left-side {
+    max-width: 40vw;
+  }
+
+  & .course__authors {
+    display: inline-block;
+    margin-left: 700px;
+  }
+
+  & .authorlist-container {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+
+    & .add-button {
+      margin-left: 15px;
+      margin-bottom: 5px;
+    }
+
+    & .remove-button {
+      margin-left: 15px;
+    }
+  }
+}
+
+.course-form-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 15px;
+
+  & .course-create-button {
+    margin-left: 10px;
   }
 }
