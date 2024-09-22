@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormArray,
   FormBuilder, FormControl, FormGroup,
@@ -12,28 +12,26 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './course-form.component.html',
   styleUrls: ['./course-form.component.scss'],
 })
-export class CourseFormComponent implements OnInit {
-
-  constructor(public fb: FormBuilder, public library: FaIconLibrary) {
-    library.addIconPacks(fas);
-  }
+export class CourseFormComponent {
 
   courseForm!: FormGroup;
   availableAuthors: {id: string, name: string}[]= [];
   authorIdCounter = 1;
 
-  ngOnInit(): void {
+  constructor(public fb: FormBuilder, public library: FaIconLibrary) {
+    library.addIconPacks(fas);
+
     this.courseForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(2)]],
       description: ['', [Validators.required, Validators.minLength(2)]],
-      duration: [0, [Validators.required, Validators.min(1)]],
+      duration: [0, [Validators.required, Validators.min(0)]],
       authors: this.fb.array([]),
       newAuthor: this.fb.group({
         author: ['', [Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9]*$')]]
       })
     });
   }
-
+  
   generateAuthorId(): string {
     return `author-${this.authorIdCounter++}`;
   }

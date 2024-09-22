@@ -6,13 +6,15 @@ import { Component, Input, Output, EventEmitter  } from '@angular/core';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
-  @Input() placeholder!: string;
+  @Input() placeholder: string = 'Input text';
   @Output() search = new EventEmitter <string>();
 
+  userSearchInput!: string;
+
   sendSearch(): void {
-    if(this.placeholder) {
-      this.search.emit(this.placeholder)
-      console.log(this.placeholder)
+    if(this.userSearchInput) {
+      this.search.emit(this.userSearchInput)
+      console.log(this.userSearchInput)
     } else {
       console.log('Need to add value for search')
     }
