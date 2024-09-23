@@ -5,14 +5,12 @@
         <div>
           <div class="form__control">
             <label for="name">Name</label>
-            <!--Use the name `name` for the form control.-->
             <input type="text" id="name" placeholder="Input text" formControlName="name"/>
             <div *ngIf="registrationForm.get('name')?.touched">
               <span id="nameErrorMessage" class="text-danger" *ngIf="registrationForm.get('name')?.errors?.['required']">Name is required.</span>
             </div>
           </div>
           <div class="form__control">
-            <!--Use the name `email` for the form control.-->
             <label for="email">Email</label>
             <input type="text" id="email" name="email" placeholder="Input text" formControlName="email" emailValidator/>
             <div *ngIf="registrationForm.get('email')?.touched">
@@ -21,7 +19,6 @@
             </div>
           </div>
           <div class="form__control">
-            <!--Use the name `password` for the form control.-->
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Input text" formControlName="password"/>
             <div *ngIf="registrationForm.get('password')?.touched">

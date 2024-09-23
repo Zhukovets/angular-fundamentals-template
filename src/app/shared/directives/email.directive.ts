@@ -16,6 +16,7 @@ export class EmailValidatorDirective implements Validator{
         if (control.value && !emailPattern.test(control.value)) {
             return { 'invalidEmail': true };
         }
+        
         return null;
     }
 }

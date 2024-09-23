@@ -19,5 +19,4 @@ export class ButtonComponent {
   onClick(): void {
     this.buttonClick.emit();
   }
-  // Use the names for the inputs `buttonText` and `iconName`.
 }

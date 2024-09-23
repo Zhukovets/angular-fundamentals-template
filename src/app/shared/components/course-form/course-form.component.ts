@@ -18,6 +18,7 @@ export class CourseFormComponent {
   }
 
   buildForm(): void {
+    //for review: I was not sure about the task, it was unclear for me.
     this.courseForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(2)]],
       description: ['', [Validators.required, Validators.minLength(2)]],

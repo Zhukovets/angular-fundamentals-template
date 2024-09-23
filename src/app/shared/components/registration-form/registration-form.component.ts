@@ -26,7 +26,7 @@ export class RegistrationFormComponent {
     console.log(this.registrationForm.valid);
     if (this.registrationForm.valid) {
       console.log(this.registrationForm.value);
-      //Database operation here
+      // Handle form submission logic
     } else {
       this.registrationForm.markAllAsTouched();
     }
