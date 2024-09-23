@@ -33,7 +33,7 @@ export class RegistrationFormComponent {
   }
 
   triggerSubmit() {
-    const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const submitButton = document.getElementById('registrationFormSubmitBtn') as HTMLButtonElement;
     if (submitButton) {
       submitButton.click();
     }

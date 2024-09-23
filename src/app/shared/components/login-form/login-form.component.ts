@@ -21,7 +21,7 @@ export class LoginFormComponent {
   }
 
   triggerSubmit() {
-    const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const submitButton = document.getElementById('loginFormSubmitBtn') as HTMLButtonElement;
     if (submitButton) {
       submitButton.click();
     }
