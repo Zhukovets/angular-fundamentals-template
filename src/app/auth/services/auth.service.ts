@@ -18,6 +18,8 @@ export class AuthService {
     // Add your code here
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   get isAuthorised() {
     // Add your code here. Get isAuthorized$$ value
   }

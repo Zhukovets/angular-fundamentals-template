@@ -8,6 +8,8 @@ export class UserStoreService {
     // Add your code here
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   get isAdmin() {
     // Add your code here. Get isAdmin$$ value
   }
