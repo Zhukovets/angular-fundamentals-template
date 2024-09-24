@@ -51,7 +51,7 @@
           <app-button buttonText="create author" (click)="addAuthorToList()" />
         </div>
         <span
-          *ngIf="newAuthor?.touched && newAuthor?.invalid"
+          *ngIf="author?.touched && author?.invalid"
           id="authorErrorMessage"
           class="text-danger"
           >New author should contain only latin letters and numbers.</span

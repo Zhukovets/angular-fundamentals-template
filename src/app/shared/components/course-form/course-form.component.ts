@@ -39,7 +39,7 @@ export class CourseFormComponent {
       duration: new FormControl('', {
         validators: [Validators.required, Validators.min(0)],
       }),
-      newAuthor: new FormGroup({
+      author: new FormGroup({
         name: new FormControl('', {
           validators: [
             Validators.pattern(/^[a-zA-Z0-9]+$/),
@@ -60,7 +60,7 @@ export class CourseFormComponent {
   get duration() {
     return this.courseForm.get('duration');
   }
-  get newAuthor() {
+  get author() {
     return this.courseForm.get('newAuthor.name');
   }
 
@@ -69,13 +69,13 @@ export class CourseFormComponent {
   }
 
   addAuthorToList() {
-    if (this.newAuthor?.valid) {
+    if (this.author?.valid) {
       const newAuthor = {
         id: Math.floor(Math.random() * 100),
-        name: this.newAuthor?.value,
+        name: this.author?.value,
       };
       this.authors.push(newAuthor);
-      this.newAuthor?.reset();
+      this.author?.reset();
     }
     console.log(this.authors);
   }
