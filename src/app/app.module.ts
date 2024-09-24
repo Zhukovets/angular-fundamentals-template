@@ -11,12 +11,13 @@ import { CoursesService } from '@app/services/courses.service';
 
 @NgModule({
   declarations: [AppComponent, CourseInfoComponent],
-  imports: [
-    BrowserModule,
-    SharedModule,
-    FontAwesomeModule,
+  imports: [BrowserModule, SharedModule, FontAwesomeModule],
+  providers: [
+    AuthorizedGuard,
+    NotAuthorizedGuard,
+    CoursesService,
+    CoursesStoreService,
   ],
-  providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

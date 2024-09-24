@@ -7,6 +7,6 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent {
-  @ViewChild("loginForm") public loginForm!: NgForm;
+  @ViewChild('loginForm') public loginForm!: NgForm;
   //Use the names `email` and `password` for form controls.
 }

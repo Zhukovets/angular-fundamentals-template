@@ -3,5 +3,5 @@ import { HttpInterceptor } from '@angular/common/http';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-    // Add your code here
+  // Add your code here
 }

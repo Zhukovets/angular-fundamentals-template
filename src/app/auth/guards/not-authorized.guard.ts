@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotAuthorizedGuard {
-    // Add your code here
+  // Add your code here
 }

@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class CoursesEffects {
-    constructor() {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  constructor() {}
 
-    // Add your code here
+  // Add your code here
 }

@@ -1,9 +1,12 @@
-import { Directive } from "@angular/core";
+import { Directive } from '@angular/core';
 
 @Directive({
-    selector: '[emailValidator]',
-    providers: [/*Add your code here*/]
+  // eslint-disable-next-line @angular-eslint/directive-selector
+  selector: '[emailValidator]',
+  providers: [
+    /*Add your code here*/
+  ],
 })
 export class EmailValidatorDirective {
-    // Add your code here
+  // Add your code here
 }
