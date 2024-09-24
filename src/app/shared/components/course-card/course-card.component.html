@@ -12,11 +12,13 @@
       </div>
       <div>
         <b>Duration: </b
-        ><span class="course-card__duration">{{ cardDuration }}</span>
+        ><span class="course-card__duration">{{
+          cardDuration | duration
+        }}</span>
       </div>
       <div>
         <b>Created: </b
-        ><span class="course-card__date">{{ creationDate | date }}</span>
+        ><span class="course-card__date">{{ creationDate | customDate }}</span>
       </div>
     </div>
     <div class="course-card__info-actions">

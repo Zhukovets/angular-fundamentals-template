@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { EmailValidatorDirective } from '@app/shared/directives/email.directive';
+// import { EmailValidatorDirective } from '@app/shared/directives/email.directive';
 
 @Component({
   selector: 'app-registration-form',
@@ -11,7 +11,7 @@ export class RegistrationFormComponent {
   registrationForm!: FormGroup;
   // Use the names `name`, `email`, `password` for the form controls.
 
-  customEmailValidator = new EmailValidatorDirective();
+  // customEmailValidator = new EmailValidatorDirective();
 
   form = new FormGroup({
     name: new FormControl('', {
@@ -41,10 +41,11 @@ export class RegistrationFormComponent {
       console.log('form submitted');
       this.form.reset();
     } else {
-      Object.keys(this.form.controls).forEach((field) => {
-        const control = this.form.get(field);
-        control?.markAsTouched({ onlySelf: true });
-      });
+      // Object.keys(this.form.controls).forEach((field) => {
+      //   const control = this.form.get(field);
+      //   control?.markAsTouched({ onlySelf: true });
+      // });
+      this.form.markAllAsTouched();
     }
   }
 }
