@@ -28,6 +28,18 @@ export class RegistrationFormComponent {
     });
   }
 
+  get nameControl(): FormControl {
+    return this.registrationForm.get(this.formFields.name)! as FormControl;
+  }
+
+  get emailControl(): FormControl {
+    return this.registrationForm.get(this.formFields.email)! as FormControl;
+  }
+
+  get passwordControl(): FormControl {
+    return this.registrationForm.get(this.formFields.password)! as FormControl;
+  }
+
   onSubmit(): void {
     console.log(this.registrationForm.valid);
     if (this.registrationForm.valid) {

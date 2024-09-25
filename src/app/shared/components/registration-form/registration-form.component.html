@@ -5,17 +5,32 @@
         <div>
           <div class="form__control">
             <label for="name">Name</label>
-            <input type="text" id="name" placeholder="Input text" formControlName="name"/>
+            <input
+              type="text"
+              id="name"
+              placeholder="Input text"
+              [formControl]="nameControl"
+            />
             <div *ngIf="registrationForm.get(formFields.name)?.touched">
-              <span id="nameErrorMessage" class="text-danger" *ngIf="registrationForm.get(formFields.name)?.errors?.['required']">Name is required.</span>
+              <span *ngIf="nameControl.errors?.['required']"
+                id="nameErrorMessage"
+                class="text-danger"
+              >Name is required.</span>
             </div>
           </div>
           <div class="form__control">
             <label for="email">Email</label>
-            <input type="text" id="email" name="email" placeholder="Input text" formControlName="email" emailValidator/>
-            <div *ngIf="registrationForm.get(formFields.email)?.touched">
+            <input
+              emailValidator
+              type="text"
+              id="email"
+              name="email"
+              placeholder="Input text"
+              [formControl]="emailControl"
+            />
+            <div *ngIf="emailControl?.touched">
               <span
-                *ngIf="registrationForm.get(formFields.email)?.errors?.['required'] || registrationForm.get(formFields.email)?.errors?.['invalidEmail']"
+                *ngIf="emailControl?.errors?.['required'] || emailControl?.errors?.['invalidEmail']"
                 id="emailErrorMessage"
                 class="text-danger"
               >Email is not valid or required.</span>
@@ -23,11 +38,15 @@
           </div>
           <div class="form__control">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Input text" formControlName="password"/>
-            <div *ngIf="registrationForm.get(formFields.password)?.touched">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Input text"
+              [formControl]="passwordControl"/>
+            <div *ngIf="passwordControl?.touched">
               <span
-                *ngIf="registrationForm.get(formFields.password)?.errors?.['required'] ||
-                  registrationForm.get(formFields.password)?.errors?.['minlength']"
+                *ngIf="passwordControl?.errors?.['required'] || passwordControl?.errors?.['minlength']"
                 id="passwordErrorMessage"
                 class="text-danger"
               >Password must be at least 6 characters length and required.</span>
