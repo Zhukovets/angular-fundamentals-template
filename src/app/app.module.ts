@@ -10,6 +10,8 @@ import { CoursesStoreService } from "@app/services/courses-store.service";
 import { CoursesService } from "@app/services/courses.service";
 import { CoursesListComponent } from "./courses/courses-list/courses-list.component";
 import { FormsModule } from "@angular/forms";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { TokenInterceptor } from "./auth/interceptors/token.interceptor";
 
 @NgModule({
   declarations: [AppComponent, CourseInfoComponent, CoursesListComponent],
@@ -19,6 +21,11 @@ import { FormsModule } from "@angular/forms";
     NotAuthorizedGuard,
     CoursesService,
     CoursesStoreService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

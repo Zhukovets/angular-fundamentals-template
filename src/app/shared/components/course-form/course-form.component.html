@@ -109,11 +109,6 @@
           [iconName]="'plus'"
           class="add-button"
         ></app-button>
-        <app-button
-          (click)="removeAuthorFromAuthors(author)"
-          [iconName]="'trash-can'"
-          class="remove-button"
-        ></app-button>
       </div>
       <div class="course__authors">
         <h3>Course Authors</h3>
@@ -122,6 +117,11 @@
         </div>
         <div *ngFor="let courseAuthor of courseAuthors; let i = index">
           <span>{{ courseAuthor.name }}</span>
+          <app-button
+            (click)="removeAuthorFromAuthors(authors)"
+            [iconName]="'trash-can'"
+            class="remove-button"
+          ></app-button>
         </div>
       </div>
     </div>

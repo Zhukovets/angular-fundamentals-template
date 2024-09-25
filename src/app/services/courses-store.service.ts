@@ -1,42 +1,115 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable, throwError } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
+import { CoursesService } from "./courses.service";
+import { Course } from "@app/models/course.model";
+import { Author } from "@app/models/author.model";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: "root",
 })
 export class CoursesStoreService {
-    getAll(){
-        // Add your code here
-    }
+  private loadingSubject = new BehaviorSubject<boolean>(false);
+  loading$ = this.loadingSubject.asObservable(); // Observable for loading state
 
-    createCourse(course: any) { // replace 'any' with the required interface
-        // Add your code here
-    }
+  constructor(private coursesService: CoursesService) {}
 
-    getCourse(id: string) {
-        // Add your code here
-    }
+  getAll(): Observable<Course[]> {
+    this.loadingSubject.next(true); // Set loading to true
+    return this.coursesService.getAll().pipe(
+      tap(() => this.loadingSubject.next(false)), // Set loading to false after fetching
+      catchError(() => {
+        this.loadingSubject.next(false); // Set loading to false on error
+        return throwError("Error fetching courses");
+      })
+    );
+  }
 
-    editCourse(id: string, course: any) { // replace 'any' with the required interface
-        // Add your code here
-    }
+  createCourse(course: Course): Observable<Course> {
+    this.loadingSubject.next(true);
+    return this.coursesService.createCourse(course).pipe(
+      tap(() => this.loadingSubject.next(false)),
+      catchError(() => {
+        this.loadingSubject.next(false);
+        return throwError("Error creating course");
+      })
+    );
+  }
 
-    deleteCourse(id: string) {
-        // Add your code here
-    }
+  getCourse(id: string): Observable<Course> {
+    this.loadingSubject.next(true);
+    return this.coursesService.getCourse(id).pipe(
+      tap(() => this.loadingSubject.next(false)),
+      catchError(() => {
+        this.loadingSubject.next(false);
+        return throwError("Error fetching course");
+      })
+    );
+  }
 
-    filterCourses(value: string) {
-        // Add your code here
-    }
+  editCourse(id: string, course: Course): Observable<Course> {
+    this.loadingSubject.next(true);
+    return this.coursesService.editCourse(id, course).pipe(
+      tap(() => this.loadingSubject.next(false)),
+      catchError(() => {
+        this.loadingSubject.next(false);
+        return throwError("Error editing course");
+      })
+    );
+  }
 
-    getAllAuthors() {
-        // Add your code here
-    }
+  deleteCourse(id: string): Observable<void> {
+    this.loadingSubject.next(true);
+    return this.coursesService.deleteCourse(id).pipe(
+      tap(() => this.loadingSubject.next(false)),
+      catchError(() => {
+        this.loadingSubject.next(false);
+        return throwError("Error deleting course");
+      })
+    );
+  }
 
-    createAuthor(name: string) {
-        // Add your code here
-    }
+  filterCourses(value: string): Observable<Course[]> {
+    this.loadingSubject.next(true);
+    return this.coursesService.filterCourses(value).pipe(
+      tap(() => this.loadingSubject.next(false)),
+      catchError(() => {
+        this.loadingSubject.next(false);
+        return throwError("Error filtering courses");
+      })
+    );
+  }
 
-    getAuthorById(id: string) {
-        // Add your code here
-    }
+  getAllAuthors(): Observable<Author[]> {
+    this.loadingSubject.next(true);
+    return this.coursesService.getAllAuthors().pipe(
+      tap(() => this.loadingSubject.next(false)),
+      catchError(() => {
+        this.loadingSubject.next(false);
+        return throwError("Error fetching authors");
+      })
+    );
+  }
+
+  createAuthor(name: string): Observable<Author> {
+    this.loadingSubject.next(true);
+    return this.coursesService.createAuthor(name).pipe(
+      tap(() => this.loadingSubject.next(false)),
+      catchError(() => {
+        this.loadingSubject.next(false);
+        return throwError("Error creating author");
+      })
+    );
+  }
+
+  getAuthorById(id: string): Observable<Author> {
+    this.loadingSubject.next(true);
+    return this.coursesService.getAuthorById(id).pipe(
+      tap(() => this.loadingSubject.next(false)),
+      catchError(() => {
+        this.loadingSubject.next(false);
+        return throwError("Error fetching author");
+      })
+    );
+  }
 }

@@ -9,6 +9,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
   styleUrls: ["./course-form.component.scss"],
 })
 export class CourseFormComponent implements OnInit {
+  [x: string]: any;
   courseForm: FormGroup = this.fb.group({
     title: ["", [Validators.required, Validators.minLength(2)]],
     description: ["", [Validators.required, Validators.minLength(2)]],
