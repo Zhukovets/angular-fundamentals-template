@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 $color-white: #fff;
-$color-gray: #cfcfcf;
-$color-red: #ff0000;
+$color-gray: #CFCFCF;
+$color-red: #FF0000;
 
 html {
   height: 100%;
@@ -9,9 +9,9 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
-  background-color: #f7f7f7;
-  color: #333e48;
+  font-family: "Open Sans", sans-serif;
+  background-color: #F7F7F7;
+  color: #333E48;
   height: 100%;
 }
 
@@ -26,14 +26,11 @@ textarea {
   font-size: 16px;
   margin-top: 4px;
   resize: none;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
-// input:invalid,
-// textarea:invalid {
-//   border-color: $color-red;
-// }
-input.ng-invalid.ng-touched {
+input:invalid,
+textarea:invalid {
   border-color: $color-red;
 }
 
