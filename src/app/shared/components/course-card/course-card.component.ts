@@ -1,11 +1,12 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-course-card',
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.scss'],
-  providers: [DatePipe]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [DatePipe],
 })
 export class CourseCardComponent {
   @Input() title!: string;
