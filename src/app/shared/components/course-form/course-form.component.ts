@@ -16,9 +16,8 @@ export class CourseFormComponent {
     title: 'title',
     description: 'description',
     duration: 'duration',
-    author: 'author',
+    newAuthor: 'newAuthor',
     authorName: 'name',
-    nameInAuthor: 'author.name'
   }
 
   constructor(private fb: FormBuilder, private library: FaIconLibrary) {
@@ -32,12 +31,13 @@ export class CourseFormComponent {
       [this.formFields.description]: ['', [Validators.required, Validators.minLength(2)]],
       authors: this.fb.array([]),
       courseAuthors: this.fb.array([]),
-      [this.formFields.author]: this.fb.group({
-        [this.formFields.authorName]: ['', [Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9 ]+$')]],
+      [this.formFields.newAuthor]: this.fb.group({
+        [this.formFields.authorName]: ['', [Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9 ]+$')]], // name control
       }),
       [this.formFields.duration]: ['', [Validators.required, Validators.min(0)]],
     });
   }
+
 
   get authors(): FormArray {
     return this.courseForm.get('authors') as FormArray;
@@ -59,24 +59,25 @@ export class CourseFormComponent {
     return this.courseForm.get(this.formFields.duration)! as FormControl;
   }
 
-  get authorNameControl(): FormControl{
-    return this.courseForm.get(this.formFields.nameInAuthor)! as FormControl;
+  get newAuthorGroup(): FormGroup{
+    return this.courseForm.get(this.formFields.newAuthor)! as FormGroup;
+  }
+
+  get newAuthorNameControl(): FormControl{
+    return this.courseForm.get(this.formFields.newAuthor)?.get(this.formFields.authorName)! as FormControl;
   }
 
   addAuthor(): void {
-    const nestedGroup = this.courseForm.get('author') as FormGroup;
-    const newAuthorControl = this.courseForm.get('author')?.get('name');
-    const authorName = newAuthorControl?.value;
+    const authorName = this.newAuthorNameControl?.value;
     const authorId = uuidv4();
 
-    if (authorName && nestedGroup?.valid) {
+    if (authorName && this.newAuthorGroup?.valid) {
       this.authors.push(this.fb.group({
         id: [authorId],
         name: [authorName]
       }));
-      newAuthorControl?.setValue('');
+      this.newAuthorNameControl?.setValue('');
     }
-    nestedGroup.markAllAsTouched();
   }
 
   addAuthorToCourseAuthor(index: number): void {
@@ -91,6 +92,16 @@ export class CourseFormComponent {
   removeCourseAuthor(index: number): void {
     this.authors.push(this.courseAuthors.at(index));
     this.courseAuthors.removeAt(index);
+  }
+
+  clearAuthorsAndCourseAuthors(): void {
+    this.authors.clear();
+    this.courseAuthors.clear();
+  }
+
+  formReset(): void {
+    this.courseForm.reset();
+    this.clearAuthorsAndCourseAuthors();
   }
 
   onSubmit(): void {

@@ -53,28 +53,29 @@
       <h3>Authors</h3>
       <div class="form__control">
         <div class="course__flex">
-          <div formGroupName="author">
+          <div formGroupName="newAuthor">
             <input
               type="text"
               id="author"
               placeholder="Input Author Name"
-              [formControl]="authorNameControl"/>
+              [formControl]="newAuthorNameControl"/>
           </div>
           <app-button id="createAuthor" buttonText="CREATE AUTHOR" (buttonClick)="addAuthor()"></app-button>
         </div>
-        <span *ngIf="authorNameControl?.touched && authorNameControl?.invalid"
+        <span *ngIf="newAuthorNameControl?.touched && newAuthorNameControl?.invalid"
           id="authorErrorMessage" class="text-danger">
           New author should contain only latin letters and numbers.
         </span>
         <div class="course__authors">
           <div>Authors List
-          <ul>
-            <li *ngFor="let author of authors.controls; let i = index">
-              {{ author.value.name }}
-              <app-button iconName="plus" (buttonClick)="addAuthorToCourseAuthor(i)"></app-button>
-              <app-button iconName="trash-can" (buttonClick)="removeAuthor(i)"></app-button>
-            </li>
-          </ul>
+            <ul>
+              <li *ngFor="let author of authors.controls; let i = index">
+                {{ author.value.name }}
+                <app-button iconName="plus" (buttonClick)="addAuthorToCourseAuthor(i)"></app-button>
+                <app-button iconName="trash-can" (buttonClick)="removeAuthor(i)"></app-button>
+              </li>
+            </ul>
+            
           </div>
         </div>
         <div class="course__authors">
@@ -82,6 +83,7 @@
             <ul>
               <li *ngFor="let author of courseAuthors.controls; let i = index">
                 {{ author.value.name }}
+                <span>asdasd</span>
                 <app-button iconName="trash-can" (buttonClick)="removeCourseAuthor(i)"></app-button>
               </li>
             </ul>
@@ -89,7 +91,7 @@
         </div>
       </div>
       <div class="form__action">
-        <app-button buttonText="CANCEL" (buttonClick)="courseForm.reset()"></app-button>
+        <app-button buttonText="CANCEL" (buttonClick)="formReset()"></app-button>
         <app-button buttonText="ADD COURSE" (buttonClick)="onSubmit()"></app-button>
       </div>
     </div>
