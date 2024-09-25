@@ -1,23 +1,32 @@
 <div class="course-card">
-    <div class="course-card__description">
-      <!-- Replace ::text:: with your code -->
-      <div class="course-card__description-title">::Title::</div>
-      <div class="course-card__description-text">::Description::</div>
+  <div class="course-card__description">
+    <!-- Replace ::text:: with your code -->
+    <div class="course-card__description-title">{{ cardTitle }}</div>
+    <div class="course-card__description-text">{{ cardDescription }}</div>
+  </div>
+  <div class="course-card__info">
+    <div class="course-card__info-text">
+      <div>
+        <b>Authors: </b>
+        {{ cardAuthors }}
+      </div>
+      <div>
+        <b>Duration: </b
+        ><span class="course-card__duration">{{
+          cardDuration | duration
+        }}</span>
+      </div>
+      <div>
+        <b>Created: </b
+        ><span class="course-card__date">{{ creationDate | customDate }}</span>
+      </div>
     </div>
-    <div class="course-card__info">
-        <div class="course-card__info-text">
-            <div>
-              <b>Authors: </b>
-              ::Authors::
-            </div>
-            <div><b>Duration: </b><span class="course-card__duration">::Duration::</span></div>
-            <div><b>Created: </b><span class="course-card__date">::Creation Date::</span></div>
-        </div>
-        <div class="course-card__info-actions">
-            <app-button></app-button>
-            <div class="course-card__buttons">
-                <!--Enter your code here-->
-            </div>
-        </div>
+    <div class="course-card__info-actions">
+      <app-button (click)="showCourse()" buttonText="Show Course"></app-button>
+      <div *ngIf="cardEditable" class="course-card__buttons">
+        <app-button iconName="trash-can" />
+        <app-button iconName="pencil" />
+      </div>
     </div>
+  </div>
 </div>
