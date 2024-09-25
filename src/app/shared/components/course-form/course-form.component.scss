@@ -35,10 +35,6 @@
     cursor: pointer;
   }
 
-  button {
-    display: none;
-  }
-
   .form__action {
     display: flex;
     flex-direction: row;
@@ -67,4 +63,8 @@ input.ng-pristine,
 textarea.ng-untouched,
 textarea.ng-pristine {
   border: 1px solid $color-gray;
+}
+
+.button {
+  cursor: pointer;
 }
