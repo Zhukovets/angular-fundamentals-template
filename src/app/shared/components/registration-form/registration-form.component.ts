@@ -10,6 +10,11 @@ import { Router } from '@angular/router';
 })
 export class RegistrationFormComponent {
   registrationForm!: FormGroup;
+  formFields= {
+    name: 'name',
+    email: 'email',
+    password: 'password'
+  }
 
   constructor(private router: Router) {
     this.buildForm();
@@ -17,9 +22,9 @@ export class RegistrationFormComponent {
 
   buildForm(): void{
     this.registrationForm = new FormGroup({
-      name: new FormControl('',[Validators.required,Validators.minLength(6)]),
-      email: new FormControl('',[Validators.required]),
-      password: new FormControl('',[Validators.required,Validators.minLength(6)]),
+      [this.formFields.name]: new FormControl('',[Validators.required,Validators.minLength(6)]),
+      [this.formFields.email]: new FormControl('',[Validators.required]),
+      [this.formFields.password]: new FormControl('',[Validators.required,Validators.minLength(6)]),
     });
   }
 
@@ -30,13 +35,6 @@ export class RegistrationFormComponent {
       // Handle form submission logic
     } else {
       this.registrationForm.markAllAsTouched();
-    }
-  }
-
-  triggerSubmit() {
-    const submitButton = document.getElementById('registrationFormSubmitBtn') as HTMLButtonElement;
-    if (submitButton) {
-      submitButton.click();
     }
   }
 

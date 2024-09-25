@@ -1,35 +1,41 @@
 <h2 class="text-align-center">Registration</h2>
 <div class="app-plate">
   <div class="registration-form">
-      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="registrationForm">
         <div>
           <div class="form__control">
             <label for="name">Name</label>
             <input type="text" id="name" placeholder="Input text" formControlName="name"/>
-            <div *ngIf="registrationForm.get('name')?.touched">
-              <span id="nameErrorMessage" class="text-danger" *ngIf="registrationForm.get('name')?.errors?.['required']">Name is required.</span>
+            <div *ngIf="registrationForm.get(formFields.name)?.touched">
+              <span id="nameErrorMessage" class="text-danger" *ngIf="registrationForm.get(formFields.name)?.errors?.['required']">Name is required.</span>
             </div>
           </div>
           <div class="form__control">
             <label for="email">Email</label>
             <input type="text" id="email" name="email" placeholder="Input text" formControlName="email" emailValidator/>
-            <div *ngIf="registrationForm.get('email')?.touched">
-              <span id="emailErrorMessage" class="text-danger" *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required.</span>
-              <span id="emailErrorMessage" class="text-danger" *ngIf="registrationForm.get('email')?.errors?.['invalidEmail']">Email is not valid.</span>
+            <div *ngIf="registrationForm.get(formFields.email)?.touched">
+              <span
+                *ngIf="registrationForm.get(formFields.email)?.errors?.['required'] || registrationForm.get(formFields.email)?.errors?.['invalidEmail']"
+                id="emailErrorMessage"
+                class="text-danger"
+              >Email is not valid or required.</span>
             </div>
           </div>
           <div class="form__control">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Input text" formControlName="password"/>
-            <div *ngIf="registrationForm.get('password')?.touched">
-              <span id="passwordErrorMessage" class="text-danger" *ngIf="registrationForm.get('password')?.errors?.['required']">Password is required.</span>
-              <span id="passwordErrorMessageLength" class="text-danger" *ngIf="registrationForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters length.</span>
+            <div *ngIf="registrationForm.get(formFields.password)?.touched">
+              <span
+                *ngIf="registrationForm.get(formFields.password)?.errors?.['required'] ||
+                  registrationForm.get(formFields.password)?.errors?.['minlength']"
+                id="passwordErrorMessage"
+                class="text-danger"
+              >Password must be at least 6 characters length and required.</span>
             </div>
           </div>
         </div>
         <div class="form__action">
-          <app-button buttonText="LOGIN" (buttonClick)="triggerSubmit()"></app-button>
-          <button id="registrationFormSubmitBtn" type="submit"></button>
+          <app-button buttonText="LOGIN" (buttonClick)="onSubmit()"></app-button>
         </div>
         <div class="form__text">
           Already have an account? <a (click)="navigateToLogin()">Login here</a>.
