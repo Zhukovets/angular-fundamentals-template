@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { v4 as uuidv4 } from 'uuid';
@@ -45,6 +45,22 @@ export class CourseFormComponent {
 
   get courseAuthors(): FormArray {
     return this.courseForm.get('courseAuthors') as FormArray;
+  }
+
+  get titleControl(): FormControl{
+    return this.courseForm.get(this.formFields.title)! as FormControl;
+  }
+
+  get descriptionControl(): FormControl{
+    return this.courseForm.get(this.formFields.description)! as FormControl;
+  }
+
+  get durationControl(): FormControl{
+    return this.courseForm.get(this.formFields.duration)! as FormControl;
+  }
+
+  get authorNameControl(): FormControl{
+    return this.courseForm.get(this.formFields.nameInAuthor)! as FormControl;
   }
 
   addAuthor(): void {
