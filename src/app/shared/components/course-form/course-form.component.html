@@ -69,7 +69,7 @@
         <div class="course__authors">
           <div>Authors List
             <ul>
-              <li *ngFor="let author of authors.controls; let i = index">
+              <li *ngFor="let author of authors.controls; let i = index; trackBy: trackByFn">
                 {{ author.value.name }}
                 <app-button iconName="plus" (buttonClick)="addAuthorToCourseAuthor(i)"></app-button>
                 <app-button iconName="trash-can" (buttonClick)="removeAuthor(i)"></app-button>
@@ -81,9 +81,8 @@
         <div class="course__authors">
           <div>Course Authors
             <ul>
-              <li *ngFor="let author of courseAuthors.controls; let i = index">
+              <li *ngFor="let author of courseAuthors.controls; let i = index; trackBy: trackByFn">
                 {{ author.value.name }}
-                <span>asdasd</span>
                 <app-button iconName="trash-can" (buttonClick)="removeCourseAuthor(i)"></app-button>
               </li>
             </ul>

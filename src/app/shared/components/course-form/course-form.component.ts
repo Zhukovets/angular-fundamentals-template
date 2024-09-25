@@ -104,6 +104,10 @@ export class CourseFormComponent {
     this.clearAuthorsAndCourseAuthors();
   }
 
+  trackByFn(index: any, item: any) {
+    return item.id;
+  }
+  
   onSubmit(): void {
     if (this.courseForm.valid) {
       console.log('Form Submitted', this.courseForm.value);
