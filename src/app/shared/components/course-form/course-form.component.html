@@ -1,68 +1,39 @@
 <!-- Replace ::text:: with your code -->
 <h2>Create / Edit Course</h2>
-<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+<form>
   <div class="app-plate">
     <div class="course">
       <h3>Main Info</h3>
       <div class="form__control">
         <label for="title">Title</label>
         <!--Use the name `title` for the form control.-->
-        <input
-          type="text"
-          id="title"
-          formControlName="title"
-          placeholder="Input text"
-        />
-        <span
-          *ngIf="title?.touched && title?.invalid"
-          id="titleErrorMessage"
-          class="text-danger"
-          >Title is required.</span
-        >
+        <input type="text" id="title" placeholder="Input text"/>
+        <span id="titleErrorMessage" class="text-danger">Title is required.</span>
       </div>
       <div class="form__control">
         <label for="description">Description</label>
         <!--Use the name `description` for the form control.-->
         <textarea
           id="description"
-          formControlName="description"
+          name="description"
           placeholder="Input text"
           rows="4"
           cols="5"
         ></textarea>
-        <span
-          *ngIf="description?.touched && description?.invalid"
-          id="descriptionErrorMessage"
-          class="text-danger"
-          >Description is required.</span
-        >
+        <span id="descriptionErrorMessage" class="text-danger">Description is required.</span>
       </div>
       <div class="separator"></div>
       <h3>Authors</h3>
-      <div class="form__control" formGroupName="newAuthor">
+      <div class="form__control">
         <div class="course__flex">
           <!--Use the name `author` for the form control.-->
-          <input
-            formControlName="name"
-            type="text"
-            id="author"
-            placeholder="Input Author Name"
-          />
-          <app-button buttonText="create author" (click)="addAuthorToList()" />
+          <input type="text" id="author" placeholder="Input Author Name"/>
+          <app-button id="createAuthor"></app-button>
         </div>
-        <span
-          *ngIf="author?.touched && author?.invalid"
-          id="authorErrorMessage"
-          class="text-danger"
-          >New author should contain only latin letters and numbers.</span
-        >
+        <span id="authorErrorMessage">New author should contain only latin letters and numbers.</span>
         <div class="course__authors">
           <!--Use the name `authors` for the form array.-->
-          <ul>
-            <li *ngFor="let author of authors">
-              {{ author.name }}
-            </li>
-          </ul>
+          ::Authors::
         </div>
       </div>
       <div class="separator"></div>
@@ -70,26 +41,15 @@
       <div class="form__control">
         <div class="course__flex">
           <!--Use the name `duration` for the form array.-->
-          <input
-            type="number"
-            id="duration"
-            formControlName="duration"
-            placeholder="Input duration"
-          />
-          <div class="course__duration">DURATION::</div>
+          <input type="number" id="duration" placeholder="Input duration"/>
+          <div class="course__duration">
+            ::Duration::
+          </div>
         </div>
-        <span
-          *ngIf="duration?.touched && duration?.invalid"
-          id="durationErrorMessage"
-          class="text-danger"
-          >Duration is required.</span
-        >
+        <span id="durationErrorMessage" class="text-danger">Duration is required.</span>
       </div>
       <div class="form__action">
-        <app-button
-          buttonText="create course"
-          (click)="onSubmit()"
-        ></app-button>
+        <app-button></app-button>
       </div>
     </div>
   </div>
