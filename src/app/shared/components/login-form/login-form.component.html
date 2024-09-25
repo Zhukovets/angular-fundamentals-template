@@ -1,19 +1,36 @@
 <h2 class="text-align-center">Login</h2>
 <div class="app-plate">
-  <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+  <form #loginForm="ngForm">
     <div class="login-form">
       <div>
         <div class="form__control">
           <label for="email">Email</label>
-          <input type="text" id="email" name="email" placeholder="Input text" ngModel emailValidator #email="ngModel" required/>
-          <span id="emailErrorMessage" class="text-danger" *ngIf="loginForm.submitted || email.touched">
+          <input 
+            #email="ngModel" 
+            emailValidator
+            required
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Input text"
+            [(ngModel)]="emailControl"
+          />
+          <span *ngIf="(loginForm.submitted || email.touched) && email.invalid" id="emailErrorMessage" class="text-danger">
             <span *ngIf="email.errors?.['required']">Email is required.</span>
             <span *ngIf="email.errors?.['invalidEmail']">Email is not valid.</span>
           </span>
         </div>
         <div class="form__control">
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" placeholder="Input text" ngModel #password="ngModel" required/>
+          <input
+            #password="ngModel"
+            required
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Input text"
+            [(ngModel)]="passwordControl"
+          />
           <span id="passwordErrorMessage" class="text-danger" *ngIf="password.errors?.['required'] && (loginForm.submitted || password.touched) ">Password is required.</span>
         </div>
       </div>
@@ -21,9 +38,8 @@
         <div class="form__action">
           <app-button
             buttonText="LOGIN"
-            (buttonClick)="triggerSubmit()"
+            (buttonClick)="onSubmit()"
           ></app-button>
-          <button id="loginFormSubmitBtn" type="submit"></button>
         </div>
         <div class="form__text">
           If you don't have an account you may <strong>Registration</strong>

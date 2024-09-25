@@ -1,29 +1,33 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent {
   @ViewChild('loginForm') public loginForm!: NgForm;
-  
+  formFields = {
+    email: 'email',
+    password: 'password'
+  }
+
+  emailControl: string = "";
+  passwordControl: string = "";
+
   onSubmit(): void {
-    console.log(this.loginForm.submitted);
+    Object.keys(this.loginForm.controls).forEach(controlName => {
+      const control = this.loginForm.controls[controlName];
+      control.markAsTouched();
+    });
+
     if (this.loginForm.valid) {
-      const email = this.loginForm.controls['email'].value;
-      const password = this.loginForm.controls['password'].value;
-      console.log('Email:', email, 'Password:', password);
+      console.log('Email:', this.emailControl, 'Password:', this.passwordControl);
     } else {
       console.log('Form is invalid');
     }
   }
 
-  triggerSubmit() {
-    const submitButton = document.getElementById('loginFormSubmitBtn') as HTMLButtonElement;
-    if (submitButton) {
-      submitButton.click();
-    }
-  }
 }
