@@ -5,9 +5,8 @@
       <h3>Main Info</h3>
       <div class="form__control">
         <label for="title">Title</label>
-        <!--Use the name `title` for the form control.-->
         <input type="text" id="title" placeholder="Input text" formControlName="title"/>
-        <span *ngIf="courseForm.get('title')?.touched && courseForm.get('title')?.invalid"
+        <span *ngIf="courseForm.get(formFields.title)?.touched && courseForm.get(formFields.title)?.invalid"
               id="titleErrorMessage" 
               class="text-danger">Title is required and must be at least 2 characters long.
         </span>
@@ -22,7 +21,7 @@
           cols="5"
           formControlName="description"
         ></textarea>
-        <span *ngIf="courseForm.get('description')?.touched && courseForm.get('description')?.invalid"
+        <span *ngIf="courseForm.get(formFields.description)?.touched && courseForm.get(formFields.description)?.invalid"
           id="descriptionErrorMessage" 
           class="text-danger">Description is required and must be at least 2 characters long.
         </span>
@@ -33,10 +32,10 @@
         <div class="course__flex">
           <input type="number" id="duration" placeholder="Input duration" formControlName="duration"/>
           <div class="course__duration">
-            <strong>{{ courseForm.get('duration')?.value | duration }}</strong> hours
+            <strong>{{ courseForm.get(formFields.duration)?.value | duration }}</strong> hours
           </div>
         </div>
-        <span *ngIf="courseForm.get('duration')?.touched && courseForm.get('duration')?.invalid"
+        <span *ngIf="courseForm.get(formFields.duration)?.touched && courseForm.get(formFields.duration)?.invalid"
           id="durationErrorMessage" 
           class="text-danger">
           Duration is required.
@@ -51,27 +50,30 @@
           </div>
           <app-button id="createAuthor" buttonText="CREATE AUTHOR" (buttonClick)="addAuthor()"></app-button>
         </div>
-        <span *ngIf="courseForm.get('author.name')?.touched && courseForm.get('author.name')?.invalid"
+        <span *ngIf="courseForm.get(formFields.nameInAuthor)?.touched && courseForm.get(formFields.nameInAuthor)?.invalid"
           id="authorErrorMessage" class="text-danger">
           New author should contain only latin letters and numbers.
         </span>
         <div class="course__authors">
-          <div>Authors
+          <div>Authors List
           <ul>
             <li *ngFor="let author of authors.controls; let i = index">
               {{ author.value.name }}
+              <app-button iconName="plus" (buttonClick)="addAuthorToCourseAuthor(i)"></app-button>
               <app-button iconName="trash-can" (buttonClick)="removeAuthor(i)"></app-button>
             </li>
           </ul>
-          </div><br>
-          <div>Course Authors
-          <ul>
-            <li *ngFor="let author of courseAuthors.controls; let i = index">
-              {{ author.value.name }}
-              <app-button iconName="trash-can" (buttonClick)="removeCourseAuthor(i)"></app-button>
-            </li>
-          </ul>
           </div>
+        </div>
+        <div class="course__authors">
+          <div>Course Authors
+            <ul>
+              <li *ngFor="let author of courseAuthors.controls; let i = index">
+                {{ author.value.name }}
+                <app-button iconName="trash-can" (buttonClick)="removeCourseAuthor(i)"></app-button>
+              </li>
+            </ul>
+            </div>
         </div>
       </div>
       <div class="form__action">

@@ -12,6 +12,14 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class CourseFormComponent {
   courseForm!: FormGroup;
+  formFields = {
+    title: 'title',
+    description: 'description',
+    duration: 'duration',
+    author: 'author',
+    authorName: 'name',
+    nameInAuthor: 'author.name'
+  }
 
   constructor(private fb: FormBuilder, private library: FaIconLibrary) {
     library.addIconPacks(fas);
@@ -19,16 +27,15 @@ export class CourseFormComponent {
   }
 
   buildForm(): void {
-    //for review: I was not sure about the task, it was unclear for me.
     this.courseForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(2)]],
-      description: ['', [Validators.required, Validators.minLength(2)]],
+      [this.formFields.title]: ['', [Validators.required, Validators.minLength(2)]],
+      [this.formFields.description]: ['', [Validators.required, Validators.minLength(2)]],
       authors: this.fb.array([]),
       courseAuthors: this.fb.array([]),
-      author: this.fb.group({
-        name: ['', [Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9 ]+$')]],
+      [this.formFields.author]: this.fb.group({
+        [this.formFields.authorName]: ['', [Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9 ]+$')]],
       }),
-      duration: ['', [Validators.required, Validators.min(0)]],
+      [this.formFields.duration]: ['', [Validators.required, Validators.min(0)]],
     });
   }
 
@@ -47,10 +54,6 @@ export class CourseFormComponent {
     const authorId = uuidv4();
 
     if (authorName && nestedGroup?.valid) {
-      this.courseAuthors.push(this.fb.group({
-        id: [authorId],
-        name: [authorName]
-      }));
       this.authors.push(this.fb.group({
         id: [authorId],
         name: [authorName]
@@ -60,13 +63,17 @@ export class CourseFormComponent {
     nestedGroup.markAllAsTouched();
   }
 
+  addAuthorToCourseAuthor(index: number): void {
+    this.courseAuthors.push(this.authors.at(index));
+    this.authors.removeAt(index);
+  }
+
   removeAuthor(index: number): void {
-    console.log('author removed');
     this.authors.removeAt(index);
   }
 
   removeCourseAuthor(index: number): void {
-    console.log('course author removed');
+    this.authors.push(this.courseAuthors.at(index));
     this.courseAuthors.removeAt(index);
   }
 
