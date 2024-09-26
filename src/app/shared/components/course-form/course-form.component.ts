@@ -1,18 +1,9 @@
 import { Component } from '@angular/core';
 import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
+  FormBuilder, FormGroup
 } from '@angular/forms';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-
-interface Author {
-  id: number;
-  name: string;
-}
 
 @Component({
   selector: 'app-course-form',
@@ -25,6 +16,7 @@ export class CourseFormComponent {
   }
   courseForm!: FormGroup;
   // Use the names `title`, `description`, `author`, 'authors' (for authors list), `duration` for the form controls.
+
 
   authors: Author[] = [];
 
@@ -89,12 +81,5 @@ export class CourseFormComponent {
       this.courseForm.markAllAsTouched();
     }
   }
+
 }
-
-// get titleIsInvalid() {
-//   return this.title?.touched;
-// }
-
-// ngOnInit(): void {  this.heroForm = new FormGroup({    name: new FormControl(this.hero.name, [      Validators.required,      Validators.minLength(4),      forbiddenNameValidator(/bob/i) // <-- Here's how you pass in the custom validator.    ]),    alterEgo: new FormControl(this.hero.alterEgo),    power: new FormControl(this.hero.power, Validators.required)  });}get name() { return this.heroForm.get('name'); }get power() { return this.heroForm.get('power'); }
-
-// latin letters&numbers check=> /^[a-zA-Z0-9]/
