@@ -14,8 +14,13 @@
           formControlName="title"
           placeholder="Input text"
         />
+        <!-- *ngIf="title?.touched && title?.invalid" -->
+        <!--  -->
         <span
-          *ngIf="title?.touched && title?.invalid"
+          *ngIf="
+            this.courseForm.controls['title'].touched &&
+            this.courseForm.controls['title'].invalid
+          "
           id="titleErrorMessage"
           class="text-danger"
           >Title is required.</span
@@ -32,8 +37,12 @@
           rows="4"
           cols="5"
         ></textarea>
+        <!--   *ngIf="description?.touched && description?.invalid" -->
         <span
-          *ngIf="description?.touched && description?.invalid"
+          *ngIf="
+            this.courseForm.controls['description'].touched &&
+            this.courseForm.controls['description'].invalid
+          "
           id="descriptionErrorMessage"
           class="text-danger"
           >Description is required.</span
@@ -41,20 +50,24 @@
       </div>
       <div class="separator"></div>
       <h3>Authors</h3>
-      <div class="form__control" formGroupName="newAuthor">
+      <div class="form__control" formGroupName="author">
         <div class="course__flex">
           <!--Use the name `author` for the form control.-->
           <input
-            formControlName="author"
             name="author"
+            formControlName="name"
             type="text"
             id="author"
             placeholder="Input Author Name"
           />
           <app-button buttonText="create author" (click)="addAuthorToList()" />
         </div>
+        <!--  *ngIf="author?.touched && author?.invalid" -->
         <span
-          *ngIf="author?.touched && author?.invalid"
+        *ngIf="
+        this.courseForm.controls['author'].touched &&
+        this.courseForm.controls['author'].invalid
+      "
           id="authorErrorMessage"
           class="text-danger"
           >New author should contain only latin letters and numbers.</span
@@ -80,10 +93,14 @@
             formControlName="duration"
             placeholder="Input duration"
           />
-          <div class="course__duration">DURATION::</div>
+          <div class="course__duration"></div>
         </div>
+        <!-- *ngIf="duration?.touched && duration?.invalid" -->
         <span
-          *ngIf="duration?.touched && duration?.invalid"
+        *ngIf="
+        this.courseForm.controls['duration'].touched &&
+        this.courseForm.controls['duration'].invalid
+      "
           id="durationErrorMessage"
           class="text-danger"
           >Duration is required.</span

@@ -51,31 +51,32 @@ export class CourseFormComponent {
     });
   }
 
-  get title() {
-    return this.courseForm.get('title');
-  }
-  get description() {
-    return this.courseForm.get('description');
-  }
-  get duration() {
-    return this.courseForm.get('duration');
-  }
-  get author() {
-    return this.courseForm.get('newAuthor.name');
-  }
+  // get title() {
+  //   return this.courseForm.get('title');
+  // }
+  // get description() {
+  //   return this.courseForm.get('description');
+  // }
+  // get duration() {
+  //   return this.courseForm.get('duration');
+  // }
+  // get author() {
+  //   return this.courseForm.get('author.name');
+  // }
 
-  get authorsList() {
-    return this.courseForm.get('authors');
-  }
+  // get authorsList() {
+  //   return this.courseForm.get('authors');
+  // }
 
   addAuthorToList() {
-    if (this.author?.valid) {
+    this.courseForm.get('author');
+    if (this.courseForm.get('author')?.valid) {
       const newAuthor = {
         id: Math.floor(Math.random() * 100),
-        name: this.author?.value,
+        name: this.courseForm.get('author')?.value,
       };
       this.authors.push(newAuthor);
-      this.author?.reset();
+      this.courseForm.get('author')?.reset();
     }
     console.log(this.authors);
   }
