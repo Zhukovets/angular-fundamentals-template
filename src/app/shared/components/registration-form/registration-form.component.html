@@ -11,8 +11,8 @@
               placeholder="Input text"
               [formControl]="nameControl"
             />
-            <div *ngIf="registrationForm.get(formFields.name)?.touched">
-              <span *ngIf="nameControl.errors?.['required']"
+            <div *ngIf="nameControl?.touched">
+              <span *ngIf="nameControl.errors?.['required'] || nameControl.errors?.['minlength']"
                 id="nameErrorMessage"
                 class="text-danger"
               >Name is required.</span>
