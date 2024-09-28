@@ -11,6 +11,7 @@ export class LoginFormComponent {
   constructor(private authService: AuthService) {} // Inject AuthService
 
   @ViewChild("loginForm") public loginForm!: NgForm;
+
   onSubmit() {
     if (this.loginForm.valid) {
       const user = {

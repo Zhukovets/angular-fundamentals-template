@@ -1,4 +1,8 @@
 import { Inject, Injectable } from "@angular/core";
+import {
+  ICustomWindow,
+  WindowRefService,
+} from "@app/shared/provides/window.provider";
 
 const TOKEN = "SESSION_TOKEN"; // Use this constant for the session storage entry key
 
@@ -6,7 +10,10 @@ const TOKEN = "SESSION_TOKEN"; // Use this constant for the session storage entr
   providedIn: "root",
 })
 export class SessionStorageService {
-  constructor(@Inject("window") private window: Window) {} // Inject Window
+  private window: ICustomWindow;
+  constructor(windowRef: WindowRefService) {
+    this.window = windowRef.nativeWindow;
+  } // Inject Window
 
   setToken(token: string): void {
     this.window.sessionStorage.setItem(TOKEN, token); // Use session storage to set token

@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
+import { AuthService } from "@app/auth/services/auth.service";
 import { FaIconLibrary } from "@fortawesome/angular-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 
@@ -18,7 +19,8 @@ export class RegistrationFormComponent {
   // Use the names `name`, `email`, `password` for the form controls.
   constructor(
     public fb: FormBuilder,
-    public library: FaIconLibrary
+    public library: FaIconLibrary,
+    private authService: AuthService
   ) {
     library.addIconPacks(fas);
     this.registrationForm = new FormGroup({
@@ -47,5 +49,9 @@ export class RegistrationFormComponent {
 
   get password() {
     return this.registrationForm.get("password");
+  }
+
+  submit() {
+    console.log("submitted");
   }
 }
