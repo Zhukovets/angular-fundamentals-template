@@ -1,5 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
+import { AuthService } from "@app/auth/services/auth.service";
 
 @Component({
   selector: "app-login-form",
@@ -7,11 +8,25 @@ import { NgForm } from "@angular/forms";
   styleUrls: ["./login-form.component.scss"],
 })
 export class LoginFormComponent {
+  constructor(private authService: AuthService) {} // Inject AuthService
+
   @ViewChild("loginForm") public loginForm!: NgForm;
-  //Use the names `email` and `password` for form controls.
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log("Form Submitted!", this.loginForm.value);
+      const user = {
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password,
+      };
+
+      this.authService.login(user).subscribe({
+        next: (response) => {
+          console.log("Login successful!", response);
+          // this.router.navigate(['/dashboard'])
+        },
+        error: (error) => {
+          console.error("Login failed", error);
+        },
+      });
     } else {
       console.log("Form is invalid");
     }
