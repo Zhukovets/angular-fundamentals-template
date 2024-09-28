@@ -1,10 +1,10 @@
-<div class="courses-list" *ngFor="let course of courses">
-    <app-course-card
-    [title]="course.title" 
-    [description]="course.description"
-    [creationDate]="course.creationDate"
-    [duration]="course.duration"
-    [authors]="course.authors"
+<div class="courses-list">
+    <app-course-card *ngFor="let mockedCourse of mergedMockedCourses, let i = index"
+    [title]="mergedMockedCourses[i].title" 
+    [description]="mergedMockedCourses[i].description"
+    [creationDate]="mergedMockedCourses[i].creationDate"
+    [duration]="mergedMockedCourses[i].duration"
+    [authors]="mergedMockedCourses[i].authors"
     [editable]="editable">    
     </app-course-card>
 </div>

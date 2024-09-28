@@ -17,7 +17,7 @@
           <input type="text" id="email" name="email" placeholder="Input text" formControlName="email" emailValidator/>
           <div *ngIf="registrationForm.get('email')?.touched">
             <span id="emailErrorMessage" class="text-danger" *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required.</span>
-            <span id="emailErrorMessage" class="text-danger" *ngIf="registrationForm.get('email')?.errors?.['invalidEmail']">Email is not valid.</span>
+            <span id="emailErrorMessageInvalid" class="text-danger" *ngIf="registrationForm.get('email')?.errors?.['invalidEmail']">Email is not valid.</span>
           </div>
         </div>
         <div class="form__control">
@@ -34,7 +34,7 @@
           <app-button buttonText="Register"></app-button> 
       </div>
       <div class="form__text">
-        If you have an account you may <strong><a class="link-strong" href=".login-form">Login</a></strong>
+        If you have an account you may <strong><a class="link-strong" routerLink="/login">Login</a></strong>
       </div>
     </div>
   </form>

@@ -10,6 +10,9 @@ import { CoursesService } from '@app/services/courses.service';
 import { CourseInfoModule } from './features/course-info/course-info.module';
 import { CoursesModule } from './features/courses/courses.module';
 import { CoursesListModule } from './features/courses/courses-list/courses-list.module';
+import { AppRoutingModule } from './app-routing.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 
 
 @NgModule({
@@ -20,9 +23,16 @@ import { CoursesListModule } from './features/courses/courses-list/courses-list.
     FontAwesomeModule,
     CourseInfoModule,
     CoursesModule,
-    CoursesListModule
+    CoursesListModule,
+    AppRoutingModule
   ],
-  providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService],
+  providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

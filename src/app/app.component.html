@@ -6,27 +6,28 @@
 </app-header>
 <div class="app-root">
   <!-- Search component -->
-  <app-search></app-search>
+  <!-- <app-search></app-search> -->
 
   <!-- Info component -->
-  <app-info title="Your list is Empty" text="Please use 'Add New Course' button to add your first course">
+  <!-- <app-info title="Your list is Empty" text="Please use 'Add New Course' button to add your first course">
     <app-button buttonText="Add new course"></app-button>
-  </app-info>
+  </app-info> -->
   <!-- Course Card component -->
-  <app-course-card [editable] ="true">
+  <!-- <app-course-card [editable] ="true">
     <app-button [iconName]="['fas', 'trash-can']"></app-button>
     <app-button [iconName]="['fas', 'pencil']"></app-button>
-  </app-course-card>
+  </app-course-card> -->
   
   <!-- Login Form component -->
-  <app-login-form></app-login-form>
+  <!-- <app-login-form></app-login-form> -->
 
-  <!-- Login Form component -->
-  <app-registration-form></app-registration-form>
+  <!-- Registration Form component -->
+  <!-- <app-registration-form></app-registration-form> -->
 
-  <!-- Login Form component -->
-  <app-course-form></app-course-form>
-
+  <!-- Course edit component -->
+  <!-- <app-course-form></app-course-form> -->
   <!-- Modal component -->
-  <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->
+  
+  <router-outlet></router-outlet>
+    <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->
 </div>

@@ -1,42 +1,104 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { CoursesService } from './courses.service';
+import { tap } from 'rxjs/operators'
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class CoursesStoreService {
-    getAll(){
+    private isLoading$$ = new BehaviorSubject<boolean>(false);
+    private courses$$ = new BehaviorSubject<any[]>([]);
+
+    public isLoading$: Observable<boolean> = this.isLoading$$.asObservable()
+    public courses$: Observable<any[]> = this.courses$$.asObservable()
+
+    constructor(private coursesService: CoursesService){}
+
+    private setLoading(isLoading: boolean): void {
+        this.isLoading$$.next(isLoading);
+    }
+
+    getAll(): void{
+        this.setLoading(true);
+        this.coursesService.getAll().pipe(
+            tap(courses => {
+                this.courses$$.next(courses);
+                this.setLoading(false);
+      })
+    ).subscribe();
         // Add your code here
     }
 
-    createCourse(course: any) { // replace 'any' with the required interface
+    createCourse(course: any): void { // replace 'any' with the required interface
+        this.setLoading(true);
+        this.coursesService.createCourse(course).pipe(
+          tap(() => {
+            this.getAll();
+          })
+        ).subscribe();
         // Add your code here
     }
 
-    getCourse(id: string) {
+    getCourse(id: string): Observable<any> {
+        // Add your code here
+        return this.coursesService.getCourse(id)
+    }
+
+    editCourse(id: string, course: any): void { // replace 'any' with the required interface
+        this.setLoading(true);
+        this.coursesService.editCourse(id, course).pipe(
+            tap(() => {
+                this.getAll();
+      })
+    ).subscribe();
         // Add your code here
     }
 
-    editCourse(id: string, course: any) { // replace 'any' with the required interface
+    deleteCourse(id: string): void {
+        this.setLoading(true);
+        this.coursesService.deleteCourse(id).pipe(
+            tap(() => {
+                this.getAll()
+            })
+        ).subscribe();
         // Add your code here
     }
 
-    deleteCourse(id: string) {
+    filterCourses(value: string): void {
+        this.setLoading(true);
+        this.coursesService.filterCourses(value).pipe(
+            tap(courses => {
+                this.courses$$.next(courses);
+                this.setLoading(false);
+            })
+        ).subscribe();
         // Add your code here
     }
 
-    filterCourses(value: string) {
+    getAllAuthors(): void {
+        this.setLoading(true);
+        this.coursesService.getAllAuthors().pipe(
+            tap(() => {
+                this.setLoading(false);
+            })
+        ).subscribe()
         // Add your code here
     }
 
-    getAllAuthors() {
+    createAuthor(name: string): void {
+        this.setLoading(true);
+        this.coursesService.createAuthor(name).pipe(
+            tap(() => {
+                this.getAllAuthors();
+            })
+        ).subscribe()
         // Add your code here
     }
 
-    createAuthor(name: string) {
-        // Add your code here
-    }
-
-    getAuthorById(id: string) {
+    getAuthorById(id: string): Observable<any> {
+        return this.coursesService.getAuthorById(id)
         // Add your code here
     }
 }

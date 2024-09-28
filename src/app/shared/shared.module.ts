@@ -17,6 +17,27 @@ import { DurationPipe } from './pipes/duration.pipe';
 import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { EmailValidatorDirective } from '@shared/directives/email.directive';
 // import { TogglePasswordDirective } from '@shared/directives/toggle-password.directive';
+import { Routes, RouterModule } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginFormComponent
+  },
+  {
+    path: 'registration',
+    component: RegistrationFormComponent
+  },
+  {
+    path: 'courses/add',
+    component: CourseFormComponent
+  },
+  {
+    path: 'courses/edit/:id',
+    component: CourseFormComponent
+  }
+
+]
 
 const components = [
   HeaderComponent,
@@ -40,7 +61,8 @@ const components = [
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule.forChild(routes)
   ],
-  exports: [components /* TogglePasswordDirective */]
+  exports: [components, RouterModule /* TogglePasswordDirective */]
 })
 export class SharedModule { }
