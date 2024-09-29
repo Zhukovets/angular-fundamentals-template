@@ -102,7 +102,7 @@
           </div>
         </div>
       </div>
-      <div class="authorlist-container" *ngFor="let author of authorsList">
+      <div class="authorlist-container" *ngFor="let author of authors">
         <span>{{ author.name }}</span>
         <app-button
           (click)="addAuthor(author)"
@@ -115,7 +115,7 @@
         <div *ngIf="courseAuthors.length === 0">
           <span>Author list is empty.</span>
         </div>
-        <div *ngFor="let courseAuthor of courseAuthors; let i = index">
+        <div *ngFor="let courseAuthor of authors; let i = index">
           <span>{{ courseAuthor.name }}</span>
           <app-button
             (click)="removeAuthorFromAuthors(authors)"

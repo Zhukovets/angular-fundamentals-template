@@ -1,6 +1,6 @@
 import { Component, Input, Output } from "@angular/core";
-
-import { mockedCoursesList } from "@app/shared/mocks/mock";
+import { Course } from "@app/models/course.model";
+import { CoursesService } from "@app/services/courses.service";
 
 @Component({
   selector: "app-courses-list",
@@ -8,7 +8,21 @@ import { mockedCoursesList } from "@app/shared/mocks/mock";
   styleUrls: ["./courses-list.component.css"],
 })
 export class CoursesListComponent {
-  courses = mockedCoursesList;
+  constructor(private coursesService: CoursesService) {
+    this.getCourses();
+  }
+  courses: Course[] = [];
+
+  getCourses() {
+    this.coursesService.getAll().subscribe({
+      next: (courses: Course[]) => {
+        this.courses = courses; // Assign the fetched courses to the local courses array
+      },
+      error: (err) => {
+        console.error("Error fetching courses:", err);
+      },
+    });
+  }
 
   @Input() courseName: string = "";
 

@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Author } from "@app/models/author.model";
 import { FaIconLibrary } from "@fortawesome/angular-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import { CoursesService } from "@app/services/courses.service";
 
 @Component({
   selector: "app-course-form",
@@ -21,15 +23,19 @@ export class CourseFormComponent implements OnInit {
     authors: this.fb.array([]),
   });
   submitted = false;
-  authorsList: any[] = [
-    { id: 1, name: "Author 1" },
-    { id: 2, name: "Author 2" },
-  ];
+  authors: Author[] = [];
+
   courseAuthors: any[] = [];
 
-  constructor(public fb: FormBuilder, public library: FaIconLibrary) {
+  constructor(
+    private coursesService: CoursesService,
+    public fb: FormBuilder,
+    public library: FaIconLibrary
+  ) {
     library.addIconPacks(fas);
+    this.getAllAuthors();
   }
+
   ngOnInit(): void {}
 
   // Use the names `title`, `description`, `author`, 'authors' (for authors list), `duration` for the form controls.
@@ -37,30 +43,36 @@ export class CourseFormComponent implements OnInit {
   createAuthor(): void {
     const authorName = this.courseForm.controls["author"]?.value;
     if (authorName) {
-      const newAuthor = { id: Date.now(), name: authorName };
-      this.authorsList.push(newAuthor);
+      const newAuthor = { id: String(Date.now()), name: authorName };
+      this.authors.push(newAuthor);
       this.courseForm.get("author")?.reset();
     }
   }
 
-  get authors(): FormArray {
-    return this.courseForm.get("authors") as FormArray;
+  getAllAuthors() {
+    this.coursesService.getAllAuthors().subscribe({
+      next: (authors: Author[]) => {
+        this.authors = authors;
+      },
+      error: (err) => {
+        console.error("Error fetching authors", err);
+      },
+    });
   }
 
   addAuthor(author: any): void {
     this.courseAuthors.push(author);
-    this.authorsList = this.authorsList.filter((a) => a.id !== author.id);
-    this.authors.push(this.fb.control(author.name));
+    this.authors = this.authors.filter((a) => a.id !== author.id);
+    //  this.authors.push(this.fb.control(authors.name));
   }
 
   removeAuthor(index: number, author: any): void {
     this.courseAuthors = this.courseAuthors.filter((_, i) => i !== index);
-    this.authorsList.push(author);
-    this.authors.removeAt(index);
+    this.authors.push(author);
   }
 
   removeAuthorFromAuthors(author: any): void {
-    this.authorsList = this.authorsList.filter((a) => a.id !== author.id);
+    this.authors = this.authors.filter((a) => a.id !== author.id);
   }
 
   onSubmit(): void {

@@ -1,26 +1,31 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { Author } from "@app/models/author.model";
 import { Course } from "@app/models/course.model";
+
+interface resultArray {
+  successful: boolean;
+  result: Course[] | Author[] | Author;
+}
 
 @Injectable({
   providedIn: "root",
 })
 export class CoursesService {
-  private apiUrl = "http://localhost:4000/api";
+  private apiUrl = "http://localhost:4000";
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Course[]> {
-    // Add your code here
-    return this.http.get<Course[]>(`${this.apiUrl}/courses`);
+  getAll() {
+    return this.http
+      .get<resultArray>(`${this.apiUrl}/courses/all`)
+      .pipe(map((res) => res.result as Course[]));
   }
 
-  createCourse(course: Course): Observable<Course> {
-    // replace 'any' with the required interface
-    // Add your code here
-    return this.http.post<Course>(`${this.apiUrl}/courses`, course);
+  createCourse(course: Course) {
+    return this.http.post<Course>(`${this.apiUrl}/courses/add`, course);
   }
 
   editCourse(id: string, course: Course): Observable<Course> {
@@ -46,9 +51,11 @@ export class CoursesService {
     });
   }
 
-  getAllAuthors(): Observable<Author[]> {
+  getAllAuthors() {
     // Add your code here
-    return this.http.get<Author[]>(`${this.apiUrl}/authors`);
+    return this.http
+      .get<resultArray>(`${this.apiUrl}/authors/all`)
+      .pipe(map((res) => res.result as Author[]));
   }
 
   createAuthor(name: string): Observable<Author> {
@@ -56,8 +63,10 @@ export class CoursesService {
     return this.http.post<Author>(`${this.apiUrl}/authors`, { name });
   }
 
-  getAuthorById(id: string): Observable<Author> {
+  getAuthorById(id: string) {
     // Add your code here
-    return this.http.get<Author>(`${this.apiUrl}/authors/${id}`);
+    return this.http
+      .get<resultArray>(`${this.apiUrl}/authors/${id}`)
+      .pipe(map((res) => res.result as Author));
   }
 }

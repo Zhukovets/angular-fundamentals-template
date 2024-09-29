@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { mockedAuthorsList } from "@app/shared/mocks/mock";
+import { Author } from "@app/models/author.model";
+import { CoursesService } from "@app/services/courses.service";
 
 @Component({
   selector: "app-course-card",
@@ -9,14 +10,18 @@ import { mockedAuthorsList } from "@app/shared/mocks/mock";
 export class CourseCardComponent {
   @Input() title: string = "";
   @Input() description: string = "";
-  @Input() authors: string[] = [];
+  authors: string[] = [];
   @Input() duration: number | string = 0;
   @Input() set setCreationDate(value: string) {
     this.creationDate = new Date(value).toLocaleString();
   }
-  ngOnInit() {
-    this.authors = this.getAuthorsByIds(this.authors);
+  ngOnInit() {}
+
+  constructor(private coursesService: CoursesService) {
+    this.getAuthorsByIds("40b21bd5-cbae-4f33-b154-0252b1ae03a9");
   }
+
+  author: string = "";
 
   @Input() isEditable: boolean = false;
   @Input() creationDate: string = "";
@@ -26,9 +31,14 @@ export class CourseCardComponent {
     this.clickOnShow.emit();
   }
 
-  getAuthorsByIds(authorIds: string[]): string[] {
-    return mockedAuthorsList
-      .filter((author) => authorIds.includes(author.id))
-      .map((author) => author.name);
+  getAuthorsByIds(id: string) {
+    this.coursesService.getAuthorById(id).subscribe({
+      next: (author: Author) => {
+        this.author = author.name;
+      },
+      error: (err) => {
+        console.error("Error fetching author", err);
+      },
+    });
   }
 }

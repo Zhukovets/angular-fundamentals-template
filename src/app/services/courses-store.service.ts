@@ -18,17 +18,7 @@ export class CoursesStoreService {
   constructor(private coursesService: CoursesService) {}
 
   getAll() {
-    this.isLoading$$.next(true);
-    return this.coursesService.getAll().pipe(
-      tap((courses: Course[]) => {
-        this.courses$$.next(courses);
-        this.isLoading$$.next(false);
-      }),
-      catchError(() => {
-        this.isLoading$$.next(false); // Set loading to false on error
-        return throwError("Error fetching courses");
-      })
-    );
+    this.coursesService.getAll().subscribe((course) => {});
   }
 
   createCourse(course: Course): Observable<Course> {
@@ -103,15 +93,8 @@ export class CoursesStoreService {
     );
   }
 
-  getAllAuthors(): Observable<Author[]> {
+  getAllAuthors() {
     this.isLoading$$.next(true);
-    return this.coursesService.getAllAuthors().pipe(
-      tap(() => this.isLoading$$.next(false)),
-      catchError(() => {
-        this.isLoading$$.next(false);
-        return throwError("Error fetching authors");
-      })
-    );
   }
 
   createAuthor(name: string): Observable<Author> {
