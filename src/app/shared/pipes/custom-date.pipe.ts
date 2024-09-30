@@ -5,12 +5,17 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 
 export class CustomDatePipe  implements PipeTransform {
-    // Add your code here
-    transform(value: Date): string {
-        const day = String(value.getDate()).padStart(2, '0');
-        const month = String(value.getMonth() + 1).padStart(2, '0');
-        const year = value.getFullYear();
+    transform(value: string): string {
+        let day: string = '';
+        let month: string = '';
+        let year: number = 0;
+        if (value) {
+            const [ dayStr,monthStr, yearStr] = value.split('/');
+            const date = new Date(+yearStr, +monthStr - 1, +dayStr);
+            day = String(date.getDate()).padStart(2, '0');
+            month = String(date.getMonth() + 1).padStart(2, '0');
+            year = date.getFullYear();
+        }
         return `${day}.${month}.${year}`;
     }
-
 }

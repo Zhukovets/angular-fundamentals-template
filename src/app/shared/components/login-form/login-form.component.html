@@ -39,21 +39,21 @@
                                #password="ngModel"
                                placeholder="Input text"
                                minlength="6"
+                               appTogglePassword
+                               #pasToggle="togglePassword"
                                required
                                (ngModelChange)="onInputPasswordChange()"
                         />
-<!--                        <button class="password-wrapper__icon"-->
-<!--                                type="button"-->
-<!--                                (click)="pasToggle.onClick($event)"-->
-<!--                               >-->
-<!--                            <ng-container *ngIf="pasToggle.isVisible(); then eyeBlock else eyeSlashBlock"></ng-container>-->
-<!--                            <ng-template #eyeBlock>-->
-<!--                                <fa-icon [icon]="['fas', 'eye']"></fa-icon>-->
-<!--                            </ng-template>-->
-<!--                            <ng-template #eyeSlashBlock>-->
-<!--                                <fa-icon [icon]="['fas', 'eye-slash']"></fa-icon>-->
-<!--                            </ng-template>-->
-<!--                        </button>-->
+                        <div class="password-wrapper__icon"
+                                (click)="pasToggle.onClick($event)">
+                            <ng-container *ngIf="pasToggle.isVisible(); then eyeBlock else eyeSlashBlock"></ng-container>
+                            <ng-template #eyeBlock>
+                                <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+                            </ng-template>
+                            <ng-template #eyeSlashBlock>
+                                <fa-icon [icon]="['fas', 'eye-slash']"></fa-icon>
+                            </ng-template>
+                        </div>
                     </div>
                     <ng-container *ngIf="inputPassword || (password.touched || loginForm.submitted)">
                         <span id="passwordErrorMessage" class="text-danger">
@@ -73,13 +73,15 @@
                                 [btnMod]=true
                                 [buttonText]=buttonTexts.login
                                 [buttonType]="'submit'"
-                                [disabled]="(email?.invalid ?? true) || (password?.invalid ?? true)">
+                                [disabled]="(email?.invalid ?? true) || (password?.invalid ?? true)"
+                                (clickButton)="onSubmitForm($event)"
+                        >
                         </app-button>
                     </div>
-                    <span class="form__text">
+                    <div class="form__text">
                         If you don't have an account you may
-                        <a class="form__link">Registration</a>
-                    </span>
+                        <a [routerLink]="['/registration']" class="form__link form__link form__link_bold">Registration</a>
+                    </div>
                 </div>
             </div>
         </div>

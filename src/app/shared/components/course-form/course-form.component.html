@@ -1,6 +1,6 @@
 <!-- Replace ::text:: with your code -->
 <h2>Create / Edit Course</h2>
-<form [formGroup]="courseForm">
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="app-plate app-plate__padding-small">
         <div class="form">
             <h3 class="form__heading">Main Info</h3>
@@ -110,8 +110,8 @@
                                         [buttonType]="'button'"
                                         [disabled]="!inputAuthor || !!(courseForm.controls['author'].invalid && courseForm.controls['author'].touched)
                                         || courseForm.controls['author'].value === ''"
-                                        (clickButton)="addAuthor($event)"
-                                        id="createAuthor">
+                                        (clickButton)="addAuthor()"
+                                       >
                                 </app-button>
                             </div>
                         </div>
@@ -126,26 +126,28 @@
                 </div>
                 <div class="form__wrapper form__wrapper_course">
                     <h3 class="form__heading ">Course Authors</h3>
-                    <div class="form__wrapper_mod" formArrayName="courseAuthors">
-                        <div class="form__wrapper-input"
-                             *ngFor="let item of this.getFormsControlsCourse()['controls']; let i = index"
-                             [formGroupName]="i">
-                            <span class="form__author-name"> {{ item.value.name }}</span>
-                            <app-button
-                                    [btnIconPlus]=true
-                                    [iconName]=buttonIcon.trash
-                                    (clickButton)="deleteCourseAuthor(item.value)"
-                            >
-                            </app-button>
+                    <ng-container  *ngIf="getFormsControlsCourse() as courseAuthors">
+                        <div class="form__wrapper_mod" formArrayName="courseAuthors">
+                            <div class="form__wrapper-input"
+                                 *ngFor="let item of courseAuthors['controls']; let i = index;trackBy: this.trackByFn"
+                                 [formGroupName]="i">
+                                <span class="form__author-name"> {{ item.value.name }}</span>
+                                <app-button
+                                        [btnIconPlus]=true
+                                        [iconName]=buttonIcon.trash
+                                        (clickButton)="deleteCourseAuthor(item.value)"
+                                >
+                                </app-button>
+                            </div>
                         </div>
-                    </div>
-                    <small class="form__message">This list is empty</small>
+                        <small class="form__message" *ngIf="courseAuthors.length === 0">This list is empty</small>
+                    </ng-container>
                 </div>
                 <div class="form__wrapper">
                     <h3>Authors List</h3>
                     <div class="form__wrapper_mod" formArrayName="authors">
                         <div class="form__wrapper-input"
-                             *ngFor="let item of this.getFormsControls()['controls']; let i = index"
+                             *ngFor="let item of this.getFormsControls()['controls']; let i = index; trackBy: this.trackByFn"
                              [formGroupName]="i">
                             <span class="form__author-name"> {{ item.value.name }}</span>
                             <app-button
@@ -164,13 +166,16 @@
         <app-button [btnDefault]=true
                     [btnMod]=true
                     [buttonText]=buttonTexts.cancel
-                    [buttonType]="'button'">
+                    [buttonType]="'button'"
+                    routeTo="/courses">
 
         </app-button>
         <app-button [btnDefault]=true
                     [btnMod]=true
                     [buttonText]=buttonTexts.create_course
-                    [buttonType]="'submit'">
+                    [buttonType]="'submit'"
+                    (clickButton)="onSubmitForm($event)"
+                    [disabled]="courseForm.invalid">
         </app-button>
     </div>
 </form>

@@ -41,7 +41,7 @@
     }
 
     &:focus {
-        box-shadow: 0 0 0 4px rgba($color-primary, 0.5);
+        box-shadow: 0 0 0 2px rgba($color-primary, 0.2);
         background: darken($background-primary, 10%);
         border: 1px solid darken($color-primary, 10%);
     }

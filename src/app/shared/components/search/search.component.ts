@@ -14,8 +14,12 @@ export class SearchComponent {
   searchTerm: string = '';
   buttonTexts = ButtonText;
 
+  onSubmitForm(e: any) {
+    this.onSearch();
+  }
+
   onSearch() {
-   this.search.emit(this.searchTerm);
+    this.search.emit(this.searchTerm);
   }
 }
 

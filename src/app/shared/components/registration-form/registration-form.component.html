@@ -1,6 +1,6 @@
 <h2 class="text-align-center">Registration</h2>
 <div class="app-plate app-plate__padding-large">
-    <form [formGroup]="registrationForm" novalidate>
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" novalidate>
         <div class="registration-form">
             <div>
                 <div class="form__control">
@@ -53,23 +53,22 @@
                                id="password"
                                placeholder="Input text"
                                formControlName="password"
+                               appTogglePassword
+                               #pasToggle="togglePassword"
                         />
-<!--                        appTogglePassword-->
-<!--                        #pasToggle="togglePassword"-->
-
-<!--                        <button class="password-wrapper__icon"-->
-<!--                                type="button"-->
-<!--                                (click)="pasToggle.onClick($event)"-->
-<!--                        >-->
-<!--                            <ng-container-->
-<!--                                    *ngIf="pasToggle.isVisible(); then eyeBlock else eyeSlashBlock"></ng-container>-->
-<!--                            <ng-template #eyeBlock>-->
-<!--                                <fa-icon [icon]="['fas', 'eye']"></fa-icon>-->
-<!--                            </ng-template>-->
-<!--                            <ng-template #eyeSlashBlock>-->
-<!--                                <fa-icon [icon]="['fas', 'eye-slash']"></fa-icon>-->
-<!--                            </ng-template>-->
-<!--                        </button>-->
+                        <button class="password-wrapper__icon"
+                                type="button"
+                                (click)="pasToggle.onClick($event)"
+                        >
+                            <ng-container
+                                    *ngIf="pasToggle.isVisible(); then eyeBlock else eyeSlashBlock"></ng-container>
+                            <ng-template #eyeBlock>
+                                <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+                            </ng-template>
+                            <ng-template #eyeSlashBlock>
+                                <fa-icon [icon]="['fas', 'eye-slash']"></fa-icon>
+                            </ng-template>
+                        </button>
                     </div>
                     <ng-container *ngIf="inputPassword || ( registrationForm.controls['password']?.invalid &&
                                          registrationForm.controls['password']?.touched)">
@@ -92,14 +91,15 @@
                         [btnMod]=true
                         [buttonText]=buttonTexts.login
                         [buttonType]="'submit'"
+                        (clickButton)="onSubmitForm($event)"
                         [disabled]="registrationForm.controls['name'].invalid ||
                         registrationForm.controls['email'].invalid ||
                         registrationForm.controls['password'].invalid">
                 </app-button>
-                <span class="form__text">
+                <div class="form__text">
                         If you have an account you may
-                        <a class="form__link form__link_login">Login</a>
-                </span>
+                        <a [routerLink]="['/login']" class="form__link form__link_bold">Login</a>
+                </div>
             </div>
         </div>
     </form>

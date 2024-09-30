@@ -1,0 +1,22 @@
+@import "src/app/shared/styles/variables/colors";
+
+.error-wrapper {
+ display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 8.75rem;
+
+  &__link {
+    cursor: pointer;
+    font-weight: bold;
+    color: $color-primary;
+    text-decoration: none;
+
+    &:hover,
+    &:visited {
+      opacity: .8;
+    }
+  }
+}
+

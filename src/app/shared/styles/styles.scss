@@ -38,9 +38,26 @@
     }
 
     &__text {
+        display: flex;
         flex-wrap: wrap;
-        text-align: center;
+        justify-content: space-evenly;
         margin-top: 38px;
+    }
+
+    &__link {
+        cursor: pointer;
+        color: $color-primary;
+        text-decoration: none;
+
+        &:hover,
+        &:visited
+        {
+            opacity: .8;
+        }
+    }
+
+    &__link_bold {
+        font-weight: bold;
     }
 }
 
@@ -51,5 +68,8 @@
 
 .text-danger {
     color: $color-red;
+    font-size: .9rem;
 }
+
+
 

@@ -1,10 +1,29 @@
 <app-header>
-    <span class="user-description"></span>
-    <app-button [btnDefault]=true
-                [btnMod]=true
-                [buttonText]=buttonTexts.login
-                [buttonType]="'button'">
-    </app-button>
+    <ng-container *ngIf="auth.isAuthorised;else loginTemplate">
+        <ng-container *ngIf="userStoreService.name??'admin'">
+            <span class="user-description">{{userStoreService.name || 'admin'}}</span>
+            <app-button [btnDefault]=true
+                        [btnMod]=true
+                        [buttonText]=buttonTexts.logout
+                        [buttonType]="'button'"
+                        (clickButton)="auth.logout()"
+            >
+            </app-button>
+        </ng-container>
+    </ng-container>
+    <ng-template #loginTemplate>
+        <div class="app-header__right-side">
+            <ng-container *ngIf="!auth.isCurrentUrl('/login')">
+                <app-button [btnDefault]=true
+                            [btnMod]=true
+                            [buttonText]=buttonTexts.login
+                            [buttonType]="'button'"
+                            routeTo="/login"
+                >
+                </app-button>
+            </ng-container>
+        </div>
+    </ng-template>
 </app-header>
 
 <div class="app-root">
@@ -20,19 +39,20 @@
     <!-- <app-course-card></app-course-card>-->
 
     <!-- Course -->
-    <app-courses></app-courses>
+    <!--    <app-courses></app-courses>-->
 
     <!--Login Form component -->
-    <!--<app-login-form></app-login-form>-->
+    <!--    <app-login-form></app-login-form>-->
 
     <!--Login Form component-->
-    <!--<app-registration-form></app-registration-form>-->
+    <!--    <app-registration-form></app-registration-form>-->
 
     <!--Login Form component-->
-<!--    <app-course-form></app-course-form>-->
+    <!--<app-course-form></app-course-form>-->
 
     <!-- Modal component -->
     <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->
+    <router-outlet></router-outlet>
 </div>
 
 

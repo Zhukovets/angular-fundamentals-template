@@ -1,18 +1,25 @@
 <!-- Replace ::text:: with your code -->
-<div class="title">{{courseInfo.title}}</div>
+<div class="title">{{ courseInfo.title }}</div>
 <div class="course-info">
-  <div class="course-info__description">
-      <p class="course-info__description_label">Description: </p>
-      {{ courseInfo.description }}
-  </div>
-  <div class="course-info__info">
-    <div><span class="course-info__info_label">ID: </span>{{ courseInfo.id }}</div>
-    <div><span class="course-info__info_label">Duration: </span> {{courseInfo.duration | duration}}</div>
-    <div><span class="course-info__info_label">Created: </span>{{courseInfo.creationDate | customDate}}</div>
-    <div><span class="course-info__info_label">Created: </span>{{courseInfo.authors.join(', ')}}</div>
-  </div>
+    <div class="course-info__description">
+        <p class="course-info__description_label">Description: </p>
+        {{ courseInfo.description }}
+    </div>
+    <div class="course-info__info">
+        <div><span class="course-info__info_label">ID: </span>{{ courseInfo.id }}</div>
+        <div><span class="course-info__info_label">Duration: </span> {{ courseInfo.duration | duration }}</div>
+        <div><span class="course-info__info_label">Created: </span>{{ courseInfo.creationDate | customDate }}</div>
+        <div *ngIf="courseInfo.authors">
+            <span  class="course-info__info_label" >Created: </span>
+            {{ courseInfo.authors.join(', ') }}
+        </div>
+    </div>
 </div>
 <div class="navigation-block">
-  <!--Enter your code here-->
-    <app-button buttonText="{{buttonText.back}}"></app-button>
+    <!--Enter your code here-->
+    <app-button [btnDefault]=true
+                [btnMod]=true
+                routeTo="/courses"
+                buttonText="{{buttonText.back}}"
+    ></app-button>
 </div>

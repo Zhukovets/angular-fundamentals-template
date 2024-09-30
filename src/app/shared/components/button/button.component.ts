@@ -2,7 +2,7 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {IconName} from '@fortawesome/fontawesome-svg-core';
-
+import {NgForm} from "@angular/forms";
 
 @Component({
     selector: 'app-button',
@@ -22,6 +22,7 @@ export class ButtonComponent {
 
     @Output() clickButton = new EventEmitter<any>();
     @Input() data!: string;
+    @Input() routeTo: string = '';
 
     currentClasses: Record<string, boolean> = {};
 
@@ -41,7 +42,6 @@ export class ButtonComponent {
     buttonClick() {
         this.clickButton.emit(this.data);
     }
-
     // Use the names for the inputs `buttonText` and `iconName`.
 }
 

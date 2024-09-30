@@ -1,16 +1,26 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ButtonText} from "@app/models/const";
+import {LoginData, LoginResponse, RegisterResponse} from "@app/models/card.model";
+import {AuthService} from '@app/auth/services/auth.service';
+import {Router} from "@angular/router";
+import {Subject, takeUntil} from "rxjs";
+
 
 @Component({
     selector: 'app-registration-form',
     templateUrl: './registration-form.component.html',
     styleUrls: ['./registration-form.component.scss'],
 })
-export class RegistrationFormComponent implements OnInit {
+export class RegistrationFormComponent implements OnInit  {
     registrationForm!: FormGroup;
     minLengthName: number = 6;
     minLengthPassword: number = 6;
+    buttonTexts = ButtonText;
+
+    //for subscriptions
+    valueChangesSubject$ = new Subject<void>();
+    registrationSubject$ = new Subject<void>();
 
     inputNames: Map<string, boolean> = new Map([
         ["name", false],
@@ -18,7 +28,11 @@ export class RegistrationFormComponent implements OnInit {
         ["password", false]
     ]);
 
-     buttonTexts = ButtonText;
+    constructor(private auth: AuthService, private router: Router) {}
+
+    onSubmitForm(e: any) {
+        this.onSubmit();
+    }
 
     get inputName() {
         return this.inputNames.get('name');
@@ -44,12 +58,41 @@ export class RegistrationFormComponent implements OnInit {
                     Validators.minLength(this.minLengthPassword)]),
         });
 
-        //Subscribtions
+        //Subscriptions
         this.inputNames.forEach((val, key) => {
-            this.registrationForm.controls[key]?.valueChanges.subscribe(value => {
-                this.inputNames.set(key, true);
-            });
+            this.registrationForm.controls[key]?.valueChanges
+                .pipe(
+                    takeUntil(this.valueChangesSubject$))
+                .subscribe(value => {
+                    this.inputNames.set(key, true);
+                    this.valueChangesSubject$.next();
+                    this.valueChangesSubject$.complete();
+                });
         })
     }
-    // Use the names `name`, `email`, `password` for the form controls.
+
+    onSubmit(): void {
+        const user: LoginData = {
+            name: this.registrationForm.value.email,
+            email: this.registrationForm.value.email,
+            password: this.registrationForm.value.password
+        };
+
+        this.auth.register(user)
+            .pipe(
+                takeUntil(this.registrationSubject$)
+            )
+            .subscribe({
+            next: (response: RegisterResponse) => {
+                if (response.successful) {
+                    this.router.navigate(['']);
+                    this.registrationSubject$.next();
+                    this.registrationSubject$.complete();
+                }
+            },
+            error: (err) => {
+                console.error('Error during registration:', err.message);
+            }
+        });
+    }
 }

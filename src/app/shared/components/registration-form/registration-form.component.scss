@@ -13,7 +13,7 @@
 
   &__icon {
     position: absolute;
-    right: 1.3rem ;
+    right: 1.3rem;
     border: none;
     background: $color-white;
   }
@@ -25,6 +25,13 @@ input.ng-invalid {
 
 input.ng-pristine {
   border: 1px solid $color-gray;
+}
+
+::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
 }
 
 

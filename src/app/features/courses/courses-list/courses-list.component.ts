@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import { mockedCoursesList }  from 'src/app/shared/mocks/mocks';
 import {CardItem} from "@app/models/card.model";
 import { ButtonText } from 'src/app/models/const'
 
@@ -18,5 +17,17 @@ export class CoursesListComponent {
   @Output() showCourse = new EventEmitter<string>();
   @Output() editCourse = new EventEmitter<string>();
   @Output() deleteCourse = new EventEmitter<string>();
+
+  clickOnShow(id : string) {
+    this.showCourse.emit(id);
+  }
+
+  clickOnEdit(id : string) {
+    this.editCourse.emit(id);
+  }
+
+  clickOnDelete(id: string) {
+    this.deleteCourse.emit(id)
+  }
 
 }

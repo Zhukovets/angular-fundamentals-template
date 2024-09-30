@@ -15,4 +15,5 @@ import { HttpClientModule } from '@angular/common/http';
     AuthService,
   ]
 })
+
 export class AuthModule { }

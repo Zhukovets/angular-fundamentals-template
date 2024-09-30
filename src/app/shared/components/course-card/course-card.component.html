@@ -17,20 +17,21 @@
                             [btnDefault]=true
                             [btnMod]=true
                             [buttonType]="'button'"
-                            (click)="getShowCourse()">
+                            (clickButton)="showCourse()">
                 </app-button>
-                <ng-container *ngIf="this.editable; then thenBlock else elseBlock"></ng-container>
+                <ng-container *ngIf="this.editable && this.userStoreService.isAdmin; then thenBlock else elseBlock"></ng-container>
                 <ng-template #thenBlock>
                     <app-button [btnDefault]=true
                                 [btnIcon]=true
                                 [buttonType]="'button'"
-                                [iconName]=buttonIcon.pencil>
-
+                                [iconName]=buttonIcon.pencil
+                                (clickButton)="editCourse()">
                     </app-button>
                     <app-button [btnDefault]=true
                                 [btnIcon]=true
                                 [buttonType]="'button'"
-                                [iconName]=buttonIcon.trash>
+                                [iconName]=buttonIcon.trash
+                                (clickButton)="deleteCourse()">
                     </app-button>
                 </ng-template>
                 <ng-template #elseBlock></ng-template>

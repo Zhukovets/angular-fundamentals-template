@@ -9,7 +9,7 @@ import { CardItem, Author} from "@app/models/card.model";
                     printer took a galley of type and scrambled it to make a type specimen book. It has survived
                     not only five centuries, but also the leap into electronic typesetting, remaining essentially u
                     nchanged.`,
-        creationDate: new Date('08/03/2021'),
+        creationDate: '08/03/2021',
         duration: 160,
         authors: ['27cc3006-e93a-4748-8ca8-73d06aa93b6d'],
     },
@@ -19,7 +19,7 @@ import { CardItem, Author} from "@app/models/card.model";
         description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
                     has been the industry's standard dummy text ever since the 1500s, when an unknown
                     printer took a galley of type and scrambled it to make a type specimen book.`,
-        creationDate: new Date('10/11/2020'),
+        creationDate: '10/11/2020',
         duration: 210,
         authors: ['df32994e-b23d-497c-9e4d-84e4dc02882f', '095a1817-d45b-4ed7-9cf7-b2417bcbf748'],
     },
@@ -45,4 +45,3 @@ import { CardItem, Author} from "@app/models/card.model";
 ]
 
 
-export {mockedCoursesList, mockedAuthorsList}

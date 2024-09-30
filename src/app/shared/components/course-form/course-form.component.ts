@@ -1,13 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {
-    FormBuilder, FormControl, FormGroup, Validators, FormArray
+    FormBuilder, FormControl, FormGroup, Validators, FormArray, AbstractControl
 } from '@angular/forms';
 import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {ButtonIcon, ButtonText} from "@app/models/const";
-import {Author} from "@app/models/card.model";
-import {mockedAuthorsList} from "@shared/mocks/mocks";
+import {Author, CreateCourseRequest} from "@app/models/card.model";
 import {v4 as uuidv4} from 'uuid';
+import {ActivatedRoute, Router} from "@angular/router";
+import {CoursesStoreService} from "@app/services/courses-store.service";
 
 @Component({
     selector: 'app-course-form',
@@ -15,18 +16,23 @@ import {v4 as uuidv4} from 'uuid';
     styleUrls: ['./course-form.component.scss'],
 })
 export class CourseFormComponent implements OnInit {
-    constructor(public fb: FormBuilder, public library: FaIconLibrary) {
+    constructor(public fb: FormBuilder, public library: FaIconLibrary,
+                private router: Router, private route: ActivatedRoute,
+                private coursesStoreService: CoursesStoreService
+    ) {
         library.addIconPacks(fas);
         this.initForm()
     }
 
-    @Input() authorsList: Author[] = mockedAuthorsList; //temporary
+    @Input() authorsList: Author[] = [];
     courseForm!: FormGroup;
     buttonTexts = ButtonText;
     buttonIcon = ButtonIcon;
     minLength: number = 2;
     disabled: boolean = false;
+    durationValue: number = 0;
     courseAuthors: Author[] = [];
+    id: string = "";
 
     inputNames: Map<string, boolean> = new Map([
         ['title', false],
@@ -34,7 +40,7 @@ export class CourseFormComponent implements OnInit {
         ['duration', false],
         ['author', false],
     ]);
-    durationValue: number = 0;
+
 
     get inputTitle() {
         return this.inputNames.get('title');
@@ -60,6 +66,10 @@ export class CourseFormComponent implements OnInit {
         return this.courseForm.controls['courseAuthors'] as FormArray;
     }
 
+    trackByFn(index: number, control: AbstractControl): string {
+        return control.value.id ? control.value.id : index;
+    }
+
     addCourseAuthor(item: Author) {
         if (item.id !== undefined) this.courseAuthors = [...this.courseAuthors, item];
         let index = this.deleteAuthor(this.authorsList, item.id);
@@ -69,14 +79,19 @@ export class CourseFormComponent implements OnInit {
         this.insertCourseAuthor(courseAuthors, item);
     }
 
-    addAuthor(data: string) {
-        let temp: Author = {
-            id: uuidv4(),
-            name: this.courseForm.controls['author']?.value.trim()
-        }
+    addAuthor() {
+        let authorName = this.courseForm.controls['author']?.value.trim();
         const authors = this.getFormsControls();
-        this.insertCourseAuthor(authors, temp);
-        this.courseForm.controls['author']?.patchValue('')
+        this.coursesStoreService.createAuthor(authorName).subscribe({
+                next: (resp) => {
+                    this.insertCourseAuthor(authors, resp.result);
+                    this.courseForm.controls['author']?.patchValue('')
+                },
+                error: (err) => {
+                    console.error('Error adding author:', err);
+                }
+            }
+        )
     }
 
     insertCourseAuthor(param: FormArray, item: Author) {
@@ -112,19 +127,45 @@ export class CourseFormComponent implements OnInit {
     }
 
     initForm(): void {
+
         this.courseForm = this.fb.group({
-            "title": ["", [Validators.required,
+            'title': ['', [Validators.required,
                 Validators.minLength(this.minLength)]],
-            "description": ["", [Validators.required,
+            'description': ['', [Validators.required,
                 Validators.minLength(this.minLength)]],
-            "duration": ["", [Validators.required, Validators.min(0)]],
-            "author": ["", [Validators.pattern('^[a-zA-Z0-9 ]*$'), Validators.minLength(this.minLength)]],
-            "authors": this.fb.array(this.fillAuthorList(this.authorsList)),
-            "courseAuthors": this.fb.array(this.fillAuthorList(this.courseAuthors)),
+            'duration': ['', [Validators.required, Validators.min(0)]],
+            'author': ['', [Validators.pattern('^[a-zA-Z0-9 ]*$'), Validators.minLength(this.minLength)]],
+            'authors': this.fb.array(this.fillAuthorList(this.authorsList)),
+            'courseAuthors': this.fb.array(this.fillAuthorList(this.courseAuthors)),
         });
     }
 
     public ngOnInit(): void {
+        this.id = this.route.snapshot.paramMap.get('id') || "";
+
+        if (this.id !== "") {
+            this.coursesStoreService.getCourseWithAuthors(this.id).subscribe({
+                next: (response) => {
+                    this.courseForm.get('title')?.setValue(response.course.title)
+                    this.courseForm.get('description')?.setValue(response.course.description)
+                    this.courseForm.get('duration')?.setValue(response.course.duration)
+
+                    this.courseAuthors = response.courseAuthors
+                    this.courseForm.setControl('courseAuthors', this.fb.array(this.fillAuthorList(response.courseAuthors)))
+
+                    this.authorsList = response.authors;
+                    this.courseForm.setControl('authors', this.fb.array(this.fillAuthorList(response.authors)));
+                }
+            })
+        } else {
+            this.coursesStoreService.getAllAuthors().subscribe({
+                    next: (response) => {
+                        this.authorsList = response.result;
+                        this.courseForm.setControl('authors', this.fb.array(this.fillAuthorList(this.authorsList)));
+                    }
+                }
+            )
+        }
 
         //Subscriptions
         this.inputNames.forEach((val, key) => {
@@ -132,13 +173,32 @@ export class CourseFormComponent implements OnInit {
             if (control) {
                 this.courseForm.controls[key]?.valueChanges.subscribe(value => {
                     this.inputNames.set(key, true);
-                    if (key === "duration") {
+                    if (key === 'duration') {
                         this.durationValue = value;
                     }
                 });
             }
         })
+
     }
 
-    // Use the names `title`, `description`, `author`, 'authors' (for authors list), `duration` for the form controls.
+    onSubmitForm(e: any) {
+        this.onSubmit();
+    }
+
+    onSubmit(): void {
+        const course: CreateCourseRequest = {
+            title: this.courseForm.value.title,
+            description: this.courseForm.value.description,
+            duration: this.courseForm.value.duration,
+            authors: this.courseForm.value.courseAuthors.map((item: any) => item.id),
+        }
+        if (this.id !== "") {
+            this.coursesStoreService.editCourse(this.id, course);
+        } else {
+            this.coursesStoreService.createCourse(course);
+        }
+
+        this.router.navigate(['/courses'])
+    }
 }

@@ -4,7 +4,12 @@
     </button>
 </ng-container>
 <ng-container *ngIf="buttonText" >
-    <button  [ngClass]="setCurrentClasses()" [type]=buttonType [disabled]="disabled" (click)="buttonClick()">
+    <button  [ngClass]="setCurrentClasses()"
+             [type]=buttonType
+             [disabled]="disabled"
+             (click)="buttonClick()"
+             [routerLink]="routeTo"
+             >
         {{ buttonText }}
     </button>
 </ng-container>
