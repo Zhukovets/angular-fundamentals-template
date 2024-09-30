@@ -13,7 +13,6 @@ export class SearchComponent {
 
   sendSearch(): void {
       this.search.emit(this.userSearchInput || '')
-      console.log(this.userSearchInput || 'No input provided')
   }
 
   

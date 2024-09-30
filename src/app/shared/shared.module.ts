@@ -18,6 +18,7 @@ import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { EmailValidatorDirective } from '@shared/directives/email.directive';
 // import { TogglePasswordDirective } from '@shared/directives/toggle-password.directive';
 import { Routes, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   {
@@ -55,14 +56,15 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [components /* TogglePasswordDirective */],
+  declarations: [...components /* TogglePasswordDirective */],
   imports: [
     CommonModule,
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    HttpClientModule
   ],
-  exports: [components, RouterModule /* TogglePasswordDirective */]
+  exports: [...components, RouterModule /* TogglePasswordDirective */]
 })
 export class SharedModule { }

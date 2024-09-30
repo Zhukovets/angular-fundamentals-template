@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class CoursesService {
-    private apiUrl=`http://localhost:4000/api`
+    private apiUrl=`http://localhost:4000`
     
     constructor(private http: HttpClient){}
 
@@ -36,7 +36,11 @@ export class CoursesService {
     }
 
     filterCourses(value: string): Observable<any> {
-        return this.http.get(`${this.apiUrl}/courses/filter=${value}`)
+        return this.http.get(`${this.apiUrl}/courses/filter`, {
+            params: {
+                title: value,
+            }
+        })
         // Add your code here
     }
 

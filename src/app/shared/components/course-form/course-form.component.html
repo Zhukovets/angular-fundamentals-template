@@ -66,10 +66,8 @@
         <p *ngIf="authors.length === 0">Author list is empty</p>
       </div>
       <div class="form__action course-form__buttons">
-        <app-button buttonText="cancel"></app-button>
-        <div (click)="onSubmit()">
-          <app-button buttonText="create course"></app-button>
-        </div>
+        <app-button buttonText="cancel" routerLink="/courses"></app-button>
+        <app-button [buttonText]="buttonText" (click)="onSubmit()"></app-button>
       </div>
     </div>
   </div>

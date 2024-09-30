@@ -19,7 +19,8 @@ export class UserStoreService {
     getUser(): void {
         this.userService.getUser().pipe(
             tap(user => {
-                this.name$$.next(user.name)
+                this.name$$.next(user.result.name)
+                this.isAdmin$$.next(user.result.role === 'admin')
             })
         ).subscribe();
         // Add your code here

@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
     providedIn: 'root'
 })
 export class AuthService {
-    private readonly apiUrl = 'http://localhost:4000/api';
+    private readonly apiUrl = 'http://localhost:4000';
     private isAuthorized$$ = new BehaviorSubject<boolean>(this.sessionStorageService.getToken() !== null);
     public isAuthorized$ = this.isAuthorized$$.asObservable();
 
@@ -20,8 +20,8 @@ export class AuthService {
     login(user: {email: string, password: string}): Observable<any> { // replace 'any' with the required interface
         return this.http.post<any>(`${this.apiUrl}/login`, user)
             .pipe(tap(response => {
-                if (response.token) {
-                    this.sessionStorageService.setToken(response.token);
+                if (response.result) {
+                    this.sessionStorageService.setToken(response.result);
                     this.isAuthorised = true
                 }
             }))
@@ -37,8 +37,8 @@ export class AuthService {
     register(user: { name: string; email: string; password: string }): Observable<any> {
         return this.http.post<any>(`${this.apiUrl}/register`, user).pipe(
             tap((response) => {
-                if (response.token) {
-                    this.sessionStorageService.setToken(response.token);
+                if (response.result) {
+                    this.sessionStorageService.setToken(response.result);
                     this.isAuthorised = true;
                 }
             })

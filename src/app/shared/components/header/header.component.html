@@ -1,4 +1,11 @@
 <div class="app-header">
   <img alt="logo" src="assets/logo.svg">
   <ng-content></ng-content>
+  <div class="app-header-account-details">
+    <p *ngIf="isLoggedIn">{{ userName }}</p>
+    <app-button *ngIf="isLoggedIn; else loginButton" buttonText="Logout" (click)="onLogout()"></app-button>
+    <ng-template #loginButton>
+      <app-button buttonText="Login" (click)="onLogin()"></app-button>
+    </ng-template>
+  </div>
 </div>
