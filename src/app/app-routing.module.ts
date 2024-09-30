@@ -75,7 +75,7 @@ export const routes: Routes = [
 
     //by default
     {
-        path: '',
+        path: '/courses',
         redirectTo: '',
         pathMatch: 'full'
     },
