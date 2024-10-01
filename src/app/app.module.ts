@@ -13,7 +13,6 @@ import { CoursesListModule } from './features/courses/courses-list/courses-list.
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
-import { WINDOW } from './auth/services/session-storage.service';
 
 
 
@@ -34,10 +33,6 @@ import { WINDOW } from './auth/services/session-storage.service';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    },
-    {
-      provide: WINDOW,
-      useValue: window
     }
   ],
   bootstrap: [AppComponent],

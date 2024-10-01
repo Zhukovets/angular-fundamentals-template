@@ -1,20 +1,22 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { UserService } from '@app/user/services/user.service';
 import { CoursesService } from '@app/services/courses.service';
 import { UserStoreService } from '@app/user/services/user-store.service';
 import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-courses-list',
   templateUrl: './courses-list.component.html',
-  styleUrls: ['./courses-list.component.css']
+  styleUrls: ['./courses-list.component.css'],
+  providers: [HttpClientModule]
 })
 export class CoursesListComponent implements OnInit{
 
   courses: any[] = []
   authors: any[] = []
 
-  constructor( private userService: UserService, private coursesService: CoursesService, private userStoreService: UserStoreService, private router: Router) {}
+  constructor( private coursesService: CoursesService, private userStoreService: UserStoreService, private router: Router) {}
   @Input() editable: boolean = false;
 
   @Output() showCourse = new EventEmitter<any>();
