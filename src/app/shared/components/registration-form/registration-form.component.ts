@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '@app/auth/services/auth.service';
 
 @Component({
   selector: 'app-registration-form',
@@ -16,7 +17,7 @@ export class RegistrationFormComponent {
     password: 'password'
   }
 
-  constructor(private router: Router) {
+  constructor(private router: Router,private authService: AuthService) {
     this.buildForm();
   }
 
@@ -44,6 +45,16 @@ export class RegistrationFormComponent {
     console.log(this.registrationForm.valid);
     if (this.registrationForm.valid) {
       console.log(this.registrationForm.value);
+      this.authService.register(this.registrationForm.value).subscribe({
+        next: (response) => {
+          if(response.successful){
+            this.router.navigate(["/login"]);
+          }
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
       // Handle form submission logic
     } else {
       this.registrationForm.markAllAsTouched();

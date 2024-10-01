@@ -3,40 +3,49 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotAuthorizedGuard } from './auth/guards/not-authorized.guard';
 import { AuthorizedGuard } from './auth/guards/authorized.guard';
 import { AdminGuard } from './user/guards/admin.guard';
+import { CourseFormComponent, LoginFormComponent, RegistrationFormComponent } from './shared/components';
+import { CoursesComponent } from './features/courses/courses.component';
+import { CourseInfoComponent } from './features/course-info/course-info.component';
 
 const routes: Routes = [
     {
       path: 'login',
-      loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule),
-      canLoad: [NotAuthorizedGuard]
+      component: LoginFormComponent,
+      canActivate: [NotAuthorizedGuard]
     },
     {
       path: 'registration',
-      loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule),
-      canLoad: [NotAuthorizedGuard]
+      component: RegistrationFormComponent,
+      canActivate: [NotAuthorizedGuard]
     },
     {
       path: 'courses',
-      loadChildren: () => import('./features/courses/courses.module').then(m => m.CoursesModule),
-      canActivate: [AuthorizedGuard]
+      component: CoursesComponent,
+      canLoad: [AuthorizedGuard]
     },
     {
       path: 'courses/add',
-      loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule),
-      canActivate: [AdminGuard]
-    },
-    {
-      path: 'courses/edit/:id',
-      loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule),
+      component: CourseFormComponent,
+      canLoad: [AuthorizedGuard],
       canActivate: [AdminGuard]
     },
     {
       path: 'courses/:id',
-      loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule),
-      canActivate: [AuthorizedGuard]
+      component: CourseInfoComponent,
+      canLoad: [AuthorizedGuard]
     },
-    { path: '', redirectTo: '/courses', pathMatch: 'full' },
-    { path: '**', redirectTo: '/courses' }
+    {
+      path: 'courses/edit/:id',
+      component: CourseFormComponent,
+      canLoad: [AuthorizedGuard],
+      canActivate: [AdminGuard]
+    },
+    { 
+      path: '**',
+      redirectTo: '/courses' ,
+      pathMatch: 'full',
+      canLoad: [AuthorizedGuard]
+    }
   ];
 
   @NgModule({

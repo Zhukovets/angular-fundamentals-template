@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { UserService } from './user.service';
+import { SessionStorageService } from '@app/auth/services/session-storage.service';
 
 @Injectable({
     providedIn: 'root'
@@ -13,9 +14,27 @@ export class UserStoreService {
     public isAdmin$: Observable<boolean> = this.isAdmin$$.asObservable();
     public name$: Observable<string> = this.name$$.asObservable();
     
-    constructor(private userService: UserService) {}
+    constructor(private userService: UserService,private sessionStorageService: SessionStorageService) {}
 
     getUser():void {
+        if(this.sessionStorageService.getToken()){
+            this.userService.getUser().subscribe({
+                next: (info: any) => {
+                    if(info.result && info.result.role === "admin"){
+                        this.name$$.next(info.result.name);
+                        this.isAdmin = true;
+                    }
+                    else
+                    {
+                        this.isAdmin = false;
+                    }
+                },
+                error: (error) => {
+                    this.isAdmin = false;
+                    console.error('Error fetching user', error);
+                }
+            });
+        }
         this.userService.getUser().pipe(
             tap(user => {
                 this.isAdmin = user.isAdmin;

@@ -1,10 +1,10 @@
-<app-header *ngIf='user.name !== ""'>
+<app-header *ngIf='isLoggedIn'>
   <span>
     <span> {{ user.name }} </span>
-    <app-button buttonText="LOGOUT"></app-button>
+    <app-button buttonText="LOGOUT" (buttonClick)="logout()"></app-button>
   </span>
 </app-header>
-<app-header *ngIf='user.name === ""'>
+<app-header *ngIf='!isLoggedIn'>
   <span>
     <span> {{ user.name }} </span>
     <app-button buttonText="LOGIN" routerLink="/login"></app-button>

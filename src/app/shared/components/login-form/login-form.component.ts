@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '@app/auth/services/auth.service';
 import { ApiResponse } from '@app/models/course.model';
 import { User } from '@app/models/user.model';
+import { UserStoreService } from '@app/user/services/user-store.service';
 
 @Component({
   selector: 'app-login-form',
@@ -19,8 +21,9 @@ export class LoginFormComponent {
 
   emailControl: string = "";
   passwordControl: string = "";
+  errorLogInMessage: string = "";
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService, private userStoreService: UserStoreService,private router: Router){}
 
   onSubmit(): void {
     Object.keys(this.loginForm.controls).forEach(controlName => {
@@ -34,25 +37,22 @@ export class LoginFormComponent {
         password: this.passwordControl
       }
       this.login(loggingInUser);
-      this.authService.login(loggingInUser);
     } else {
       console.log('Form is invalid');
     }
   }
 
   login(loggingInUser: User): void{
-    this.authService.login(loggingInUser).subscribe(
-      (response: ApiResponse<string>) => {
-        if(response.successful) {
-          console.log(response.result);
-          //this works, but i couldnt @Inject Window in session-storage service
-        } else {
-          console.error('failed to log in', response);
+    this.authService.login(loggingInUser).subscribe({
+      next: (response) => {
+        if(response.successful){
+          this.userStoreService.getUser();
+          this.router.navigate(['/courses']);
         }
       },
-      (error) => {
-        console.error('Error logging in', error);
+      error: (error) => {
+        this.errorLogInMessage = 'Login failed. Please check your credentials.';
       }
-    );
+    })
   }
 }

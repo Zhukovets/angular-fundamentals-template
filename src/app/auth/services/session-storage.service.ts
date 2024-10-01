@@ -6,6 +6,7 @@ const TOKEN = 'SESSION_TOKEN'; // Use this constant for the session storage entr
   providedIn: 'root'
 })
 export class SessionStorageService {
+  
   private get window(): Window {
     return window;
   }

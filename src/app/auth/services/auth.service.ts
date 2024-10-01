@@ -20,8 +20,18 @@ export class AuthService {
     }
 
     login(user: User): Observable<any> {
-        console.log("loggining in...");
-        return this.http.post<ApiResponse<string>>(`${environment.apiBaseUrl}/login`, user);
+        return this.http.post<ApiResponse<string>>(`${environment.apiBaseUrl}/login`, user)
+            .pipe(
+                map((response)=>{
+                    if (response?.successful && response.result){
+                        let token=response.result
+                        this.sessionStorage.setToken(token)
+                        this.isAuthorised=true
+                        this.isAuthorized$$.next(true)
+                    }
+                    return response
+                })
+            );
     }
 
     logout() {
@@ -30,7 +40,15 @@ export class AuthService {
     }
 
     register(user: {  name: string, email: string, password: string }): Observable<any> {
-        return this.http.post<any>('/api/auth/register', user);
+        return this.http.post<any>(`${environment.apiBaseUrl}/register`, user)
+            .pipe(
+                map((response)=>{
+                    if (response.successful) {
+                        console.log(response.result);
+                    }
+                    return response;
+                })
+            );
     }
 
     get isAuthorised(): boolean {
@@ -42,6 +60,6 @@ export class AuthService {
     }
 
     getLoginUrl() {
-        return 'api.auth/login';
+        return `${environment.apiBaseUrl}/login`;
     }
 }
