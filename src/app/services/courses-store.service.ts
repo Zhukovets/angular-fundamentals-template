@@ -1,42 +1,96 @@
 import { Injectable } from '@angular/core';
+import { CoursesService } from './courses.service';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { ApiResponse, Course } from '@app/models/course.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CoursesStoreService {
-    getAll(){
-        // Add your code here
+
+    private isLoading$$ = new BehaviorSubject<boolean>(false);
+    private courses$$ = new BehaviorSubject<any[]>([]);
+
+    public isLoading$: Observable<boolean> = this.isLoading$$.asObservable();
+    public courses$: Observable<any[]> = this.courses$$.asObservable();
+
+    constructor(private coursesService: CoursesService){}
+
+    getAll(): void{
+        this.isLoading$$.next(true);
+        this.coursesService.getAll().pipe(
+            tap(courses => {
+                this.courses$$.next(courses.result);
+                this.isLoading$$.next(false);
+            })
+        ).subscribe();
     }
 
-    createCourse(course: any) { // replace 'any' with the required interface
-        // Add your code here
+    createCourse(course: any) {
+        this.coursesService.createCourse(course).pipe(
+            tap(newCourse => {
+              const currentCourses = this.courses$$.value;
+              this.courses$$.next([...currentCourses, newCourse]);
+            })
+        ).subscribe();
     }
 
-    getCourse(id: string) {
-        // Add your code here
+    getCourse(id: string): Observable<ApiResponse<Course>> {
+        return this.coursesService.getCourse(id);
     }
 
-    editCourse(id: string, course: any) { // replace 'any' with the required interface
-        // Add your code here
+    editCourse(id: string, course: any) {
+        this.coursesService.editCourse(id, course).pipe(
+            tap(updatedCourse => {
+              const updatedCourses = this.courses$$.value.map(c => c.id === id ? updatedCourse : c);
+              this.courses$$.next(updatedCourses);
+            })
+        ).subscribe();
     }
 
     deleteCourse(id: string) {
-        // Add your code here
+        this.coursesService.deleteCourse(id).pipe(
+            tap(() => {
+              const filteredCourses = this.courses$$.value.filter(course => course.id !== id);
+              this.courses$$.next(filteredCourses);
+            })
+        ).subscribe();
     }
 
     filterCourses(value: string) {
-        // Add your code here
+        this.isLoading$$.next(true);
+        this.coursesService.filterCourses(value).pipe(
+            tap((response: ApiResponse<Course[]>) => {
+                if (response.successful && response.result) {
+                    this.courses$$.next(response.result);
+                } else {
+                    console.error('Filtering courses failed:', response);
+                }
+                this.isLoading$$.next(false);
+            }),
+            catchError(error => {
+                console.error('Error filtering courses:', error);
+                this.isLoading$$.next(false);
+                return throwError(error);
+            })
+        ).subscribe();
     }
+    
 
     getAllAuthors() {
-        // Add your code here
+        return this.coursesService.getAllAuthors();
     }
 
     createAuthor(name: string) {
-        // Add your code here
-    }
+        this.coursesService.createAuthor(name).pipe(
+            tap(newAuthor => {
+              console.log('Author Created:', newAuthor);
+            })
+        ).subscribe();
+        }
 
     getAuthorById(id: string) {
-        // Add your code here
+        return this.coursesService.getAuthorById(id);
     }
+
 }
