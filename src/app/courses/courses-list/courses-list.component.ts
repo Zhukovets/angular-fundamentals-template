@@ -32,6 +32,9 @@ export class CoursesListComponent {
 
   onSearch(searchQuery: string): void {
     console.log("Search query:", searchQuery);
+    this.coursesService
+      .filterCourses(searchQuery)
+      .subscribe((res) => (this.courses = res));
     // Add logic to filter courses based on the search query
   }
 }

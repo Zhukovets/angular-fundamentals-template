@@ -12,6 +12,8 @@ export class AuthService {
   public isAuthorized$: Observable<boolean>;
 
   private apiUrl = "http://localhost:4000";
+  authToken: any;
+  router: any;
 
   constructor(
     private http: HttpClient,
@@ -36,9 +38,9 @@ export class AuthService {
   }
 
   logout(): void {
-    // Add your code here
-    this.sessionStorage.deleteToken();
-    this.isAuthorised = false;
+    localStorage.removeItem("authToken");
+    this.authToken = null;
+    this.router.navigate(["/login"]);
   }
 
   register(user: {
@@ -59,9 +61,11 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return this.sessionStorage.getToken();
+    if (!this.authToken) {
+      this.authToken = localStorage.getItem("authToken");
+    }
+    return this.authToken;
   }
-
   get isAuthorised(): boolean {
     // Add your code here. Get isAuthorized$$ value
     return this.isAuthorized$$.getValue();

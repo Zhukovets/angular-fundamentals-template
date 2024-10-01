@@ -44,11 +44,18 @@ export class CoursesService {
     return this.http.delete<void>(`${this.apiUrl}/courses/${id}`);
   }
 
-  filterCourses(value: string): Observable<Course[]> {
+  filterCourses(value: string) {
     // Add your code here
-    return this.http.get<Course[]>(`${this.apiUrl}/courses`, {
-      params: { search: value },
-    });
+    return this.http
+      .get<resultArray>(`${this.apiUrl}/courses/filter`)
+      .pipe(
+        map(
+          (res) =>
+            (res.result as Course[]).filter(
+              (course) => course.title === value
+            ) as Course[]
+        )
+      );
   }
 
   getAllAuthors() {
