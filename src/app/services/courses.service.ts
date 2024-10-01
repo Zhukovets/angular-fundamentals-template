@@ -35,7 +35,7 @@ export class CoursesService {
     }
 
     filterCourses(value: string): Observable<ApiResponse<Course[]>> {
-        return this.http.get<ApiResponse<Course[]>>(`${this.apiUrl}/filter`, { params: { search: value } });
+        return this.http.get<ApiResponse<Course[]>>(`${this.apiUrl}/filter`, { params: { title: value } });
     }
 
     getAllAuthors(): Observable<ApiResponse<Author[]>> {
