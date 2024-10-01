@@ -29,8 +29,9 @@ export class AuthService {
     // Add your code here
     return this.http.post<any>(`${this.apiUrl}/login`, user).pipe(
       tap((response) => {
-        if (response && response.token) {
-          this.sessionStorage.setToken(response.token);
+        if (response && response.result) {
+          const token = response.result.replace("Bearer ", "");
+          this.sessionStorage.setToken(token);
           this.isAuthorised = true;
         }
       })
@@ -52,8 +53,9 @@ export class AuthService {
     // Add your code here
     return this.http.post<any>(`${this.apiUrl}/register`, user).pipe(
       tap((response) => {
-        if (response && response.token) {
-          this.sessionStorage.setToken(response.token);
+        if (response && response.result) {
+          const token = response.result.replace("Bearer ", "");
+          this.sessionStorage.setToken(token);
           this.isAuthorised = true;
         }
       })
@@ -62,10 +64,11 @@ export class AuthService {
 
   getToken(): string | null {
     if (!this.authToken) {
-      this.authToken = localStorage.getItem("authToken");
+      this.authToken = this.sessionStorage.getToken();
     }
     return this.authToken;
   }
+
   get isAuthorised(): boolean {
     // Add your code here. Get isAuthorized$$ value
     return this.isAuthorized$$.getValue();
