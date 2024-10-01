@@ -6,19 +6,19 @@ const TOKEN = 'SESSION_TOKEN'; // Use this constant for the session storage entr
   providedIn: 'root'
 })
 export class SessionStorageService {
-  // i wanted to use this but its not working
-  //in constructor: @Inject(window) private window: Window
-  constructor(/*@Inject(window) private window: Window*/){}
+  private get window(): Window {
+    return window;
+  }
 
   setToken(token: string){
-    //this.window.sessionStorage.setItem(TOKEN, token);
+    this.window.sessionStorage.setItem(TOKEN, token);
   }
 
   getToken(){
-    return ""; //this.window.sessionStorage.getItem(TOKEN);
+    return this.window.sessionStorage.getItem(TOKEN)
   }
 
   deleteToken(){
-    //this.window.sessionStorage.removeItem(TOKEN);
+    this.window.sessionStorage.removeItem(TOKEN)
   }
 }
