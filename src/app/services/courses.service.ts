@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -35,16 +35,24 @@ export class CoursesService {
         // Add your code here
     }
 
+    
     filterCourses(value: string): Observable<any> {
-        return this.http.get(`${this.apiUrl}/courses/filter`, {
-            params: {
-                title: value,
-            }
-        })
+        const makeRequest = (paramName: string): Observable<any> => {
+            const params: any = {};
+            params[paramName] = value;
+            return this.http.get(`${this.apiUrl}/courses/filter`, { params });
+        };
+    
+        return makeRequest('title').pipe(
+            switchMap(response => response.result.length ? of(response) : makeRequest('description')),
+            switchMap(response => response.result.length ? of(response) : makeRequest('duration')),
+            switchMap(response => response.result.length ? of(response) : makeRequest('creationDate')),
+        );
         /* http://localhost:4000/courses/filter?title=title sent backend request
         // Add your code here */
     }
-
+        
+   
     getAllAuthors(): Observable<any> {
         return this.http.get(`${this.apiUrl}/authors/all`);
         // Add your code here

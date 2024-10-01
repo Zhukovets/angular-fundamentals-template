@@ -16,9 +16,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { DurationPipe } from './pipes/duration.pipe';
 import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { EmailValidatorDirective } from '@shared/directives/email.directive';
-// import { TogglePasswordDirective } from '@shared/directives/toggle-password.directive';
 import { Routes, RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+// import { TogglePasswordDirective } from '@shared/directives/toggle-password.directive';
+
 
 const routes: Routes = [
   {
@@ -62,8 +62,7 @@ const components = [
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes),
-    HttpClientModule
+    RouterModule.forChild(routes)
   ],
   exports: [...components, RouterModule /* TogglePasswordDirective */]
 })

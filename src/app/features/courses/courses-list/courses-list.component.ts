@@ -62,6 +62,7 @@ export class CoursesListComponent implements OnInit{
   onSearch(value: string): void {
     this.coursesService.filterCourses(value).subscribe(
       (response) => {
+        console.log(response)
         this.courses = response.result;
         this.fetchAuthorsAndMap();
       },
