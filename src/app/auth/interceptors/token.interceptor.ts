@@ -30,7 +30,7 @@ export class TokenInterceptor implements HttpInterceptor {
                     this.authService.logout();
                     this.router.navigate(['/login']);
                 }
-                return throwError(error);
+                return throwError(() => error);
             })
         );
     }
