@@ -11,13 +11,13 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 export class CourseCardComponent {
   @Input() title!: string;
   @Input() description!: string;
-  @Input() creationDate!: Date;
+  @Input() creationDate!: string;
   @Input() duration!: number;
   @Input() authors!: string[];
   @Input() editable: boolean = false;
   @Output() clickOnShow = new EventEmitter<void>();
 
-  constructor(private datePipe: DatePipe){}
+  constructor(){}
 
   onShowCourse(): void{
     this.clickOnShow.emit();
