@@ -13,6 +13,7 @@ import { CoursesListModule } from './features/courses/courses-list/courses-list.
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -26,7 +27,8 @@ import { TokenInterceptor } from './auth/interceptors/token.interceptor';
     CourseInfoModule,
     CoursesModule,
     CoursesListModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService,
     {

@@ -2,14 +2,12 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CoursesService } from '@app/services/courses.service';
 import { UserStoreService } from '@app/user/services/user-store.service';
 import { Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
   selector: 'app-courses-list',
   templateUrl: './courses-list.component.html',
-  styleUrls: ['./courses-list.component.css'],
-  providers: [HttpClientModule]
+  styleUrls: ['./courses-list.component.css']
 })
 export class CoursesListComponent implements OnInit{
 

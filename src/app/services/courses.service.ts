@@ -41,7 +41,8 @@ export class CoursesService {
                 title: value,
             }
         })
-        // Add your code here
+        /* http://localhost:4000/courses/filter?title=title sent backend request
+        // Add your code here */
     }
 
     getAllAuthors(): Observable<any> {
