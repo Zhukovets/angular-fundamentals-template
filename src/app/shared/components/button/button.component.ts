@@ -14,9 +14,9 @@ export class ButtonComponent {
   @Input() buttonText?: string;
   @Input() iconName?: string;
 
-  @Output() clicked = new EventEmitter<void>();
+  @Output() parentFunction: EventEmitter<void> = new EventEmitter<void>();
 
   onClick(): void {
-    this.clicked.emit();
+    this.parentFunction.emit();
   }
 }

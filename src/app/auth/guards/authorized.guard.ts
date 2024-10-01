@@ -19,8 +19,10 @@ export class AuthorizedGuard implements CanLoad {
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
     if (this.authService.isAuthorised) {
+      console.log("user is authorized");
       return true;
     }
+    console.log("user is not authorized");
     return this.router.createUrlTree(["/login"]);
   }
 }

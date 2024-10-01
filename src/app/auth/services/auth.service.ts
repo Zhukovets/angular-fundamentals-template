@@ -11,7 +11,7 @@ export class AuthService {
   private isAuthorized$$: BehaviorSubject<boolean>;
   public isAuthorized$: Observable<boolean>;
 
-  private apiUrl = "http://localhost:4000/api/auth";
+  private apiUrl = "http://localhost:4000";
 
   constructor(
     private http: HttpClient,
@@ -22,11 +22,7 @@ export class AuthService {
     this.isAuthorized$ = this.isAuthorized$$.asObservable();
   }
 
-  login(user: {
-    name: string;
-    email: string;
-    password: string;
-  }): Observable<any> {
+  login(user: { email: string; password: string }) {
     // replace 'any' with the required interface
     // Add your code here
     return this.http.post<any>(`${this.apiUrl}/login`, user).pipe(

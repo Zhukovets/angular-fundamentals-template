@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { Author } from "@app/models/author.model";
@@ -58,9 +58,15 @@ export class CoursesService {
       .pipe(map((res) => res.result as Author[]));
   }
 
-  createAuthor(name: string): Observable<Author> {
+  createAuthor(name: string) {
     // Add your code here
-    return this.http.post<Author>(`${this.apiUrl}/authors`, { name });
+    const token = localStorage.getItem("authToken");
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http
+      .post<resultArray>(`${this.apiUrl}/authors/add`, { name }, { headers })
+      .pipe(map((res) => res.result as Author));
   }
 
   getAuthorById(id: string) {

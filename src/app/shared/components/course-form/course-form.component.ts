@@ -43,9 +43,16 @@ export class CourseFormComponent implements OnInit {
   createAuthor(): void {
     const authorName = this.courseForm.controls["author"]?.value;
     if (authorName) {
-      const newAuthor = { id: String(Date.now()), name: authorName };
-      this.authors.push(newAuthor);
-      this.courseForm.get("author")?.reset();
+      this.coursesService.createAuthor(authorName).subscribe(
+        (newAuthor) => {
+          console.log("Author created successfully:", newAuthor);
+          this.authors.push(newAuthor);
+          this.courseForm.get("author")?.reset();
+        },
+        (error) => {
+          console.error("Failed to create author:", error);
+        }
+      );
     }
   }
 

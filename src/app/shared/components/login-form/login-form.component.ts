@@ -26,19 +26,23 @@ export class LoginFormComponent {
           email: loginData.email,
           password: loginData.password,
         })
-        .subscribe((res) => {
-          if (res.successful && res.user) {
-            console.log("sajt");
-            if (res.user.email === "admin@email.com") {
-              this.router.navigate(["/admin-dashboard"]);
+        .subscribe(
+          (res) => {
+            if (res.successful && res.user) {
+              console.log("Login successful");
+              if (res.user.email === "admin@email.com") {
+                this.router.navigate([""]);
+              } else {
+                this.router.navigate([""]);
+              }
             } else {
-              this.router.navigate(["/courses"]);
+              console.log("Login failed", res.errors);
             }
-          } else if (!res.successful) {
-            console.log("login failed", res.errors);
+          },
+          (error) => {
+            console.log("Login failed: ", error);
           }
-          (error: any) => console.log("Login failed: ", error);
-        });
+        );
     } else {
       console.log("Form is invalid");
     }
