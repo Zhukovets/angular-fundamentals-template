@@ -1,1 +1,9 @@
-<p>courses works!</p>
+<div class="search-add-container">
+    <app-search></app-search>
+    <app-button buttonText="ADD NEW COURSE"></app-button>
+</div>
+
+<app-courses-list
+  [courses]="allCourses"
+  [editable]="true"
+></app-courses-list>
