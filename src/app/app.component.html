@@ -1,6 +1,6 @@
 <app-header>
     <ng-container *ngIf="auth.isAuthorised;else loginTemplate">
-        <ng-container *ngIf="userStoreService.name??'admin'">
+        <ng-container *ngIf="(userStoreService.name$ | async) ??'admin'">
             <span class="user-description">{{userStoreService.name || 'admin'}}</span>
             <app-button [btnDefault]=true
                         [btnMod]=true

@@ -16,7 +16,9 @@ export class UserStoreService {
     public role$:Observable<string | null> = this.role$$.asObservable(); //maybe will be better
 
 
-    constructor(private userService: UserService) {}
+    constructor(private userService: UserService) {
+            this.getUser();
+    }
 
     getUser() {
         this.userService.getUser()

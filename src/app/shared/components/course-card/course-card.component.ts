@@ -4,8 +4,6 @@ import {ButtonIcon} from 'src/app/models/const';
 import {UserStoreService} from "@app/user/services/user-store.service";
 
 
-
-
 @Component({
     selector: 'app-course-card',
     templateUrl: './course-card.component.html',

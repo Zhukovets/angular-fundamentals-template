@@ -92,6 +92,7 @@ export class CourseFormComponent implements OnInit {
                 }
             }
         )
+        this.router.navigate([this.router.url])
     }
 
     insertCourseAuthor(param: FormArray, item: Author) {
@@ -141,9 +142,9 @@ export class CourseFormComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.id = this.route.snapshot.paramMap.get('id') || "";
+        this.id = this.route.snapshot.paramMap.get('id') || '';
 
-        if (this.id !== "") {
+        if (this.id !== '') {
             this.coursesStoreService.getCourseWithAuthors(this.id).subscribe({
                 next: (response) => {
                     this.courseForm.get('title')?.setValue(response.course.title)
@@ -179,7 +180,6 @@ export class CourseFormComponent implements OnInit {
                 });
             }
         })
-
     }
 
     onSubmitForm(e: any) {
@@ -193,12 +193,11 @@ export class CourseFormComponent implements OnInit {
             duration: this.courseForm.value.duration,
             authors: this.courseForm.value.courseAuthors.map((item: any) => item.id),
         }
-        if (this.id !== "") {
+        if (this.id !== '') {
             this.coursesStoreService.editCourse(this.id, course);
         } else {
             this.coursesStoreService.createCourse(course);
         }
-
         this.router.navigate(['/courses'])
     }
 }

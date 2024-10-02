@@ -19,7 +19,7 @@
                             [buttonType]="'button'"
                             (clickButton)="showCourse()">
                 </app-button>
-                <ng-container *ngIf="this.editable && this.userStoreService.isAdmin; then thenBlock else elseBlock"></ng-container>
+                <ng-container *ngIf="this.userStoreService.isAdmin$ | async; then thenBlock else elseBlock"></ng-container>
                 <ng-template #thenBlock>
                     <app-button [btnDefault]=true
                                 [btnIcon]=true

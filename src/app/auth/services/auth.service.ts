@@ -6,7 +6,6 @@ import {LoginData, LoginResponse, RegisterResponse} from "@app/models/card.model
 import {baseUrl} from "@app/api.config";
 import {Router} from '@angular/router';
 
-
 @Injectable({
     providedIn: 'root'
 })
@@ -22,12 +21,11 @@ export class AuthService {
         });
     }
 
-    constructor(private http: HttpClient, private sessionStorage: SessionStorageService, public router: Router) {
+    constructor(private http: HttpClient, private sessionStorage: SessionStorageService, public router: Router,) {
         const token = this.sessionStorage.getToken();
         this.isAuthorized$$.next(!!token);
     }
 
-    // Login method
     login(user: LoginData): Observable<LoginResponse> {
         return this.http.post<LoginResponse>(this.getLoginUrl(), JSON.stringify(user), {headers: this.createHeaders()})
             .pipe(
@@ -46,8 +44,8 @@ export class AuthService {
 
     logout(): void {
         this.sessionStorage.deleteToken();
-        this.router.navigate(['/login']);
         this.isAuthorized$$.next(false);
+        this.router.navigate(['/login']);
     }
 
     register(user: LoginData): Observable<RegisterResponse> {
