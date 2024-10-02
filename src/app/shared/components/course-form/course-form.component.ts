@@ -5,6 +5,8 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
+import { AuthService } from "@app/auth/services/auth.service";
+import { CoursesService } from "@app/services/courses.service";
 import { FaIconLibrary } from "@fortawesome/angular-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 
@@ -16,7 +18,8 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 export class CourseFormComponent {
   constructor(
     public fb: FormBuilder,
-    public library: FaIconLibrary
+    public library: FaIconLibrary,
+    private coursesService: CoursesService
   ) {
     library.addIconPacks(fas);
     this.form = new FormGroup({
@@ -61,7 +64,28 @@ export class CourseFormComponent {
   }
 
   createAuthor(author: string) {
-    this.authors.push(author);
+    this.coursesService.createAuthor(author);
+  }
+
+  createCourse() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    const courseData = {
+      title: this.title.value,
+      description: this.description.value,
+      duration: this.duration.value,
+      authors: this.authors,
+    };
+    this.coursesService.createCourse(courseData).subscribe(
+      (response) => {
+        console.log("Course created successfully:", response);
+      },
+      (error) => {
+        console.error("Error creating course:", error);
+      }
+    );
   }
 
   getDurationFormatted(minutes: number): string {

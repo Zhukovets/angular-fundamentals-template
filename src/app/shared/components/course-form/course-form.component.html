@@ -61,10 +61,7 @@
         >
         <div class="course__authors">
           <ul class="authors-list">
-            <li
-              *ngFor="let author of authors; track: author.index"
-              class="authors-list-item"
-            >
+            <li *ngFor="let author of authors" class="authors-list-item">
               Name: {{ author }}
               <app-button button_text="Remove" (click)="removeAuthor(author)">
               </app-button>
@@ -97,8 +94,14 @@
       <div class="form__action"></div>
     </div>
   </div>
+  <div
+    class="buttons-container"
+    style="display: flex; align-items: center; justify-content: center"
+  >
+    <app-button button_text="Cancel"></app-button>
+    <app-button
+      button_text="Create course"
+      (buttonClick)="createCourse()"
+    ></app-button>
+  </div>
 </form>
-<div class="buttons-container">
-  <app-button button_text="Cancel"></app-button>
-  <app-button button_text="Create course"></app-button>
-</div>

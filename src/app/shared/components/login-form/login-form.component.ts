@@ -1,5 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
+import { Router } from "@angular/router";
 import { AuthService } from "@app/auth/services/auth.service";
 
 @Component({
@@ -8,7 +9,10 @@ import { AuthService } from "@app/auth/services/auth.service";
   styleUrls: ["./login-form.component.scss"],
 })
 export class LoginFormComponent {
-  constructor(private authService: AuthService) {} // Inject AuthService
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {} // Inject AuthService
 
   @ViewChild("loginForm") public loginForm!: NgForm;
 
@@ -21,7 +25,7 @@ export class LoginFormComponent {
       this.authService.login(user).subscribe({
         next: (response) => {
           console.log("Login successful!", response);
-          // this.router.navigate(['/dashboard'])
+          this.router.navigate(["/courses"]);
         },
         error: (error) => {
           console.error("Login failed", error);
@@ -30,5 +34,9 @@ export class LoginFormComponent {
     } else {
       console.log("Form is invalid");
     }
+  }
+
+  navigateToRegistration() {
+    this.router.navigate(["/registration"]);
   }
 }

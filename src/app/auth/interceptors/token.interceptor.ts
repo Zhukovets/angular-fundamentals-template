@@ -26,13 +26,14 @@ export class TokenInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     // Get the token from the session storage
     const token = this.sessionStorageService.getToken();
+    console.log(token);
 
     // If the token exists, clone the request and add the Authorization header
     let authReq = req;
     if (token) {
       authReq = req.clone({
         setHeaders: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `${token}`,
         },
       });
     }

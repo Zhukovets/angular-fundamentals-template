@@ -44,7 +44,7 @@ export class AuthService {
   logout(): Observable<any> {
     const url = `${this.apiUrl}/logout`;
     const token = this.sessionStorageService.getToken();
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`);
+    const headers = new HttpHeaders().set("Authorization", `${token}`);
 
     return this.http.delete<any>(url, { headers }).pipe(
       tap(() => {

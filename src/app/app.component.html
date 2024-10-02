@@ -1,5 +1,11 @@
 <app-header>
-  <app-button button_text="Login" routerLink="/login"></app-button>
+  <ng-container *ngIf="isAuthorized; else loggedOut">
+    <app-button button_text="Logout" (click)="logout()"></app-button>
+  </ng-container>
+  <ng-template #loggedOut>
+    <app-button button_text="Login" routerLink="/login"></app-button>
+  </ng-template>
 </app-header>
-<div class="app-root"></div>
-<router-outlet></router-outlet>
+<div class="app-root">
+  <router-outlet></router-outlet>
+</div>

@@ -17,7 +17,7 @@ export class CoursesService {
   }
 
   createCourse(course: Course): Observable<Course> {
-    return this.http.post<Course>(`${this.apiUrl}/courses`, course);
+    return this.http.post<Course>(`${this.apiUrl}/courses/add`, course);
   }
 
   editCourse(id: string, course: Course): Observable<Course> {
@@ -41,7 +41,9 @@ export class CoursesService {
   }
 
   createAuthor(name: string): Observable<Author> {
-    return this.http.post<Author>(`${this.apiUrl}/authors`, { name });
+    console.log(`${this.apiUrl}/authors/add`);
+    console.log({ name: name });
+    return this.http.post<Author>(`${this.apiUrl}/authors/add`, { name: name });
   }
 
   getAuthorById(id: string): Observable<Author> {

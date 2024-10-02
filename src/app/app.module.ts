@@ -11,8 +11,9 @@ import { CoursesService } from "@app/services/courses.service";
 import { CoursesComponent } from "./features/courses/courses.component";
 import { CoursesListComponent } from "./features/courses/courses-list/courses-list.component";
 import { AppRoutingModule } from "./app-routing.module";
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { WindowRefService } from "./shared/provides/window.provider";
+import { TokenInterceptor } from "./auth/interceptors/token.interceptor";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,11 @@ import { WindowRefService } from "./shared/provides/window.provider";
     CoursesService,
     CoursesStoreService,
     WindowRefService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
