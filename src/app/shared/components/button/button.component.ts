@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { FaIconLibrary } from "@fortawesome/angular-fontawesome";
 import { fas, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -21,6 +21,7 @@ export class ButtonComponent {
   @Input() button_text: string = "";
   @Input() icon_name: string = "";
   @Input() second_icon_name: string = "";
+  @Output() buttonClick = new EventEmitter<void>();
 
   iconMap: { [key: string]: any } = {
     coffee: faCoffee,

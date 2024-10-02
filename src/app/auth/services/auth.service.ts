@@ -32,8 +32,8 @@ export class AuthService {
     const url = `${this.apiUrl}/login`;
     return this.http.post<any>(url, user).pipe(
       tap((response) => {
-        if (response && response.token) {
-          this.sessionStorageService.setToken(response.token); // Save token in session storage
+        if (response && response.result) {
+          this.sessionStorageService.setToken(response.result); // Save token in session storage
           this.isAuthorized$$.next(true); // Update authorization state
         }
       })

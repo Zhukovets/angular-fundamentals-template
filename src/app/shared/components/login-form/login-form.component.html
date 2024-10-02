@@ -45,7 +45,10 @@
       </div>
       <div>
         <div class="form__action button-container">
-          <app-button button_text="Login"></app-button>
+          <app-button
+            button_text="Login"
+            (buttonClick)="onSubmit()"
+          ></app-button>
         </div>
         <div class="form__text">
           If you don't have an account you may

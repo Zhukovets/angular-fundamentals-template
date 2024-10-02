@@ -17,6 +17,7 @@ export class SessionStorageService {
 
   setToken(token: string): void {
     this.window.sessionStorage.setItem(TOKEN, token); // Use session storage to set token
+    console.log("token i set to " + this.window.sessionStorage.getItem(TOKEN));
   }
 
   getToken(): string | null {

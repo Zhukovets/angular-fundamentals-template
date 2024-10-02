@@ -18,7 +18,6 @@ export class LoginFormComponent {
         email: this.loginForm.value.email,
         password: this.loginForm.value.password,
       };
-
       this.authService.login(user).subscribe({
         next: (response) => {
           console.log("Login successful!", response);
