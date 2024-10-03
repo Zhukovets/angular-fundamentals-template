@@ -1,3 +1,10 @@
-<app-course-card></app-course-card>
-<app-course-form></app-course-form>
-<app-course-info></app-course-info>
+<div *ngIf="courses$ | async as courses"></div>
+<div style="display: flex; align-items: center; justify-content: space-between">
+  <app-search (search)="search($event)"></app-search>
+  <app-button
+    button_text="Add new course"
+    (buttonClick)="navigateToNewCourse()"
+  ></app-button>
+</div>
+
+<app-courses-list></app-courses-list>

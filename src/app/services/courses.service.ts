@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { map, Observable } from "rxjs";
 import { Course } from "@app/shared/models/course.model";
 import { Author } from "@app/shared/models/author.model";
 
@@ -12,8 +12,10 @@ export class CoursesService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Course[]> {
-    return this.http.get<Course[]>(`${this.apiUrl}/courses`);
+  getAll(): Observable<any> {
+    return this.http
+      .get<any>(`${this.apiUrl}/courses/all`)
+      .pipe(map((response) => response.result));
   }
 
   createCourse(course: Course): Observable<Course> {
@@ -33,7 +35,9 @@ export class CoursesService {
   }
 
   filterCourses(value: string): Observable<Course[]> {
-    return this.http.get<Course[]>(`${this.apiUrl}/courses?search=${value}`);
+    return this.http.get<Course[]>(
+      `${this.apiUrl}/courses/filter?title=${value}`
+    );
   }
 
   getAllAuthors(): Observable<Author[]> {

@@ -5,7 +5,6 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
-import { AuthService } from "@app/auth/services/auth.service";
 import { CoursesService } from "@app/services/courses.service";
 import { FaIconLibrary } from "@fortawesome/angular-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
