@@ -16,6 +16,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 })
 export class RegistrationFormComponent {
   registrationForm!: FormGroup;
+  errorMessage: string = ""; // To display error messages if registration fails
   // Use the names `name`, `email`, `password` for the form controls.
   constructor(
     public fb: FormBuilder,
@@ -52,6 +53,29 @@ export class RegistrationFormComponent {
   }
 
   submit() {
-    console.log("submitted");
+    console.log("submitting");
+
+    if (this.registrationForm.valid) {
+      const user = {
+        name: this.name?.value,
+        email: this.email?.value,
+        password: this.password?.value,
+      };
+
+      // Call the register method from AuthService
+      this.authService.register(user).subscribe({
+        next: (response) => {
+          this.registrationForm.reset();
+          console.log("Registration successful", response);
+          // Here you can redirect to another page, show a success message, etc.
+        },
+        error: (error) => {
+          console.error("Registration failed", error);
+          this.errorMessage = "Registration failed. Please try again."; // Display a friendly error message
+        },
+      });
+    } else {
+      this.errorMessage = "Please fill out the form correctly.";
+    }
   }
 }

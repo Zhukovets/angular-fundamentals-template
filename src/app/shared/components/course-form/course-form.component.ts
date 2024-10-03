@@ -64,7 +64,14 @@ export class CourseFormComponent {
   }
 
   createAuthor(author: string) {
-    this.coursesService.createAuthor(author);
+    this.coursesService.createAuthor(author).subscribe(
+      (response) => {
+        console.log("Course created successfully:", response);
+      },
+      (error) => {
+        console.error("Error creating course:", error);
+      }
+    );
   }
 
   createCourse() {

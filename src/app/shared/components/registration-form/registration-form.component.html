@@ -10,7 +10,6 @@
           placeholder="Input text"
           formControlName="name"
           required
-          emailValidator
           minlength="6"
         />
         <span
@@ -69,7 +68,10 @@
           class="form__action"
           style="display: flex; justify-content: center; align-items: center"
         >
-          <app-button button_text="Submit" onsubmit="submit()"></app-button>
+          <app-button
+            button_text="Submit"
+            (buttonClick)="submit()"
+          ></app-button>
         </div>
       </div>
     </div>

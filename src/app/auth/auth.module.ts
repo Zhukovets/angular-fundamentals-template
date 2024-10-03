@@ -8,6 +8,6 @@ import { WindowRefService } from "@app/shared/provides/window.provider";
 @NgModule({
   declarations: [],
   imports: [CommonModule, HttpClientModule],
-  providers: [SessionStorageService, AuthService],
+  providers: [SessionStorageService, AuthService, WindowRefService],
 })
 export class AuthModule {}
