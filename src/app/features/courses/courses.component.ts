@@ -26,7 +26,7 @@ export class CoursesComponent implements OnInit {
     }
 
     search(data: string) {
-        this.coursesStoreService.filterCourses(data);
+        this.coursesStoreService.filterCourses(data.toLowerCase());
         this.coursesStoreService.courses$.subscribe({
             next: (resp) => {
                 this.coursesList = resp;

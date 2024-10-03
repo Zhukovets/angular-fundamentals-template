@@ -3,9 +3,7 @@ import {CanLoad, Route, Router, UrlSegment, UrlTree} from "@angular/router";
 import {AuthService} from "@app/auth/services/auth.service";
 import {Observable} from "rxjs";
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class AuthorizedGuard implements CanLoad {
 
     constructor(private auth: AuthService, private router: Router) {}

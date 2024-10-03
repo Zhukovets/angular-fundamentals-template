@@ -22,8 +22,7 @@ import {
 })
 export class CoursesService {
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) {}
 
     createHeaders(): HttpHeaders {
         return new HttpHeaders({

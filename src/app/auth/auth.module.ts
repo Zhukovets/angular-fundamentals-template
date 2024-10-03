@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SessionStorageService } from "./services/session-storage.service";
 import { AuthService } from "./services/auth.service";
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {TokenInterceptor} from "@app/auth/interceptors/token.interceptor";
+import {AuthorizedGuard} from "@app/auth/guards/authorized.guard";
+import {NotAuthorizedGuard} from "@app/auth/guards/not-authorized.guard";
 
 @NgModule({
   declarations: [],
@@ -13,6 +16,13 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     SessionStorageService,
     AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    AuthorizedGuard,
+    NotAuthorizedGuard,
   ]
 })
 

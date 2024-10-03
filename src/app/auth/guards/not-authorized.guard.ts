@@ -3,9 +3,7 @@ import {CanActivate, Router, UrlTree} from "@angular/router";
 import {AuthService} from "@app/auth/services/auth.service";
 import {Observable} from "rxjs";
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class NotAuthorizedGuard implements CanActivate {
     constructor(private authService: AuthService, private router: Router) {}
 

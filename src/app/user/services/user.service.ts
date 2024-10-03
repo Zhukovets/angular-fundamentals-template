@@ -4,9 +4,7 @@ import {usersUrl} from '@app/api.config';
 import {UserResponse} from '@app/models/card.model'
 import {Observable} from "rxjs";
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class UserService {
     constructor(private http: HttpClient) {}
 

@@ -8,9 +8,7 @@ const WINDOW = new InjectionToken<Window>('WindowToken', {
     factory: () => window
 });
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class SessionStorageService {
     constructor(@Inject(WINDOW) private window: Window) {
     }

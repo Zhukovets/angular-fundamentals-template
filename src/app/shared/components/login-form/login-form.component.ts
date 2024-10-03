@@ -2,11 +2,10 @@ import {Component, ViewChild, OnDestroy, EventEmitter} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {ButtonText} from 'src/app/models/const'
 import {AuthService} from '@app/auth/services/auth.service';
-import {LoginData, LoginResponse} from "@app/models/card.model";
-import {Router} from "@angular/router";
-import {Subject, takeUntil, take, debounceTime} from "rxjs";
-import {UserStoreService} from "@app/user/services/user-store.service";
-import {UserService} from "@app/user/services/user.service";
+import {LoginData, LoginResponse} from '@app/models/card.model';
+import {Router} from '@angular/router';
+import {Subject, take, debounceTime} from 'rxjs';
+import {UserStoreService} from '@app/user/services/user-store.service';
 
 
 @Component({
@@ -56,7 +55,6 @@ export class LoginFormComponent {
             next: (response: LoginResponse) => {
                 if (response.successful) {
                     this.userStoreService.getUser();
-
                     this.userStoreService.isAdmin$.pipe(
                         debounceTime(400),
                         take(1)

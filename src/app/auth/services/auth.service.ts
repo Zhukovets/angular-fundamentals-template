@@ -6,9 +6,7 @@ import {LoginData, LoginResponse, RegisterResponse} from "@app/models/card.model
 import {baseUrl} from "@app/api.config";
 import {Router} from '@angular/router';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 
 export class AuthService {
     private isAuthorized$$ = new BehaviorSubject<boolean>(false);

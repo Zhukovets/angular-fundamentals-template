@@ -6,7 +6,6 @@ import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {ButtonIcon, ButtonText} from "@app/models/const";
 import {Author, CreateCourseRequest} from "@app/models/card.model";
-import {v4 as uuidv4} from 'uuid';
 import {ActivatedRoute, Router} from "@angular/router";
 import {CoursesStoreService} from "@app/services/courses-store.service";
 

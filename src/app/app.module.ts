@@ -7,14 +7,10 @@ import {AppComponent} from '@app/app.component';
 import {CourseInfoComponent} from '@features/course-info/course-info.component';
 import {NotAuthorizedGuard} from '@app/auth/guards/not-authorized.guard';
 import {AuthorizedGuard} from '@app/auth/guards/authorized.guard';
-import {CoursesStoreService} from '@app/services/courses-store.service';
-import {CoursesService} from '@app/services/courses.service';
 import {RouterOutlet} from "@angular/router";
 import {AppRoutingModule} from '@app/app-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AuthService} from '@app/auth/services/auth.service';
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
-import {TokenInterceptor} from "@app/auth/interceptors/token.interceptor";
+import {AuthModule} from "@app/auth/auth.module";
 
 
 @NgModule({
@@ -27,13 +23,10 @@ import {TokenInterceptor} from "@app/auth/interceptors/token.interceptor";
         AppRoutingModule,
         FormsModule,
         ReactiveFormsModule,
-        UserModule
+        UserModule,
+        AuthModule
     ],
-    providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService, AuthService, {
-        provide: HTTP_INTERCEPTORS,
-        useClass: TokenInterceptor,
-        multi: true
-    }],
+    providers: [AuthorizedGuard, NotAuthorizedGuard],
     bootstrap: [AppComponent],
 })
 export class AppModule {

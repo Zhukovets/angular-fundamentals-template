@@ -2,9 +2,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import {UserService} from "@app/user/services/user.service";
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class UserStoreService {
 
     private name$$ = new BehaviorSubject<string | null>(null);

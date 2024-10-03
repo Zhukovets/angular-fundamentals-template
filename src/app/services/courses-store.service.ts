@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, combineLatest, forkJoin, map, Observable, tap} from "rxjs";
+import {BehaviorSubject, combineLatest, forkJoin, map, Observable, tap} from 'rxjs';
 import {
     Author, CreateCourseRequest, CreateCourseResponse,
     UpdateCourseRequest, CardItem, CourseResponse
-} from "@app/models/card.model";
-import {CoursesService} from "@app/services/courses.service";
+} from '@app/models/card.model';
+import {CoursesService} from '@app/services/courses.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,8 +17,7 @@ export class CoursesStoreService {
     public isLoading$: Observable<boolean> = this.isLoading$$.asObservable();
     public courses$: Observable<CardItem[]> = this.courses$$.asObservable();
 
-    constructor(private coursesService: CoursesService) {
-    }
+    constructor(private coursesService: CoursesService) {}
 
     getAll() {
         this.isLoading$$.next(true);
@@ -26,23 +25,24 @@ export class CoursesStoreService {
             this.coursesService.getAll(),
             this.coursesService.getAllAuthors()
         ]).pipe(
-            map(([courses, authors]) => {
-                return [
-                    ...courses.result.map(course => {
-                        return {
-                            ...course,
-                            authors: course.authors.map(authorId => {
-                                const author = authors.result.find(a => a.id === authorId);
-                                return author ? author.name : authorId;
-                            })
-                        };
-                    }),
-                ]
+            map(([{ result: courses }, { result: authors }]) => {
+                const authorsMap = authors.reduce((acc, author) => {
+                    acc[author.id] = author.name;
+                    return acc;
+                }, {} as { [key: string]: string });
+
+                return courses.map(course => ({
+                    ...course,
+                    authors: course.authors.map(authorId => authorsMap[authorId] || authorId)
+                }));
             }),
             tap(() => this.isLoading$$.next(false)),
         ).subscribe({
             next: (courses) => this.courses$$.next(courses),
-            error: () => this.isLoading$$.next(false)
+            error: (err) => {
+                console.error('Error getting course:', err);
+                this.isLoading$$.next(false);
+            }
         });
     }
 
@@ -88,7 +88,7 @@ export class CoursesStoreService {
                 }
             },
             error: (err) => {
-                console.error('Error creating course:', err);
+                console.error('Error editing course:', err);
                 this.isLoading$$.next(false);
             }
         });
@@ -101,22 +101,20 @@ export class CoursesStoreService {
     filterCourses(value: string) {
         this.isLoading$$.next(true);
         combineLatest([
-            this.coursesService.filterCourses(value),
+            this.coursesService.getAll(),
             this.coursesService.getAllAuthors()
         ]).pipe(
-            map(([courses, authors]) => {
-                return [
-                    ...courses.result.map(course => {
-                        return {
-                            ...course,
-                            authors: course.authors.map(authorId => {
-                                const author = authors.result.find(a => a.id === authorId);
-                                return author ? author.name : authorId;
-                            })
-                        };
-                    }),
-                ]
-            }),
+            map(([{ result: courses }, { result: authors }]) => {
+                const authorsMap = authors.reduce((acc, author) => {
+                    acc[author.id] = author.name;
+                    return acc;
+                }, {} as { [key: string]: string });
+
+                return courses.map(course => ({
+                    ...course,
+                    authors: course.authors.map(authorId => authorsMap[authorId] || authorId)
+                }));
+            })
         ).subscribe({
             next: (response) => {
                 return this.courses$$.next(response)
