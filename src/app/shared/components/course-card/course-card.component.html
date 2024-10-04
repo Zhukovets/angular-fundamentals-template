@@ -21,7 +21,11 @@
     <div class="course-card__info-actions">
       <div class="course-card__buttons">
         <ng-content *ngIf="isEditable"> </ng-content>
-        <app-button button_text="Show course"></app-button>
+        <app-button
+          button_text="Show course"
+          (buttonClick)="showCourse()"
+          [isEditable]="isEditable"
+        ></app-button>
       </div>
     </div>
   </div>

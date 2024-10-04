@@ -40,5 +40,9 @@ export class ButtonComponent {
     this.selectedIcon = this.iconMap[this.icon_name] || null;
     this.secondSelectedIcon = this.iconMap[this.second_icon_name] || null;
   }
+
+  onButtonClick() {
+    this.buttonClick.emit();
+  }
   // Use the names for the inputs `buttonText` and `iconName`.
 }

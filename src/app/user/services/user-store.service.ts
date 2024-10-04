@@ -36,7 +36,7 @@ export class UserStoreService {
 
   // Check if the user is an admin based on email
   private checkIfAdmin(email: string | null): boolean {
-    return email === "admin@email.com"; // Check against admin email
+    return email === "admin@email.com";
   }
 
   get name(): string | null {

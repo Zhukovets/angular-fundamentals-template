@@ -6,6 +6,8 @@
       [creationDate]="course.creationDate"
       [id]="course.id"
       [authors]="course.authors"
+      [isEditable]="isEditable"
+      (clickOnShow)="onShowCourse(course.id)"
     ></app-course-card>
   </div>
 </div>
