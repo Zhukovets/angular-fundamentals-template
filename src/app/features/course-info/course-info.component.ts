@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { CoursesService } from "@app/services/courses.service";
+import { Course } from "@app/shared/models/course.model";
 
 @Component({
   selector: "app-course-info",
@@ -8,15 +9,9 @@ import { CoursesService } from "@app/services/courses.service";
   styleUrls: ["./course-info.component.scss"],
 })
 export class CourseInfoComponent {
-  @Input() courses: any[] = [];
-  @Input() editable: boolean = true;
-  @Input() title: string = "";
-  @Input() description: string = "";
-  @Input() creationDate?: Date = new Date("2012-03-20");
-  @Input() duration: number = 0;
-  @Input() id: string = "";
-  @Input() authors: string[] = [];
-  @Input() date?: Date = new Date("2012-03-20");
+  course: any | null = null;
+  editable: boolean = true;
+  id: string = "";
 
   @Output() showCourse = new EventEmitter<any>();
   @Output() editCourse = new EventEmitter<any>();
@@ -32,21 +27,39 @@ export class CourseInfoComponent {
     this.route.paramMap.subscribe((params) => {
       const routeId = params.get("id");
       if (routeId) {
-        this.id = routeId; // Convert to number if needed
-        console.log("Route ID:", this.id);
+        this.id = routeId;
+        this.loadCourse(this.id);
       }
     });
   }
 
-  onShowCourse(course: any) {
-    this.showCourse.emit(course);
+  loadCourse(id: string): void {
+    this.coursesService.getCourse(id).subscribe({
+      next: (course: any) => {
+        console.log(course);
+        this.course = course.result; // Store the course data
+      },
+      error: (err) => {
+        console.error("Failed to load course", err); // Error handling
+      },
+    });
   }
 
-  onEditCourse(course: any) {
-    this.editCourse.emit(course);
+  onShowCourse() {
+    if (this.course) {
+      this.showCourse.emit(this.course);
+    }
   }
 
-  onDeleteCourse(course: any) {
-    this.deleteCourse.emit(course);
+  onEditCourse() {
+    if (this.course) {
+      this.editCourse.emit(this.course);
+    }
+  }
+
+  onDeleteCourse() {
+    if (this.course) {
+      this.deleteCourse.emit(this.course);
+    }
   }
 }

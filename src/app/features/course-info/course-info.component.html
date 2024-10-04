@@ -1,30 +1,37 @@
 <!-- Replace ::text:: with your code -->
+<div *ngIf="course; else loading">
+  <div class="title">{{ course.title }}</div>
+  <div class="course-info">
+    <div class="course-info__description">
+      <h3>Description</h3>
+      {{ course.description }}
+    </div>
+    <div class="course-info__info">
+      <div>
+        <b>ID: </b><span class="course-info__info-id">{{ course.id }}</span>
+      </div>
+      <div>
+        <b>Duration: </b
+        ><span class="course-info__info-duration">{{ course.duration }}</span>
+      </div>
+      <div>
+        <b>Created: </b
+        ><span class="course-info__info-date"
+          >{{ course.creationDate | date }}
+        </span>
+      </div>
+      <div>
+        <b>Authors: </b
+        ><span class="course-info__info-authors">{{ course.authors }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="navigation-block">
+    <!--Enter your code here-->
+    <ng-content></ng-content>
+  </div>
+</div>
 
-<div class="title">{{ title }}</div>
-<div class="course-info">
-  <div class="course-info__description">
-    <h3>Description</h3>
-    {{ description }}
-  </div>
-  <div class="course-info__info">
-    <div>
-      <b>ID: </b><span class="course-info__info-id">{{ id }}</span>
-    </div>
-    <div>
-      <b>Duration: </b
-      ><span class="course-info__info-duration">{{ duration }}</span>
-    </div>
-    <div>
-      <b>Created: </b
-      ><span class="course-info__info-date">{{ date | date }} </span>
-    </div>
-    <div>
-      <b>Authors: </b
-      ><span class="course-info__info-authors">{{ authors }}</span>
-    </div>
-  </div>
-</div>
-<div class="navigation-block">
-  <!--Enter your code here-->
-  <ng-content></ng-content>
-</div>
+<ng-template #loading>
+  <p>Loading course details...</p>
+</ng-template>

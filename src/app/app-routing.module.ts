@@ -19,37 +19,37 @@ export const routes: Routes = [
   {
     path: "login",
     component: LoginFormComponent,
-    // canActivate: [NotAuthorizedGuard],
+    canActivate: [NotAuthorizedGuard],
   },
   {
     path: "registration",
     component: RegistrationFormComponent,
-    // canActivate: [NotAuthorizedGuard],
+    canActivate: [NotAuthorizedGuard],
   },
   // Protect courses-related routes with the AuthorizedGuard
   {
     path: "courses",
     component: CoursesComponent,
-    // canLoad: [AuthorizedGuard]
+    canLoad: [AuthorizedGuard],
   },
   {
     path: "courses/add",
     component: CourseFormComponent,
-    // canActivate: [AdminGuard],
+    canActivate: [AdminGuard],
   },
   {
     path: "courses/:id",
     component: CourseInfoComponent,
-    // canActivate: [AuthorizedGuard],
+    canActivate: [AuthorizedGuard],
   },
   {
     path: "courses/edit/:id",
     component: CourseCardComponent,
-    // canActivate: [AdminGuard],
+    canActivate: [AdminGuard],
   },
   // Default and wildcard routes
-  // { path: "", redirectTo: "/courses", pathMatch: "full" }, // Default/fallback route
-  // { path: "**", redirectTo: "/courses", pathMatch: "full" }, // Wildcard route to handle unknown URLs
+  { path: "", redirectTo: "/courses", pathMatch: "full" }, // Default/fallback route
+  { path: "**", redirectTo: "/courses", pathMatch: "full" }, // Wildcard route to handle unknown URLs
 ];
 
 @NgModule({

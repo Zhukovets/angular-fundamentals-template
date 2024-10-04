@@ -19,13 +19,34 @@
       </div>
     </div>
     <div class="course-card__info-actions">
-      <div class="course-card__buttons">
+      <div
+        class="course-card__buttons"
+        style="display: flex; align-items: center"
+      >
         <ng-content *ngIf="isEditable"> </ng-content>
         <app-button
           button_text="Show course"
           (buttonClick)="showCourse()"
           [isEditable]="isEditable"
         ></app-button>
+        <div
+          *ngIf="isEditable"
+          name="icons-container"
+          style="
+            display: flex;
+            gap: 1rem;
+            font-size: x-large;
+            cursor: pointer;
+            padding-left: 1rem;
+          "
+        >
+          <div class="app-button__single-icon" (click)="editCourse()">
+            <fa-icon [icon]="faPencil"></fa-icon>
+          </div>
+          <div class="app-button__single-icon" (click)="deleteCourse()">
+            <fa-icon [icon]="faTrashCan"></fa-icon>
+          </div>
+        </div>
       </div>
     </div>
   </div>

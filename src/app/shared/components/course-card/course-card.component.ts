@@ -1,4 +1,9 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import {
+  faCoffee,
+  faTrashCan,
+  faPencil,
+} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: "app-course-card",
@@ -7,6 +12,12 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 })
 export class CourseCardComponent {
   @Output() clickOnShow: EventEmitter<number> = new EventEmitter<number>();
+  @Output() clickOnEdit: EventEmitter<number> = new EventEmitter<number>();
+  @Output() clickOnDelete: EventEmitter<number> = new EventEmitter<number>();
+
+  faCoffee = faCoffee;
+  faTrashCan = faTrashCan;
+  faPencil = faPencil;
 
   @Input() title: string = "";
   @Input() description: string = "";
@@ -18,5 +29,12 @@ export class CourseCardComponent {
 
   showCourse() {
     this.clickOnShow.emit(this.id);
+  }
+
+  deleteCourse() {
+    this.clickOnDelete.emit(this.id);
+  }
+  editCourse() {
+    this.clickOnEdit.emit(this.id);
   }
 }

@@ -2,12 +2,4 @@
   <div class="app-button" (click)="onButtonClick()">
     <span>{{ button_text }}</span>
   </div>
-
-  <div *ngIf="selectedIcon && isEditable" class="app-button__single-icon">
-    <fa-icon [icon]="selectedIcon"></fa-icon>
-  </div>
-
-  <div *ngIf="secondSelectedIcon && isEditable" class="app-button__single-icon">
-    <fa-icon [icon]="secondSelectedIcon"></fa-icon>
-  </div>
 </div>
