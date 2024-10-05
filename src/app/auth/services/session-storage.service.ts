@@ -1,9 +1,9 @@
-import { Injectable, Inject } from "@angular/core";
+import { Injectable, Inject, InjectionToken } from "@angular/core";
 import { WINDOW } from "./window.token";
 
 const TOKEN: "SESSION_TOKEN" = "SESSION_TOKEN"; // Use this constant for the session storage entry key
 
-// const WINDOW: InjectionToken<Window> = new InjectionToken<Window>(_desc: 'WindowToken', options: {
+//const WINDOW: InjectionToken<Window> = new InjectionToken<Window>(_desc: 'WindowToken', options: {
 //  providedIn: 'root',
 //  factory: () => window,
 //})
