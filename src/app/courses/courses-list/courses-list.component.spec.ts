@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-
 import { CoursesListComponent } from "./courses-list.component";
-import { SharedModule } from "@app/shared/shared.module";
+import { HttpClientModule } from "@angular/common/http";
+import { StoreModule } from "@ngrx/store";
 
 describe("CoursesListComponent", () => {
   let component: CoursesListComponent;
@@ -10,6 +10,7 @@ describe("CoursesListComponent", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CoursesListComponent],
+      imports: [HttpClientModule, StoreModule.forRoot({})],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CoursesListComponent);
