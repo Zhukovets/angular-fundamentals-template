@@ -10,14 +10,7 @@ export class AuthorizedGuard implements CanLoad {
   // Add your code here
   constructor(private authService: AuthService, private router: Router) {}
 
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]
-  ):
-    | boolean
-    | UrlTree
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree> {
+  canLoad(): boolean | UrlTree {
     if (this.authService.isAuthorised) {
       console.log("user is authorized");
       return true;
