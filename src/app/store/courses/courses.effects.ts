@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {map, combineLatest, catchError, switchMap, of, withLatestFrom, tap} from 'rxjs';
+import {map, combineLatest, catchError, switchMap, of, tap} from 'rxjs';
 import {CoursesService} from '@app/services/courses.service';
 import * as CoursesActions from '@app/store/courses/courses.actions'
-import {CoursesStateFacade} from "@app/store/courses/courses.facade";
-import {CardItem} from '@app/models/card.model';
 import {Router} from "@angular/router";
 
 @Injectable()
@@ -12,11 +10,10 @@ import {Router} from "@angular/router";
 export class CoursesEffects {
     constructor(private actions$: Actions,
                 private coursesService: CoursesService,
-                private coursesFacade: CoursesStateFacade,
                 private router: Router) {
     }
 
-    getAllCourses$ = createEffect(() =>
+    getAll$ = createEffect(() =>
         this.actions$.pipe(
             ofType(CoursesActions.requestAllCourses),
             switchMap(() =>
@@ -48,14 +45,14 @@ export class CoursesEffects {
     filteredCourses$ = createEffect(() =>
         this.actions$.pipe(
             ofType(CoursesActions.requestFilteredCourses),
-            switchMap(({ searchValue }) =>
+            switchMap(({ title }) =>
                 this.coursesService.getAll().pipe(
                     map((response) => {
                         const courses = response.result;
-                        const filteredCourses = searchValue.trim() === ''
+                        const filteredCourses = title.trim() === ''
                             ? courses
                             : courses.filter(course =>
-                                course.title.toLowerCase().includes(searchValue.toLowerCase())
+                                course.title.toLowerCase().includes(title.toLowerCase())
                             );
                         return CoursesActions.requestFilteredCoursesSuccess({ courses: filteredCourses });
                     }),
@@ -161,7 +158,7 @@ export class CoursesEffects {
         )
     )
 
-    redirectToCoursesPage$ = createEffect(() =>
+    redirectToTheCoursesPage$ = createEffect(() =>
             this.actions$.pipe(
                 ofType(
                     CoursesActions.requestCreateCourseSuccess,

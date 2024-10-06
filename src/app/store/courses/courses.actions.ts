@@ -36,7 +36,7 @@ export const requestSingleCourseFail = createAction(
 //Actions for request filtered Courses
 export const requestFilteredCourses = createAction(
     CoursesConstants.REQUEST_FILTERED_COURSES,
-    props<{ searchValue: string }>()
+    props<{ title: string }>()
 );
 
 export const requestFilteredCoursesSuccess = createAction(
