@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, switchMap } from 'rxjs';
+import { Course } from '@app/models/course.model';
 
 @Injectable({
     providedIn: 'root'
@@ -15,13 +16,13 @@ export class CoursesService {
         // Add your code here
     }
 
-    createCourse(course: any): Observable<any> { // replace 'any' with the required interface
-        return this.http.post(`${this.apiUrl}/courses/add`, course)
+    createCourse(course: Course): Observable<Course> { // replace 'any' with the required interface
+        return this.http.post<Course>(`${this.apiUrl}/courses/add`, course)
         // Add your code here
     }
 
-    editCourse(id: string, course: any): Observable<any> { // replace 'any' with the required interface
-        return this.http.put(`${this.apiUrl}/courses/${id}`, course)
+    editCourse(id: string, course: Course): Observable<Course> { // replace 'any' with the required interface
+        return this.http.put<Course>(`${this.apiUrl}/courses/${id}`, course)
         // Add your code here
     }
 
@@ -48,7 +49,6 @@ export class CoursesService {
             switchMap(response => response.result.length ? of(response) : makeRequest('duration')),
             switchMap(response => response.result.length ? of(response) : makeRequest('creationDate')),
         );
-        /* http://localhost:4000/courses/filter?title=title sent backend request
         // Add your code here */
     }
         

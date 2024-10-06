@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CoursesService } from './courses.service';
 import { tap } from 'rxjs/operators'
+import { Course } from '@app/models/course.model';
 
 
 @Injectable({
@@ -9,10 +10,10 @@ import { tap } from 'rxjs/operators'
 })
 export class CoursesStoreService {
     private isLoading$$ = new BehaviorSubject<boolean>(false);
-    private courses$$ = new BehaviorSubject<any[]>([]);
+    private courses$$ = new BehaviorSubject<Course[]>([]);
 
     public isLoading$: Observable<boolean> = this.isLoading$$.asObservable()
-    public courses$: Observable<any[]> = this.courses$$.asObservable()
+    public courses$: Observable<Course[]> = this.courses$$.asObservable()
 
     constructor(private coursesService: CoursesService){}
 
@@ -31,7 +32,7 @@ export class CoursesStoreService {
         // Add your code here
     }
 
-    createCourse(course: any): void { // replace 'any' with the required interface
+    createCourse(course: Course): void { // replace 'any' with the required interface
         this.setLoading(true);
         this.coursesService.createCourse(course).pipe(
           tap(() => {
@@ -46,7 +47,7 @@ export class CoursesStoreService {
         return this.coursesService.getCourse(id)
     }
 
-    editCourse(id: string, course: any): void { // replace 'any' with the required interface
+    editCourse(id: string, course: Course): void { // replace 'any' with the required interface
         this.setLoading(true);
         this.coursesService.editCourse(id, course).pipe(
             tap(() => {

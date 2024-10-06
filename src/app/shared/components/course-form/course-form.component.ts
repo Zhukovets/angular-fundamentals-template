@@ -8,6 +8,8 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesService } from '@app/services/courses.service';
+import { CoursesStateFacade } from '@app/store/courses/courses.facade';
+
 
 @Component({
   selector: 'app-course-form',
@@ -22,7 +24,7 @@ export class CourseFormComponent implements OnInit {
   courseId: string | null = null;
   buttonText: string = 'Create Course'
 
-  constructor(public fb: FormBuilder, public library: FaIconLibrary, private route: ActivatedRoute, private router: Router, private coursesService: CoursesService) {
+  constructor(public fb: FormBuilder, public library: FaIconLibrary, private route: ActivatedRoute, private router: Router, private coursesService: CoursesService, private coursesFacade: CoursesStateFacade) {
     library.addIconPacks(fas);
 
     this.courseForm = this.fb.group({
@@ -55,19 +57,19 @@ export class CourseFormComponent implements OnInit {
   }
 
   private loadCourseData(courseId: string) {
-    this.coursesService.getCourse(courseId).subscribe(course => {
-      if (course.result) {
+    this.coursesFacade.course$.subscribe(course => {
+      if (course) {
         this.courseForm.patchValue({
-          title: course.result.title,
-          description: course.result.description,
-          duration: course.result.duration
+          title: course.title,
+          description: course.description,
+          duration: course.duration
         });
 
         this.authors.clear();
 
         this.coursesService.getAllAuthors().subscribe(allAuthors => {
           this.availableAuthors = allAuthors.result;
-          course.result.authors.forEach((authorId: string) => {
+          course.authors.forEach((authorId: string) => {
             const author = allAuthors.result.find((a: any) => a.id === authorId);
             if (author) {
               this.addAuthorToCourse(author);
@@ -76,6 +78,8 @@ export class CourseFormComponent implements OnInit {
         });
       }
     })
+
+    this.coursesFacade.getSingleCourse(courseId)
   }
   
   generateAuthorId(): string {
@@ -120,28 +124,23 @@ export class CourseFormComponent implements OnInit {
         if (formData.authors && Array.isArray(formData.authors)) {
             formData.authors = formData.authors.map((author: any) => author.id); 
                     
-        console.log('Course Form Submitted:', formData);
-
         if (this.courseId) {
-          this.coursesService.editCourse(this.courseId, formData).subscribe(
-              response => {
-                  console.log('Course updated:', response);
-                  this.router.navigate(['/courses']);
-              },
-              error => {
-                  console.error('Error updating course:', error);
-              }
-            );
-        } else {
-          this.coursesService.createCourse(formData).subscribe(
-            response => {
-                console.log('New course created:', response);
-                this.router.navigate(['/courses']);
-            },
-            error => {
-                console.error('Error creating course:', error);
+          this.coursesFacade.editCourse(this.courseId, formData);
+
+          this.coursesFacade.courses$.subscribe(courses => {
+            const updatedCourse = courses.find(course => course.id === this.courseId);
+            if (updatedCourse) {
+              this.router.navigate(['/courses']);
             }
-          );
+          });
+        } else {
+          this.coursesFacade.createCourse(formData);
+
+          this.coursesFacade.courses$.subscribe(courses => {
+            if (courses.length > 0) {
+              this.router.navigate(['/courses']);
+            }
+          });
         }
     } else {
         this.courseForm.markAllAsTouched();

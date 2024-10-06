@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CoursesService } from '@app/services/courses.service';
 import { UserStoreService } from '@app/user/services/user-store.service';
 import { Router } from '@angular/router';
+import { CoursesStateFacade } from '@app/store/courses/courses.facade';
 
 
 @Component({
@@ -14,12 +15,15 @@ export class CoursesListComponent implements OnInit{
   courses: any[] = []
   authors: any[] = []
 
-  constructor( private coursesService: CoursesService, private userStoreService: UserStoreService, private router: Router) {}
   @Input() editable: boolean = false;
-
+  /* 
+  unused code from previous exercise:
   @Output() showCourse = new EventEmitter<any>();
   @Output() editCourse = new EventEmitter<any>();
   @Output() deleteCourse = new EventEmitter<any>();
+ */
+  constructor( private coursesFacade: CoursesStateFacade, private coursesService: CoursesService, private userStoreService: UserStoreService, private router: Router) {}
+  
 
   ngOnInit(): void {
     this.userStoreService.getUser();
@@ -27,17 +31,17 @@ export class CoursesListComponent implements OnInit{
       this.editable = isAdmin;
     });
 
-    this.coursesService.getAll().subscribe(
-      response => {
-        this.courses = response.result;
-        this.fetchAuthorsAndMap();
-      },
-      error => {
-        console.log('Error fetching courses data:', error);
-      }
-    );
+    this.coursesFacade.allCourses$.subscribe(
+      courses => {
+        this.courses = courses;
+      });
+
+      this.coursesFacade.getAllCourses();
   }
 
+  /* 
+  unused code from previous exercise: author name display
+  
   fetchAuthorsAndMap(): void {
     this.coursesService.getAllAuthors().subscribe(
       authorResponse => {
@@ -57,19 +61,10 @@ export class CoursesListComponent implements OnInit{
         return author ? author.name : 'Unknown Author';
       });
     });
-  }
+  } */
 
   onSearch(value: string): void {
-    this.coursesService.filterCourses(value).subscribe(
-      (response) => {
-        console.log(response)
-        this.courses = response.result;
-        this.fetchAuthorsAndMap();
-      },
-      (error) => {
-        console.error('Error filtering courses:', error);
-      }
-    );
+    this.coursesFacade.getFilteredCourses(value);
   }
 
   navigateToCourse(courseId: any): void {

@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CoursesService } from '@app/services/courses.service';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Course } from '@app/models/course.model';
+import { CoursesStateFacade } from '@app/store/courses/courses.facade';
 
 
 @Component({
@@ -10,14 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CourseInfoComponent implements OnInit {
 
-  course: {
-    title: string;
-    description: string;
-    id: string;
-    creationDate: Date | string;
-    duration: number;
-    authors: string[];
-  } = {
+  course: Course = {
     title: '',
     description: '',
     id: '',
@@ -26,32 +20,28 @@ export class CourseInfoComponent implements OnInit {
     authors: []
   };
 
-  constructor (private coursesService: CoursesService, private route: ActivatedRoute) {}
+  constructor (private coursesFacade: CoursesStateFacade, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const courseId = this.route.snapshot.paramMap.get('id');
+    console.log(courseId)
 
     if (courseId){
-      this.coursesService.getCourse(courseId).subscribe(
-        response => {
-          this.course = response.result
+      this.coursesFacade.getSingleCourse(courseId);
+
+      this.coursesFacade.course$.subscribe(
+        (course) => {
+          if (course) {
+            this.course = course
+          }
         },
-        error => {
-          console.error('error fetching course data:', error);
+        (error) => {
+          console.log('Error fetching course data:', error);
         }
-      )
+      );
     } else {
       console.error('No course ID found in this route.')
     }
   }
-
-  /* @Input() course!: {
-    title: string;
-    description: string;
-    id: string;
-    creationDate: Date;
-    duration: number;
-    authors: string[];
-  } */
   // Use the names for the input `course`.
 }

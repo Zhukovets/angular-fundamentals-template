@@ -25,7 +25,7 @@ export class SessionStorageService {
     // Add your code here
   }
 
-  deleteToken(){
+  deleteToken(): void{
     this.window.sessionStorage.removeItem(TOKEN)
     // Add your code here
   }
