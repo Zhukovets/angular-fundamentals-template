@@ -30,8 +30,8 @@ export class CoursesService {
         return this.http.get<ApiResponse<Course>>(`${this.apiUrl}/${id}`);
     }
 
-    deleteCourse(id: string): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    deleteCourse(id: string): Observable<ApiResponse<string>> {
+        return this.http.delete<ApiResponse<string>>(`${this.apiUrl}/${id}`);
     }
 
     filterCourses(value: string): Observable<ApiResponse<Course[]>> {
@@ -44,6 +44,10 @@ export class CoursesService {
 
     createAuthor(name: string): Observable<ApiResponse<Author>> {
         return this.http.post<ApiResponse<Author>>(`${environment.apiBaseUrl}/authors/add`, { name });
+    }
+
+    deleteAuthor(id: string): Observable<ApiResponse<string>> {
+        return this.http.delete<ApiResponse<string>>(`${environment.apiBaseUrl}/authors/${id}`);
     }
 
     getAuthorById(id: string): Observable<ApiResponse<Author>> {

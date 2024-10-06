@@ -1,9 +1,12 @@
 <div class="search-add-container">
     <app-search></app-search>
-    <app-button buttonText="ADD NEW COURSE"></app-button>
+    <app-button buttonText="ADD NEW COURSE" (buttonClick)="navigateToCoursesAdd()"></app-button>
 </div>
 
 <app-courses-list
   [courses]="allCourses"
-  [editable]="true"
+  [editable]="isEditable"
+  (showCourse)="showCourse($event)"
+  (editCourse)="editCourse($event)"
+  (deleteCourse)="deleteCourse($event)"
 ></app-courses-list>

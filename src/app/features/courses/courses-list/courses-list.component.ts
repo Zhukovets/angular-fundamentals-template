@@ -19,4 +19,16 @@ export class CoursesListComponent {
   constructor(library: FaIconLibrary){
     library.addIcons(fas["faTrashCan"], fas["faPen"]);
   }
+
+  showCoursePage(course: Course){
+    this.showCourse.emit(course);
+  }
+
+  editCoursePage(course: Course){
+    this.editCourse.emit(course);
+  }
+
+  deleteCourseAction(course: Course){
+    this.deleteCourse.emit(course);
+  }
 }

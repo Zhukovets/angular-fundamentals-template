@@ -1,5 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Course } from '@app/models/course.model';
+import { CoursesStoreService } from '@app/services/courses-store.service';
 
 @Component({
   selector: 'app-course-info',
@@ -8,24 +11,26 @@ import { Component, Input } from '@angular/core';
   providers: [DatePipe]
 
 })
-export class CourseInfoComponent {
-  @Input() title!: string;
-  @Input() description!: string;
-  @Input() id!: string;
-  @Input() creationDate!: Date;
-  @Input() duration!: number;
-  @Input() authors!: string[];
-  @Input() editable: boolean = false;
+export class CourseInfoComponent implements OnInit {
+  displayedCourse: Course | null = null;
 
-  constructor(private datePipe: DatePipe){}
+  constructor(
+    private route:ActivatedRoute,
+    private coursesStoreService: CoursesStoreService,
+    private router: Router
+  ){}
 
-  getFormattedDate(date: Date): string {
-    return this.datePipe.transform(date, 'dd.MM.yyyy') || '';
+  ngOnInit(): void {
+    let courseId = this.route.snapshot.paramMap.get('id');
+    if(courseId){
+      this.coursesStoreService.getCourse(courseId);
+      this.coursesStoreService.course$.subscribe((course) => {
+        this.displayedCourse = course;
+      });
+    }
   }
 
-  getFormattedDuration(duration: number): string {
-    const hours = Math.floor(duration / 60);
-    const minutes = duration % 60;
-    return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+  navigateBack(){
+    this.router.navigate(['/courses']);
   }
 }

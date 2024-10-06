@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CoursesService } from './courses.service';
-import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, finalize, Observable, tap, throwError } from 'rxjs';
 import { ApiResponse, Course } from '@app/models/course.model';
+import { Author } from '@app/models/author.model';
 
 @Injectable({
     providedIn: 'root'
@@ -10,9 +11,13 @@ export class CoursesStoreService {
 
     private isLoading$$ = new BehaviorSubject<boolean>(false);
     private courses$$ = new BehaviorSubject<any[]>([]);
+    private authors$$ = new BehaviorSubject<Author[]>([]);
+    private course$$ = new BehaviorSubject<any>(null);
 
     public isLoading$: Observable<boolean> = this.isLoading$$.asObservable();
     public courses$: Observable<any[]> = this.courses$$.asObservable();
+    public authors$:Observable<Author[]> = this.authors$$.asObservable();
+    public course$:Observable<any> = this.course$$.asObservable();
 
     constructor(private coursesService: CoursesService){}
 
@@ -26,26 +31,38 @@ export class CoursesStoreService {
         ).subscribe();
     }
 
-    createCourse(course: any) {
-        this.coursesService.createCourse(course).pipe(
+    createCourse(course: any): Observable<ApiResponse<Course>> {
+        return this.coursesService.createCourse(course).pipe(
             tap(newCourse => {
               const currentCourses = this.courses$$.value;
               this.courses$$.next([...currentCourses, newCourse]);
             })
-        ).subscribe();
+        );
     }
 
-    getCourse(id: string): Observable<ApiResponse<Course>> {
-        return this.coursesService.getCourse(id);
+    getCourse(id: string): void {
+        this.coursesService.getCourse(id)
+        .pipe(
+            finalize(() => {
+                this.isLoading$$.next(false);
+            })
+        ).subscribe( {
+            next: (course) => {
+                this.course$$.next(course.result);
+            },
+            error: (error) =>{
+                console.error('Error at getCourse', error);
+            }
+        });
     }
 
-    editCourse(id: string, course: any) {
-        this.coursesService.editCourse(id, course).pipe(
+    editCourse(id: string, course: Course): Observable<ApiResponse<Course>> {
+        return this.coursesService.editCourse(id, course).pipe(
             tap(updatedCourse => {
               const updatedCourses = this.courses$$.value.map(c => c.id === id ? updatedCourse : c);
               this.courses$$.next(updatedCourses);
             })
-        ).subscribe();
+        );
     }
 
     deleteCourse(id: string) {
@@ -78,16 +95,28 @@ export class CoursesStoreService {
     
 
     getAllAuthors() {
-        return this.coursesService.getAllAuthors();
+        this.coursesService.getAllAuthors()
+        .pipe(
+            finalize(()=>this.isLoading$$.next(false)))
+        .subscribe(
+            {
+                next:(author)=>{
+                    this.authors$$.next(author.result);
+                },
+                error: (err) => {
+                    console.error('Error from getAllAuthors', err);
+                }
+            }
+        );
     }
 
-    createAuthor(name: string) {
-        this.coursesService.createAuthor(name).pipe(
+    createAuthor(name: string): Observable<ApiResponse<Author>> {
+        return this.coursesService.createAuthor(name).pipe(
             tap(newAuthor => {
               console.log('Author Created:', newAuthor);
             })
-        ).subscribe();
-        }
+        );
+    }
 
     getAuthorById(id: string) {
         return this.coursesService.getAuthorById(id);

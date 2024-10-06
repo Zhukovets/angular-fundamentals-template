@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CourseInfoComponent } from './course-info.component';
 import { SharedModule } from "../../shared/shared.module";
+import { CoursesModule } from '../courses/courses.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { SharedModule } from "../../shared/shared.module";
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    CoursesModule
 ],
   exports: [CourseInfoComponent]
 })

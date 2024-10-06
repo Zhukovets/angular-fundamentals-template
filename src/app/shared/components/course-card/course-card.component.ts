@@ -11,11 +11,14 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 export class CourseCardComponent {
   @Input() title!: string;
   @Input() description!: string;
-  @Input() creationDate!: string;
+  @Input() creationDate!: string | null;
   @Input() duration!: number;
-  @Input() authors!: string[];
+  @Input() authors!: string[] | null;
   @Input() editable: boolean = false;
+  
   @Output() clickOnShow = new EventEmitter<void>();
+  @Output() clickOnEdit = new EventEmitter<void>();
+  @Output() clickOnDelete = new EventEmitter<void>();
 
   constructor(){}
 
@@ -23,5 +26,12 @@ export class CourseCardComponent {
     this.clickOnShow.emit();
   }
 
+  onDeleteCourse(): void{
+    this.clickOnDelete.emit();
+  }
+
+  onEditCourse(): void{
+    this.clickOnEdit.emit();
+  }
   
 }

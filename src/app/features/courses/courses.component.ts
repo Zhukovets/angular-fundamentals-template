@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Author } from '@app/models/author.model';
+import { Router } from '@angular/router';
 import { ApiResponse, Course } from '@app/models/course.model';
+import { CoursesStoreService } from '@app/services/courses-store.service';
 import { CoursesService } from '@app/services/courses.service';
+import { UserStoreService } from '@app/user/services/user-store.service';
 
 @Component({
   selector: 'app-courses',
@@ -10,22 +12,32 @@ import { CoursesService } from '@app/services/courses.service';
 })
 export class CoursesComponent implements OnInit {
   allCourses: Course[] = [];
-  allAuthors: Author[] = [];
+  isEditable: boolean = true;
 
-  constructor(private coursesService: CoursesService){}
+  constructor(
+    private coursesService: CoursesService,
+    private coursesStoreService: CoursesStoreService,
+    private router: Router,
+    private userStorageService: UserStoreService
+  ){
+    this.userStorageService.getUser();
+    this.isEditable = this.userStorageService.isAdmin;
+  }
 
   ngOnInit(): void {
     this.loadCourses();
-    this.loadAuthors();
+    this.coursesStoreService.getAllAuthors();
+
+    this.userStorageService.isAdmin$.subscribe((isAdmin) => {
+      this.isEditable = isAdmin;
+    });
   }
 
   loadCourses(): void {
     this.coursesService.getAll().subscribe(
       (response: ApiResponse<Course[]>) => {
         if (response.successful) {
-          response.result.forEach(course => {
-            this.allCourses.push(course);
-          });
+          this.allCourses = response.result;
         } else {
           console.error('Failed to fetch courses', response);
         }
@@ -36,28 +48,29 @@ export class CoursesComponent implements OnInit {
     );
   }
 
-  loadAuthors(): void {
-    this.coursesService.getAllAuthors().subscribe(
-      (response: ApiResponse<Author[]>) => {
-        if (response.successful) {
-          response.result.forEach(author => {
-            this.allCourses.forEach(course => {
-              course.authors.forEach(courseAuthor => {
-                if(courseAuthor === author.id){
-                  courseAuthor = author.name;
-                }
-              });
-            });
-            this.allAuthors.push(author);
-          })
-        } else {
-          console.error('Failed to fetch authors', response);
+  navigateToCoursesAdd(){
+    this.router.navigate(["/courses/add"]);
+  }
+
+  showCourse(course: Course){
+    this.router.navigate(["/courses/", course.id]);
+  }
+
+  editCourse(course: Course){
+    this.router.navigate(["/courses/edit/", course.id]);
+  }
+
+  deleteCourse(course: Course){
+    this.coursesService.deleteCourse(course.id!).subscribe({
+      next: (response) => {
+        if(response.successful) {
+          this.allCourses = this.allCourses.filter(c => c.id !== course.id);
         }
       },
-      (error) => {
-        console.error('Error fetching authors', error);
-      }  
-    );
+      error: (error) => {
+        console.error('Error deleting course:', error);
+      }
+    });
   }
   
 }

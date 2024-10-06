@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { mockedCoursesList } from './shared/mocks/mock';
-import { UserService } from './user/services/user.service';
-import { User } from './models/user.model';
 import { UserStoreService } from './user/services/user-store.service';
 import { AuthService } from './auth/services/auth.service';
-import { SessionStorageService } from './auth/services/session-storage.service';
-import { CoursesService } from './services/courses.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -21,18 +18,11 @@ export class AppComponent implements OnInit{
   title = 'courses-app';
   isLoggedIn = false;
   userName = "";
-  user: User = {
-    name: "",
-    email: "",
-    password: ""
-  };
 
   constructor(
-    private userService: UserService,
     private userStoreService: UserStoreService,
     private authService: AuthService,
-    private sessionStorageService: SessionStorageService,
-    private coursesService: CoursesService
+    private router: Router
   ){}
 
   ngOnInit(): void {
@@ -40,27 +30,18 @@ export class AppComponent implements OnInit{
   }
 
   loadUser(): void {
-    this.userStoreService.getUser();
 
     this.authService.isAuthorized$.subscribe((isAuthorized) => {
       this.isLoggedIn = isAuthorized;
-    })
+    });
 
-    if(this.sessionStorageService.getToken()){
-      this.isLoggedIn = true;
-      this.userStoreService.name$.subscribe((name) => {
-        this.user.name = name;
-      })
-    }
-
-    /*this.coursesService.courses$.subscribe(courses => {
-      if (courses) {
-        this.infoTitle = "" // If there are courses, set flag to true
-      } 
-    });*/
+    this.userStoreService.name$.subscribe((name) => {
+      this.userName = name;
+    });
   }
 
   logout(){
     this.authService.logout();
+    this.router.navigate(["/login"]);
   }
 }

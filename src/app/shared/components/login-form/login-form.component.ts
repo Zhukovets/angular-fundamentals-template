@@ -46,13 +46,18 @@ export class LoginFormComponent {
     this.authService.login(loggingInUser).subscribe({
       next: (response) => {
         if(response.successful){
-          this.userStoreService.getUser();
           this.router.navigate(['/courses']);
+          this.userStoreService.getUser();
         }
       },
       error: (error) => {
         this.errorLogInMessage = 'Login failed. Please check your credentials.';
+        console.log("Login failed. Please check your credentials.", error);
       }
-    })
+    });
+  }
+
+  navigateToRegistration(){
+    this.router.navigate(['/registration']);
   }
 }

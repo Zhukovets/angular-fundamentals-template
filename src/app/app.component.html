@@ -1,14 +1,9 @@
 <app-header *ngIf='isLoggedIn'>
-  <span>
-    <span> {{ user.name }} </span>
-    <app-button buttonText="LOGOUT" (buttonClick)="logout()"></app-button>
-  </span>
+  <span> {{ userName }} </span>
+  <app-button buttonText="LOGOUT" (buttonClick)="logout()" routerLink=""></app-button>
 </app-header>
 <app-header *ngIf='!isLoggedIn'>
-  <span>
-    <span> {{ user.name }} </span>
-    <app-button buttonText="LOGIN" routerLink="/login"></app-button>
-  </span>
+  <app-button buttonText="LOGIN" routerLink="/login"></app-button>
 </app-header>
 <!-- Header component -->
 <!-- <app-header>

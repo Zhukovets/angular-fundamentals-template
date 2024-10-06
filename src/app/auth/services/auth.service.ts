@@ -5,6 +5,7 @@ import { SessionStorageService } from './session-storage.service';
 import { User } from '@app/models/user.model';
 import { environment } from 'src/environments/environment';
 import { ApiResponse } from '@app/models/course.model';
+import { UserStoreService } from '@app/user/services/user-store.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,32 +15,47 @@ export class AuthService {
 
     public isAuthorized$: Observable<boolean> = this.isAuthorized$$.asObservable();
 
-    constructor(private http: HttpClient, private sessionStorage: SessionStorageService){
+    constructor(
+        private http: HttpClient,
+        private sessionStorage: SessionStorageService,
+        private userStoreService: UserStoreService
+    ){
         const token = this.sessionStorage.getToken();
         this.isAuthorized$$.next(!!token);
     }
 
-    login(user: User): Observable<any> {
+    login(user: User): Observable<ApiResponse<string>> {
         return this.http.post<ApiResponse<string>>(`${environment.apiBaseUrl}/login`, user)
             .pipe(
                 map((response)=>{
                     if (response?.successful && response.result){
-                        let token=response.result
-                        this.sessionStorage.setToken(token)
-                        this.isAuthorised=true
-                        this.isAuthorized$$.next(true)
+                        let token=response.result;
+                        this.sessionStorage.setToken(token);
+                        this.isAuthorised = true;
+                        this.isAuthorized$$.next(true);
                     }
-                    return response
+                    return response;
                 })
             );
     }
 
     logout() {
-        this.sessionStorage.deleteToken();
-        this.isAuthorized$$.next(false);
+        
+        this.http.delete<void>(`${environment.apiBaseUrl}/logout`).subscribe({
+            next: () => {
+                console.log('Logout successful');
+                this.sessionStorage.deleteToken();
+                this.isAuthorised = false;
+                this.userStoreService.isAdmin = false;
+                this.userStoreService.name = "";
+            },
+            error: (error) => {
+                console.error('Logout failed', error);
+            }
+        });
     }
 
-    register(user: {  name: string, email: string, password: string }): Observable<any> {
+    register(user: User): Observable<any> {
         return this.http.post<any>(`${environment.apiBaseUrl}/register`, user)
             .pipe(
                 map((response)=>{

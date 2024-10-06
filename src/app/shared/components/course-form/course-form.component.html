@@ -72,7 +72,7 @@
               <li *ngFor="let author of authors.controls; let i = index; trackBy: trackByFn">
                 {{ author.value.name }}
                 <p (click)="addAuthorToCourseAuthor(i)">+</p>
-                <p (click)="removeAuthor(i)"><fa-icon [icon]="'trash'"></fa-icon></p>
+                <p (click)="removeAuthor(i,author.value.id)"><fa-icon [icon]="'trash'"></fa-icon></p>
               </li>
             </ul>
             
@@ -91,7 +91,7 @@
       </div>
       <div class="form__action">
         <app-button buttonText="CANCEL" (buttonClick)="formReset()"></app-button>
-        <app-button buttonText="ADD COURSE" (buttonClick)="onSubmit()"></app-button>
+        <app-button [buttonText]="editCourse ? 'EDIT COURSE' : 'ADD COURSE'" (buttonClick)="onSubmit()"></app-button>
       </div>
     </div>
   </div>

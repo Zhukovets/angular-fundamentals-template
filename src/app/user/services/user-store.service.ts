@@ -14,33 +14,23 @@ export class UserStoreService {
     public isAdmin$: Observable<boolean> = this.isAdmin$$.asObservable();
     public name$: Observable<string> = this.name$$.asObservable();
     
-    constructor(private userService: UserService,private sessionStorageService: SessionStorageService) {}
+    constructor(
+        private userService: UserService,
+        private sessionStorageService: SessionStorageService
+    ) {}
 
-    getUser():void {
+    getUser(): void {
         if(this.sessionStorageService.getToken()){
-            this.userService.getUser().subscribe({
-                next: (info: any) => {
-                    if(info.result && info.result.role === "admin"){
-                        this.name$$.next(info.result.name);
-                        this.isAdmin = true;
-                    }
-                    else
-                    {
-                        this.isAdmin = false;
-                    }
-                },
-                error: (error) => {
+            this.userService.getUser().subscribe((response) => {
+                if(response.result.role === 'admin'){
+                    this.isAdmin = true;
+                } else {
                     this.isAdmin = false;
-                    console.error('Error fetching user', error);
                 }
+                this.name = response.result.name!;
             });
         }
-        this.userService.getUser().pipe(
-            tap(user => {
-                this.isAdmin = user.isAdmin;
-                this.name$$.next(user.name);
-            })
-        ).subscribe();
+        
     }
 
     get isAdmin() {
@@ -49,5 +39,13 @@ export class UserStoreService {
 
     set isAdmin(value: boolean) {
         this.isAdmin$$.next(value);
+    }
+
+    get name(){
+        return this.name$$.getValue();
+    }
+
+    set name(value: string){
+        this.name$$.next(value);
     }
 }

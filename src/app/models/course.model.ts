@@ -1,8 +1,8 @@
 export interface Course {
-    id: number;
+    id?: string;
     title: string;
     description: string;
-    creationDate: string;
+    creationDate?: string;
     duration: number;
     authors: string[];
 }
@@ -10,4 +10,5 @@ export interface Course {
 export interface ApiResponse<T> {
     successful: boolean;
     result: T;
+    message?: string;
   }

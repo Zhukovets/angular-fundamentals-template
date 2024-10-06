@@ -1,6 +1,5 @@
 <div class="course-card">
     <div class="course-card__description">
-      <!-- Replace ::text:: with your code -->
       <div class="course-card__description-title">{{ title }}</div>
       <div class="course-card__description-text">{{ description }}</div>
     </div>
@@ -11,14 +10,13 @@
               {{ authors }}
             </div>
             <div><b>Duration: </b><span class="course-card__duration">{{ duration | duration }} hours</span></div>
-            <div><b>Created: </b><span class="course-card__date">{{ creationDate | date }}</span></div>
+            <div><b>Created: </b><span class="course-card__date">{{ creationDate! | customDate }}</span></div>
         </div>
         <div class="course-card__info-actions">
-            <app-button buttonText="SHOW COURSE" (click)="onShowCourse()"></app-button>
+            <app-button buttonText="SHOW COURSE" (buttonClick)="onShowCourse()"></app-button>
             <div class="course-card__buttons" *ngIf="editable">
-                <!--Enter your code here-->
-                <app-button iconName="trash-can"></app-button>
-                <app-button iconName="pen"></app-button>
+                <app-button iconName="trash-can" (buttonClick)="onDeleteCourse()"></app-button>
+                <app-button iconName="pen" (buttonClick)="onEditCourse()"></app-button>
             </div>
             <ng-content></ng-content>
         </div>
