@@ -1,5 +1,5 @@
 <div class="search-add-container">
-    <app-search></app-search>
+    <app-search (search)="filterSearch($event)"></app-search>
     <app-button buttonText="ADD NEW COURSE" (buttonClick)="navigateToCoursesAdd()"></app-button>
 </div>
 

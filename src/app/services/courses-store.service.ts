@@ -74,9 +74,9 @@ export class CoursesStoreService {
         ).subscribe();
     }
 
-    filterCourses(value: string) {
+    filterCourses(value: string): Observable<ApiResponse<Course[]>> {
         this.isLoading$$.next(true);
-        this.coursesService.filterCourses(value).pipe(
+        return this.coursesService.filterCourses(value).pipe(
             tap((response: ApiResponse<Course[]>) => {
                 if (response.successful && response.result) {
                     this.courses$$.next(response.result);
@@ -90,7 +90,7 @@ export class CoursesStoreService {
                 this.isLoading$$.next(false);
                 return throwError(error);
             })
-        ).subscribe();
+        );
     }
     
 

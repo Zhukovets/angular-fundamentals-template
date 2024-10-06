@@ -72,5 +72,35 @@ export class CoursesComponent implements OnInit {
       }
     });
   }
+
+  filterSearch(searchTerm: string): void {
+    if (!searchTerm) {
+      this.coursesService.getAll().subscribe({
+          next: (response) => {
+              if (response.successful && response.result) {
+                  this.allCourses = response.result;
+              } else {
+                  console.error('Failed to fetch all courses:', response);
+              }
+          },
+          error: (error) => {
+              console.error('Error fetching all courses:', error);
+          }
+      });
+  } else {
+      this.coursesStoreService.filterCourses(searchTerm).subscribe({
+          next: (response) => {
+              if (response.successful) {
+                  this.allCourses = response.result;
+              } else {
+                  console.error('Filtering courses failed:', response);
+              }
+          },
+          error: (error) => {
+              console.error('Error during filter search:', error);
+          }
+      });
+  }
+}
   
 }
