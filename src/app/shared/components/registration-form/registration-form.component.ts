@@ -1,10 +1,10 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ButtonText} from "@app/models/const";
-import {LoginData, LoginResponse, RegisterResponse} from "@app/models/card.model";
+import {ButtonText} from '@app/models/const';
+import {LoginData, RegisterResponse} from '@app/models/card.model';
 import {AuthService} from '@app/auth/services/auth.service';
-import {Router} from "@angular/router";
-import {Subject, takeUntil} from "rxjs";
+import {Router} from '@angular/router';
+import {Subject, takeUntil} from 'rxjs';
 
 
 @Component({

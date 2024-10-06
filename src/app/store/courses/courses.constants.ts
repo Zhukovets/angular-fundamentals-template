@@ -22,4 +22,12 @@ export enum CoursesConstants {
     REQUEST_CREATE_COURSE = '[Courses] Request Create Course',
     REQUEST_CREATE_COURSE_SUCCESS = '[Courses] Request Create Course Success',
     REQUEST_CREATE_COURSE_FAIL = '[Courses] Request Create Course Fail',
+
+    REQUEST_ALL_AUTHORS = '[Authors] Request All Authors',
+    REQUEST_ALL_AUTHORS_SUCCESS = '[Authors] Request All Authors Success',
+    REQUEST_ALL_AUTHORS_FAIL = '[Authors] Request All Authors Fail',
+
+    REQUEST_CREATE_AUTHOR = '[Authors] Request Create Author',
+    REQUEST_CREATE_AUTHOR_SUCCESS = '[Authors] Request Create Author Success',
+    REQUEST_CREATE_AUTHOR_FAIL = '[Authors] Request Create Author Fail',
 }

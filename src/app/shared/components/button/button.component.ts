@@ -42,6 +42,5 @@ export class ButtonComponent {
     buttonClick() {
         this.clickButton.emit(this.data);
     }
-    // Use the names for the inputs `buttonText` and `iconName`.
 }
 

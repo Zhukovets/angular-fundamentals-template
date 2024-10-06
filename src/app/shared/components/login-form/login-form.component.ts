@@ -1,4 +1,4 @@
-import {Component, ViewChild, OnDestroy, EventEmitter} from '@angular/core';
+import {Component, ViewChild, OnDestroy} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {ButtonText} from 'src/app/models/const'
 import {AuthService} from '@app/auth/services/auth.service';
@@ -20,14 +20,15 @@ export class LoginFormComponent {
     inputPasswordChanged: boolean = false;
     inputEmailChanged: boolean = false;
 
-
     private destroy$ = new Subject<void>();  //for managing subscriptions
 
     onSubmitForm(e: any) {
         this.loginForm.ngSubmit.emit(this.loginForm);
     }
 
-    constructor(private auth: AuthService, private router: Router, private userStoreService: UserStoreService) {
+    constructor(private auth: AuthService,
+                private router: Router,
+                private userStoreService: UserStoreService) {
     }
 
     get inputPassword() {

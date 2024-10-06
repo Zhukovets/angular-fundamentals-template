@@ -4,10 +4,10 @@ import {
 } from '@angular/forms';
 import {FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
-import {ButtonIcon, ButtonText} from "@app/models/const";
-import {Author, CreateCourseRequest} from "@app/models/card.model";
-import {ActivatedRoute, Router} from "@angular/router";
-import {CoursesStoreService} from "@app/services/courses-store.service";
+import {ButtonIcon, ButtonText} from '@app/models/const';
+import {Author, UpdateCourseRequest} from '@app/models/card.model';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CoursesStateFacade} from '@app/store/courses/courses.facade';
 
 @Component({
     selector: 'app-course-form',
@@ -17,7 +17,7 @@ import {CoursesStoreService} from "@app/services/courses-store.service";
 export class CourseFormComponent implements OnInit {
     constructor(public fb: FormBuilder, public library: FaIconLibrary,
                 private router: Router, private route: ActivatedRoute,
-                private coursesStoreService: CoursesStoreService
+                private coursesFacade: CoursesStateFacade
     ) {
         library.addIconPacks(fas);
         this.initForm()
@@ -31,7 +31,7 @@ export class CourseFormComponent implements OnInit {
     disabled: boolean = false;
     durationValue: number = 0;
     courseAuthors: Author[] = [];
-    id: string = "";
+    id: string = '';
 
     inputNames: Map<string, boolean> = new Map([
         ['title', false],
@@ -71,7 +71,9 @@ export class CourseFormComponent implements OnInit {
 
     addCourseAuthor(item: Author) {
         if (item.id !== undefined) this.courseAuthors = [...this.courseAuthors, item];
-        let index = this.deleteAuthor(this.authorsList, item.id);
+        let copyArray = [...this.authorsList];
+        let index = this.deleteAuthor(copyArray, item.id);
+        this.authorsList = copyArray;
         const authors = this.getFormsControls();
         authors.removeAt(index);
         const courseAuthors = this.getFormsControlsCourse();
@@ -80,17 +82,8 @@ export class CourseFormComponent implements OnInit {
 
     addAuthor() {
         let authorName = this.courseForm.controls['author']?.value.trim();
-        const authors = this.getFormsControls();
-        this.coursesStoreService.createAuthor(authorName).subscribe({
-                next: (resp) => {
-                    this.insertCourseAuthor(authors, resp.result);
-                    this.courseForm.controls['author']?.patchValue('')
-                },
-                error: (err) => {
-                    console.error('Error adding author:', err);
-                }
-            }
-        )
+        this.coursesFacade.createAuthor(authorName);
+        this.courseForm.controls['author']?.patchValue('');
         this.router.navigate([this.router.url])
     }
 
@@ -142,29 +135,46 @@ export class CourseFormComponent implements OnInit {
 
     public ngOnInit(): void {
         this.id = this.route.snapshot.paramMap.get('id') || '';
-
         if (this.id !== '') {
-            this.coursesStoreService.getCourseWithAuthors(this.id).subscribe({
-                next: (response) => {
-                    this.courseForm.get('title')?.setValue(response.course.title)
-                    this.courseForm.get('description')?.setValue(response.course.description)
-                    this.courseForm.get('duration')?.setValue(response.course.duration)
+            this.coursesFacade.getSingleCourse(this.id);
+            this.coursesFacade.course$.subscribe({
+                next: (course) => {
+                    if (!course) return;
 
-                    this.courseAuthors = response.courseAuthors
-                    this.courseForm.setControl('courseAuthors', this.fb.array(this.fillAuthorList(response.courseAuthors)))
+                    this.courseForm.get('title')?.setValue(course?.title);
+                    this.courseForm.get('description')?.setValue(course?.description);
+                    this.courseForm.get('duration')?.setValue(course?.duration);
 
-                    this.authorsList = response.authors;
-                    this.courseForm.setControl('authors', this.fb.array(this.fillAuthorList(response.authors)));
+                    this.coursesFacade.getAllAuthors();
+                    this.coursesFacade.authors$.subscribe({
+                        next: (authors) => {
+                            let courseAuthors = authors?.filter((author: Author) => course?.authors?.includes(author.id))
+                            let availableAuthors = authors?.filter((author: Author) => !course?.authors?.includes(author.id));
+                            if (courseAuthors) {
+                                this.courseAuthors = courseAuthors;
+                                this.courseForm.setControl('courseAuthors', this.fb.array(this.fillAuthorList(courseAuthors)))
+                            }
+                            if (availableAuthors) {
+                                this.authorsList = availableAuthors;
+                                this.courseForm.setControl('authors', this.fb.array(this.fillAuthorList(availableAuthors)));
+                            }
+                        }
+                    })
                 }
             })
         } else {
-            this.coursesStoreService.getAllAuthors().subscribe({
-                    next: (response) => {
-                        this.authorsList = response.result;
+            this.coursesFacade.getAllAuthors();
+            this.coursesFacade.authors$.subscribe({
+                next: (response) => {
+                    if (response) {
+                        this.authorsList = response;
                         this.courseForm.setControl('authors', this.fb.array(this.fillAuthorList(this.authorsList)));
                     }
+                },
+                error: (err) => {
+                    console.error('Error fetching authors:', err);
                 }
-            )
+            })
         }
 
         //Subscriptions
@@ -186,17 +196,16 @@ export class CourseFormComponent implements OnInit {
     }
 
     onSubmit(): void {
-        const course: CreateCourseRequest = {
+        const course: UpdateCourseRequest = {
             title: this.courseForm.value.title,
             description: this.courseForm.value.description,
             duration: this.courseForm.value.duration,
             authors: this.courseForm.value.courseAuthors.map((item: any) => item.id),
         }
         if (this.id !== '') {
-            this.coursesStoreService.editCourse(this.id, course);
+            this.coursesFacade.editCourse(this.id, course);
         } else {
-            this.coursesStoreService.createCourse(course);
+            this.coursesFacade.createCourse(course);
         }
-        this.router.navigate(['/courses'])
     }
 }

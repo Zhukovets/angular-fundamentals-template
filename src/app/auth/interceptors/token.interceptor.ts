@@ -17,7 +17,7 @@ export class TokenInterceptor implements HttpInterceptor {
         if (token) {
             authReq = req.clone({
                 setHeaders: {
-                    Authorization: this.sessionStorageService.getToken() as string,
+                    Authorization: token,
                 },
             });
         }

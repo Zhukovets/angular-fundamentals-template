@@ -7,12 +7,9 @@ export class UserStoreService {
 
     private name$$ = new BehaviorSubject<string | null>(null);
     private isAdmin$$ = new BehaviorSubject<boolean>(false);
-    private role$$ = new BehaviorSubject<string>('');
 
     public name$: Observable<string | null> = this.name$$.asObservable();
     public isAdmin$: Observable<boolean> = this.isAdmin$$.asObservable();
-    public role$:Observable<string | null> = this.role$$.asObservable(); //maybe will be better
-
 
     constructor(private userService: UserService) {
             this.getUser();
@@ -24,7 +21,6 @@ export class UserStoreService {
                 next: (user) => {
                     this.name$$.next(user.result.name || null);
                     this.isAdmin$$.next(user.result.role === 'admin');
-                    this.role$$.next(user.result.role);
                 },
                 error: (err) => console.error('Error fetching user data:', err)
             });

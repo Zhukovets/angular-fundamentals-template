@@ -4,7 +4,6 @@ import {InjectionToken} from '@angular/core';
 const TOKEN = 'SESSION_TOKEN';
 
 const WINDOW = new InjectionToken<Window>('WindowToken', {
-    providedIn: 'root',
     factory: () => window
 });
 

@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {CardItem} from "@app/models/card.model";
+import {CardItem} from '@app/models/card.model';
 import { ButtonText } from 'src/app/models/const'
+import {CoursesStateFacade} from '@app/store/courses/courses.facade';
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -11,12 +13,16 @@ import { ButtonText } from 'src/app/models/const'
 
 export class CoursesListComponent {
   buttonTexts = ButtonText;
-  @Input() coursesList: CardItem[] = [];
-  @Input() editable: boolean = false;
+  coursesList$: Observable<CardItem[]>;
 
+  @Input() editable: boolean = false;
   @Output() showCourse = new EventEmitter<string>();
   @Output() editCourse = new EventEmitter<string>();
   @Output() deleteCourse = new EventEmitter<string>();
+
+  constructor(protected coursesFacade: CoursesStateFacade) {
+    this.coursesList$ = this.coursesFacade.allCourses$;
+  }
 
   clickOnShow(id : string) {
     this.showCourse.emit(id);
@@ -29,5 +35,4 @@ export class CoursesListComponent {
   clickOnDelete(id: string) {
     this.deleteCourse.emit(id)
   }
-
 }

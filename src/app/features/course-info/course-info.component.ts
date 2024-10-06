@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Author, CardItem} from 'src/app/models/card.model';
+import {CardItem} from 'src/app/models/card.model';
 import {ButtonText} from 'src/app/models/const';
-import {ActivatedRoute, Router} from "@angular/router";
-import {CoursesStoreService} from "@app/services/courses-store.service";
+import {ActivatedRoute} from "@angular/router";
+import {CoursesStateFacade} from "@app/store/courses/courses.facade";
 
 @Component({
     selector: 'app-course-info',
@@ -14,18 +14,40 @@ export class CourseInfoComponent implements OnInit {
     buttonText = ButtonText;
     @Input() courseInfo: CardItem = {} as CardItem;
 
-    constructor(private router: Router, private route: ActivatedRoute, private coursesStoreService: CoursesStoreService) {
+    constructor(private route: ActivatedRoute,
+                private coursesFacade: CoursesStateFacade) {
     }
 
     ngOnInit() {
         const id = this.route.snapshot.paramMap.get('id');
         if (id) {
-            this.coursesStoreService.getCourseWithAuthors(id).subscribe({
-                next: (resp)=>{
-                    this.courseInfo = {
-                        ...resp.course,
-                        authors: resp.courseAuthors.map((item:Author)=>item.name)
+            this.coursesFacade.getSingleCourse(id);
+            this.coursesFacade.getAllAuthors();
+            this.coursesFacade.course$.subscribe({
+                next: (response) => {
+                    if (response) {
+                        this.coursesFacade.authors$.subscribe({
+                            next: (authors) => {
+                                if (authors) {
+                                    let authorsMap = authors.reduce((acc, author) => {
+                                        acc[author.id] = author.name;
+                                        return acc;
+                                    }, {} as { [key: string]: string });
+
+                                    this.courseInfo = {
+                                        ...response,
+                                        authors: response?.authors?.map((authorId) => authorsMap[authorId] || authorId)
+                                    };
+                                }
+                            },
+                            error: (err) => {
+                                console.error('Error fetching authors:', err);
+                            }
+                        })
                     }
+                },
+                error: (err) => {
+                    console.error('Error fetching course:', err);
                 }
             })
         }

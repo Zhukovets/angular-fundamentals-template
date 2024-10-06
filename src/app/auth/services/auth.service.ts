@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {SessionStorageService} from './session-storage.service'
-import {BehaviorSubject, catchError, map, Observable, tap, throwError} from "rxjs";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {LoginData, LoginResponse, RegisterResponse} from "@app/models/card.model";
-import {baseUrl} from "@app/api.config";
+import {BehaviorSubject, catchError,Observable, tap, throwError} from "rxjs";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {LoginData, LoginResponse, RegisterResponse} from '@app/models/card.model';
+import {baseUrl} from '@app/api.config';
 import {Router} from '@angular/router';
 
 @Injectable()

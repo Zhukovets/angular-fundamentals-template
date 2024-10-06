@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CardItem} from 'src/app/models/card.model';
 import {ButtonIcon} from 'src/app/models/const';
 import {UserStoreService} from "@app/user/services/user-store.service";
+import {CoursesStateFacade} from "@app/store/courses/courses.facade";
 
 
 @Component({
@@ -18,7 +19,8 @@ export class CourseCardComponent {
     @Output() clickOnEdit = new EventEmitter();
     @Output() clickOnDelete = new EventEmitter();
 
-    constructor( protected userStoreService: UserStoreService) {}
+    constructor(protected userStoreService: UserStoreService) {
+    }
 
     showCourse() {
         this.clickOnShow.emit(this.cardItem.id);

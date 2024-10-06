@@ -1,7 +1,7 @@
 <section class="app-courses">
     <div class="app-courses__wrapper">
         <app-search (search)="search($event)"></app-search>
-        <ng-container *ngIf="this.userStoreService.isAdmin">
+        <ng-container *ngIf="this.userStoreService.isAdmin$ | async">
             <app-button
                     [btnDefault]=true
                     [btnMod]=true
@@ -12,7 +12,6 @@
         </ng-container>
     </div>
     <app-courses-list
-            [coursesList]="this.coursesList"
             (showCourse)="showCourseInfo($event)"
             (editCourse)="editCourse($event)"
             (deleteCourse)="deleteCourse($event)">>

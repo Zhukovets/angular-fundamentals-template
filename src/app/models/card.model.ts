@@ -45,8 +45,8 @@ interface AuthorsAllResponse {
 }
 
 interface CreateCourseRequest {
-    "title": "string",
-    "description": "string",
+    "title": string,
+    "description": string,
     "duration": number,
     "authors": Author[]
 }
@@ -57,8 +57,8 @@ interface CreateCourseResponse {
 }
 
 interface UpdateCourseRequest {
-    "title": "string",
-    "description": "string",
+    "title": string,
+    "description": string,
     "duration": number,
     "authors": Author[]
 }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {usersUrl} from '@app/api.config';
 import {UserResponse} from '@app/models/card.model'
-import {Observable} from "rxjs";
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class UserService {
