@@ -14,6 +14,9 @@ import { AppRoutingModule } from "./app-routing.module";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { WindowRefService } from "./shared/provides/window.provider";
 import { TokenInterceptor } from "./auth/interceptors/token.interceptor";
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { effects, reducers } from "./store/courses";
 
 @NgModule({
   declarations: [
@@ -28,6 +31,8 @@ import { TokenInterceptor } from "./auth/interceptors/token.interceptor";
     FontAwesomeModule,
     AppRoutingModule,
     HttpClientModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot(effects),
   ],
   providers: [
     AuthorizedGuard,

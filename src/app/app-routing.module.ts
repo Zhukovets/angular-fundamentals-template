@@ -30,7 +30,7 @@ export const routes: Routes = [
   {
     path: "courses",
     component: CoursesComponent,
-    canLoad: [AuthorizedGuard],
+    canActivate: [AuthorizedGuard], // Use canActivate instead of canLoad
   },
   {
     path: "courses/add",
