@@ -11,7 +11,7 @@ export interface CoursesState {
     isAllCoursesLoading: boolean;
     isSingleCourseLoading: boolean;
     isSearchState: boolean;
-    errorMessage: string | null;
+    errorMessage: string;
 }
 
 export const initialState: CoursesState = {
@@ -21,7 +21,7 @@ export const initialState: CoursesState = {
     isAllCoursesLoading: false,
     isSingleCourseLoading: false,
     isSearchState: false,
-    errorMessage: null,
+    errorMessage: '',
 };
 
 export const coursesReducer = createReducer(
@@ -59,8 +59,7 @@ export const coursesReducer = createReducer(
     on(CoursesActions.requestFilteredCourses, (state) => ({
         ...state,
         isSearchState: true,
-        isAllCoursesLoading: true,
-        errorMessage: null,
+        isAllCoursesLoading: true
     })),
     on(CoursesActions.requestFilteredCoursesSuccess, (state, { courses }) => {
         return {
@@ -78,8 +77,7 @@ export const coursesReducer = createReducer(
     })),
 
     on(CoursesActions.requestDeleteCourse, state => ({
-        ...state,
-        errorMessage: null,
+        ...state
     })),
     on(CoursesActions.requestDeleteCourseSuccess, (state, {id}) => ({
         ...state,
@@ -92,8 +90,7 @@ export const coursesReducer = createReducer(
 
     //Edit
     on(CoursesActions.requestEditCourse, state => ({
-        ...state,
-        errorMessage: null,
+        ...state
     })),
     on(CoursesActions.requestEditCourseSuccess, (state, { course }) => {
         const updatedCourse = state.allCourses.map(item =>
@@ -111,7 +108,7 @@ export const coursesReducer = createReducer(
     })),
 
     on(CoursesActions.requestAllAuthors, state => ({
-        ...state,
+        ...state
     })),
     on(CoursesActions.requestAllAuthorsSuccess, (state, {authors}) => ({
         ...state,
@@ -123,8 +120,7 @@ export const coursesReducer = createReducer(
     })),
 
     on(CoursesActions.requestCreateCourse, state => ({
-        ...state,
-        errorMessage: null,
+        ...state
     })),
     on(CoursesActions.requestCreateCourseSuccess, (state, {course}) => ({
         ...state,
@@ -136,7 +132,7 @@ export const coursesReducer = createReducer(
     })),
 
     on(CoursesActions.requestCreateAuthor, state => ({
-        ...state,
+        ...state
     })),
     on(CoursesActions.requestCreateAuthorSuccess, (state, {author}) => ({
         ...state,
