@@ -2,8 +2,6 @@ import { createAction, props } from "@ngrx/store";
 import { CoursesConstants } from "@app/store/courses/courses.constants";
 import { Course } from "@app/models/course.model";
 
-// Add your code here
-
 export const requestAllCourses = createAction(
   CoursesConstants.REQUEST_ALL_COURSES
 );

@@ -1,6 +1,7 @@
-import { Component, Input, Output } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { Course } from "@app/models/course.model";
-import { CoursesService } from "@app/services/courses.service";
+import { CoursesStateFacade } from "@app/store/courses/courses.facade";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-courses-list",
@@ -8,33 +9,22 @@ import { CoursesService } from "@app/services/courses.service";
   styleUrls: ["./courses-list.component.css"],
 })
 export class CoursesListComponent {
-  constructor(private coursesService: CoursesService) {
-    this.getCourses();
-  }
-  courses: Course[] = [];
-
-  getCourses() {
-    this.coursesService.getAll().subscribe({
-      next: (courses: Course[]) => {
-        this.courses = courses; // Assign the fetched courses to the local courses array
-      },
-      error: (err) => {
-        console.error("Error fetching courses:", err);
-      },
-    });
-  }
+  courses$: Observable<Course[] | null>;
 
   @Input() courseName: string = "";
-
   @Input() isEditable: boolean = false;
 
-  @Output() handleShowCourse(): void {}
+  constructor(private coursesFacade: CoursesStateFacade) {
+    this.courses$ = this.coursesFacade.allCourses$;
+    this.getCourses();
+  }
+
+  getCourses() {
+    this.coursesFacade.getAllCourses();
+  }
 
   onSearch(searchQuery: string): void {
     console.log("Search query:", searchQuery);
-    this.coursesService
-      .filterCourses(searchQuery)
-      .subscribe((res) => (this.courses = res));
-    // Add logic to filter courses based on the search query
+    this.coursesFacade.getFilteredCourses(searchQuery);
   }
 }

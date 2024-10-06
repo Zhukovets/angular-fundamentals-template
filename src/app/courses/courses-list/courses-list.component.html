@@ -1,7 +1,7 @@
-<app-search (search)="onSearch($event)"></app-search>
+<app-search placeholder="Input text"></app-search>
 <div class="courses-list">
   <app-course-card
-    *ngFor="let course of courses"
+    *ngFor="let course of courses$ | async"
     [title]="course.title"
     [description]="course.description"
     [duration]="course.duration"

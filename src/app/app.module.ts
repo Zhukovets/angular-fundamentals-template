@@ -12,7 +12,9 @@ import { CoursesListComponent } from "./courses/courses-list/courses-list.compon
 import { FormsModule } from "@angular/forms";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { TokenInterceptor } from "./auth/interceptors/token.interceptor";
-import { StoreModule } from '@ngrx/store';
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { reducers, effects } from "./store";
 
 @NgModule({
   declarations: [AppComponent, CourseInfoComponent, CoursesListComponent],
@@ -22,7 +24,8 @@ import { StoreModule } from '@ngrx/store';
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot(effects),
   ],
   providers: [
     AuthorizedGuard,

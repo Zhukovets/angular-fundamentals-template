@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { CoursesStateFacade } from "@app/store/courses/courses.facade";
 
 @Component({
   selector: "app-search",
@@ -6,17 +7,16 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
   styleUrls: ["./search.component.scss"],
 })
 export class SearchComponent {
-  // Use the name `placeholder` for the @Input.
-  // Use the name `search` for the @Output.
   @Input() placeholder: string = "Input text";
 
-  @Output() search: EventEmitter<string> = new EventEmitter<string>();
+  constructor(private coursesFacade: CoursesStateFacade) {}
 
   searchValue: string = "";
 
   click(): void {
     if (this.searchValue.trim()) {
-      this.search.emit(this.searchValue);
+      this.coursesFacade.getFilteredCourses(this.searchValue.trim());
+      this.searchValue = "";
     }
   }
 }
