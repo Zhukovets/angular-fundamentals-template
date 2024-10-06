@@ -28,7 +28,8 @@ export const coursesReducer = createReducer(
     initialState,
     on(CoursesActions.requestAllCourses, state => ({
         ...state,
-        isAllCoursesLoading: true
+        isAllCoursesLoading: true,
+        errorMessage:''
     })),
     on(CoursesActions.requestAllCoursesSuccess, (state, {courses}) => ({
         ...state,
@@ -43,7 +44,8 @@ export const coursesReducer = createReducer(
 
     on(CoursesActions.requestSingleCourse, state => ({
         ...state,
-        isSingleCourseLoading: true
+        isSingleCourseLoading: true,
+        errorMessage:''
     })),
     on(CoursesActions.requestSingleCourseSuccess, (state, {course}) => ({
         ...state,
@@ -59,7 +61,8 @@ export const coursesReducer = createReducer(
     on(CoursesActions.requestFilteredCourses, (state) => ({
         ...state,
         isSearchState: true,
-        isAllCoursesLoading: true
+        isAllCoursesLoading: true,
+        errorMessage:''
     })),
     on(CoursesActions.requestFilteredCoursesSuccess, (state, { courses }) => {
         return {
@@ -77,7 +80,8 @@ export const coursesReducer = createReducer(
     })),
 
     on(CoursesActions.requestDeleteCourse, state => ({
-        ...state
+        ...state,
+        errorMessage:''
     })),
     on(CoursesActions.requestDeleteCourseSuccess, (state, {id}) => ({
         ...state,
@@ -90,7 +94,8 @@ export const coursesReducer = createReducer(
 
     //Edit
     on(CoursesActions.requestEditCourse, state => ({
-        ...state
+        ...state,
+        errorMessage:''
     })),
     on(CoursesActions.requestEditCourseSuccess, (state, { course }) => {
         const updatedCourse = state.allCourses.map(item =>
@@ -108,7 +113,8 @@ export const coursesReducer = createReducer(
     })),
 
     on(CoursesActions.requestAllAuthors, state => ({
-        ...state
+        ...state,
+        errorMessage:''
     })),
     on(CoursesActions.requestAllAuthorsSuccess, (state, {authors}) => ({
         ...state,
@@ -120,7 +126,8 @@ export const coursesReducer = createReducer(
     })),
 
     on(CoursesActions.requestCreateCourse, state => ({
-        ...state
+        ...state,
+        errorMessage:''
     })),
     on(CoursesActions.requestCreateCourseSuccess, (state, {course}) => ({
         ...state,
@@ -132,7 +139,8 @@ export const coursesReducer = createReducer(
     })),
 
     on(CoursesActions.requestCreateAuthor, state => ({
-        ...state
+        ...state,
+        errorMessage:''
     })),
     on(CoursesActions.requestCreateAuthorSuccess, (state, {author}) => ({
         ...state,
