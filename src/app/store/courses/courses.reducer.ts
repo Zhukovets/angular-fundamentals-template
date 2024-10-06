@@ -59,23 +59,27 @@ export const coursesReducer = createReducer(
     on(CoursesActions.requestFilteredCourses, (state) => ({
         ...state,
         isSearchState: true,
+        isAllCoursesLoading: true,
         errorMessage: null,
     })),
     on(CoursesActions.requestFilteredCoursesSuccess, (state, { courses }) => {
         return {
             ...state,
             isSearchState: false,
+            isAllCoursesLoading: false,
             allCourses: courses
         };
     }),
     on(CoursesActions.requestFilteredCoursesFail, (state, {error}) => ({
         ...state,
         isSearchState: false,
+        isAllCoursesLoading: false,
         errorMessage: error,
     })),
 
     on(CoursesActions.requestDeleteCourse, state => ({
-        ...state
+        ...state,
+        errorMessage: null,
     })),
     on(CoursesActions.requestDeleteCourseSuccess, (state, {id}) => ({
         ...state,
@@ -88,7 +92,8 @@ export const coursesReducer = createReducer(
 
     //Edit
     on(CoursesActions.requestEditCourse, state => ({
-        ...state
+        ...state,
+        errorMessage: null,
     })),
     on(CoursesActions.requestEditCourseSuccess, (state, { course }) => {
         const updatedCourse = state.allCourses.map(item =>
@@ -119,12 +124,13 @@ export const coursesReducer = createReducer(
 
     on(CoursesActions.requestCreateCourse, state => ({
         ...state,
+        errorMessage: null,
     })),
     on(CoursesActions.requestCreateCourseSuccess, (state, {course}) => ({
         ...state,
         allCourses: [...state.allCourses, course]
     })),
-    on(CoursesActions.requestAllAuthorsFail, (state, {error}) => ({
+    on(CoursesActions.requestCreateCourseFail, (state, {error}) => ({
         ...state,
         errorMessage: error
     })),
