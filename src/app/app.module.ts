@@ -17,6 +17,8 @@ import { TokenInterceptor } from "./auth/interceptors/token.interceptor";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { effects, reducers } from "./store/courses";
+import { CoursesFacade } from "./store/courses/courses.facade";
+import { CoursesEffects } from "./store/courses/courses.effects";
 
 @NgModule({
   declarations: [
@@ -40,6 +42,9 @@ import { effects, reducers } from "./store/courses";
     CoursesService,
     CoursesStoreService,
     WindowRefService,
+    HttpClientModule,
+    CoursesFacade,
+    CoursesEffects,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

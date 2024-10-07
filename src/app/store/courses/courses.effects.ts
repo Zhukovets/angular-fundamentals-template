@@ -6,7 +6,9 @@ import * as CoursesActions from "./courses.actions";
 import { CoursesService } from "src/app/services/courses.service";
 import { Router } from "@angular/router";
 
-@Injectable()
+@Injectable({
+  providedIn: "root",
+})
 export class CoursesEffects {
   constructor(
     private actions$: Actions,
