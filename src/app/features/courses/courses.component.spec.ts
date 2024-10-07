@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CoursesComponent } from './courses.component';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -11,7 +12,8 @@ describe('CoursesComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ CoursesComponent ],
       imports: [
-        HttpClientModule
+        HttpClientModule,
+        StoreModule.forRoot({})
       ]
     })
     .compileComponents();
