@@ -1,6 +1,6 @@
 <div class="search-add-container">
     <app-search (search)="filterSearch($event)"></app-search>
-    <app-button buttonText="ADD NEW COURSE" (buttonClick)="navigateToCoursesAdd()"></app-button>
+    <app-button *ngIf="isEditable" buttonText="ADD NEW COURSE" (buttonClick)="navigateToCoursesAdd()"></app-button>
 </div>
 
 <app-courses-list
