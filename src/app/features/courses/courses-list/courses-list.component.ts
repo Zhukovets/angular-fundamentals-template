@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { CoursesService } from "@app/services/courses.service";
+import { CoursesFacade } from "@app/store/courses/courses.facade";
 import { UserStoreService } from "@app/user/services/user-store.service";
 import { catchError, Observable, of, tap } from "rxjs";
 
@@ -16,13 +17,19 @@ export class CoursesListComponent {
   constructor(
     private coursesService: CoursesService,
     private router: Router,
-    private userStoreService: UserStoreService
+    private userStoreService: UserStoreService,
+    private coursesFacade: CoursesFacade
   ) {
     this.courses$ = this.coursesService.getAll();
     this.courses$.subscribe((el) => console.log(el));
     this.userStoreService.isAdmin$.subscribe((isAdmin) => {
-      this.isEditable = isAdmin; // Jeśli użytkownik jest adminem, ustaw isEditable na true
+      console.log("is admin value is " + isAdmin);
+      this.isEditable = isAdmin;
     });
+  }
+
+  ngOnInit() {
+    this.userStoreService.getUser();
   }
 
   onShowCourse(courseId: string) {
@@ -30,19 +37,9 @@ export class CoursesListComponent {
   }
 
   onDeleteCourse(courseId: string): void {
-    this.coursesService
-      .deleteCourse(courseId)
-      .pipe(
-        tap(() => {
-          console.log(`Course with ID ${courseId} deleted successfully.`);
-        }),
-        catchError((error) => {
-          console.error("Failed to delete course:", error);
-          return of(null);
-        })
-      )
-      .subscribe();
+    this.coursesFacade.deleteCourse(courseId);
   }
+
   onEditCourse(courseId: string) {
     this.router.navigate([`/courses/edit/${courseId}`]);
   }

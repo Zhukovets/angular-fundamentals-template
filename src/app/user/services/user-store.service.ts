@@ -22,9 +22,9 @@ export class UserStoreService {
     this.userService
       .getUser()
       .pipe(
-        tap((user: User) => {
-          this.name$$.next(user.name);
-          this.isAdmin$$.next(this.checkIfAdmin(user.email)); // Check if the user is an admin
+        tap((user: any) => {
+          this.name$$.next(user.result.name);
+          this.isAdmin$$.next(this.checkIfAdmin(user.result.email)); // Check if the user is an admin
         }),
         catchError((error) => {
           console.error("Failed to load user", error);

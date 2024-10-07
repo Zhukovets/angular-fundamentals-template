@@ -1,5 +1,4 @@
-<!-- Replace ::text:: with your code -->
-<div *ngIf="course; else loading">
+<div *ngIf="course$ | async as course; else loading">
   <div class="title">{{ course.title }}</div>
   <div class="course-info">
     <div class="course-info__description">

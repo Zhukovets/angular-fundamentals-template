@@ -1,36 +1,34 @@
-import { Component } from "@angular/core";
 import { Router } from "@angular/router";
-import { CoursesService } from "@app/services/courses.service";
+import { Observable } from "rxjs";
+import { CoursesFacade } from "@app/store/courses/courses.facade";
 import { Course } from "@app/shared/models/course.model";
-import { catchError, Observable, of } from "rxjs";
+import { Component, OnInit } from "@angular/core";
 
 @Component({
   selector: "app-courses",
   templateUrl: "./courses.component.html",
   styleUrls: ["./courses.component.css"],
 })
-export class CoursesComponent {
-  courses$: Observable<any[]>;
+export class CoursesComponent implements OnInit {
+  courses$: Observable<Course[]>; // Observable for the courses list
   isEditable: boolean = false;
 
   constructor(
-    private coursesService: CoursesService,
-    private router: Router
+    private router: Router,
+    private coursesFacade: CoursesFacade
   ) {
-    this.courses$ = this.coursesService.getAll();
-    this.courses$.subscribe((el) => console.log(el));
+    this.courses$ = this.coursesFacade.courses$;
+  }
+
+  ngOnInit(): void {
+    this.coursesFacade.getAllCourses();
   }
 
   search(value: string): void {
-    console.log("searchin from component");
-    console.log(value);
-    this.courses$ = this.coursesService.filterCourses(value).pipe(
-      catchError((error) => {
-        console.error("Error filtering courses:", error);
-        return of([]); // Zwróć pustą tablicę w przypadku błędu
-      })
-    );
+    console.log("searching from component", value);
+    this.coursesFacade.getFilteredCourses(value);
   }
+
   navigateToNewCourse() {
     this.router.navigate(["/courses/add"]);
   }

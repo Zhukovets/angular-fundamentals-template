@@ -7,7 +7,7 @@ export const coursesFeatureKey = "courses";
 // Define the CoursesState interface
 export interface CoursesState {
   allCourses: Course[];
-  course: Course | null;
+  course: any | null;
   isAllCoursesLoading: boolean;
   isSingleCourseLoading: boolean;
   isSearchState: boolean;
@@ -52,12 +52,15 @@ export const coursesReducer = createReducer(
     isSingleCourseLoading: true,
     errorMessage: null,
   })),
-  on(CoursesActions.requestSingleCourseSuccess, (state, { course }) => ({
-    ...state,
-    course,
-    isSingleCourseLoading: false,
-    errorMessage: null,
-  })),
+  on(CoursesActions.requestSingleCourseSuccess, (state, { course }) => {
+    console.log("Course:", course); // Dodaj console.log tutaj
+    return {
+      ...state,
+      course,
+      isSingleCourseLoading: false,
+      errorMessage: null,
+    };
+  }),
   on(CoursesActions.requestSingleCourseFail, (state, { error }) => ({
     ...state,
     isSingleCourseLoading: false,
