@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { mockedCoursesList } from './shared/mocks/mock';
 import { UserStoreService } from './user/services/user-store.service';
 import { AuthService } from './auth/services/auth.service';
 import { Router } from '@angular/router';
@@ -10,11 +9,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  //these are for testing
-  creationDate = new Date();
-  mockedCoursesList = mockedCoursesList;
-
-
   title = 'courses-app';
   isLoggedIn = false;
   userName = "";
@@ -27,6 +21,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadUser();
+    this.userStoreService.getUser();
   }
 
   loadUser(): void {
