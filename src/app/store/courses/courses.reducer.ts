@@ -17,7 +17,7 @@ export interface CoursesState {
     isAllCoursesLoading: false,
     isSingleCourseLoading: false,
     isSearchState: false,
-    errorMessage: null,
+    errorMessage: "",
   };
   
   export const coursesFeatureKey = 'courses';
@@ -30,14 +30,14 @@ export interface CoursesState {
     on(CoursesActions.requestAllCourses, (state): CoursesState => ({
       ...state,
       isAllCoursesLoading: true,
-      errorMessage: null,
+      errorMessage: "",
     })),
   
     on(CoursesActions.requestAllCoursesSuccess, (state, { courses }): CoursesState => ({
       ...state,
       allCourses: courses,
       isAllCoursesLoading: false,
-      errorMessage: null,
+      errorMessage: "",
     })),
   
     on(CoursesActions.requestAllCoursesFail, (state, { error }): CoursesState => ({
@@ -50,7 +50,7 @@ export interface CoursesState {
     on(CoursesActions.requestSingleCourse, (state): CoursesState => ({
       ...state,
       isSingleCourseLoading: true,
-      errorMessage: null,
+      errorMessage: "",
       course: null,
     })),
   
@@ -58,7 +58,7 @@ export interface CoursesState {
       ...state,
       isSingleCourseLoading: false,
       course,
-      errorMessage: null,
+      errorMessage: "",
     })),
   
     on(CoursesActions.requestSingleCourseFail, (state, { error }): CoursesState => ({
@@ -71,14 +71,14 @@ export interface CoursesState {
     on(CoursesActions.requestCreateCourse, (state): CoursesState => ({
       ...state,
       isSingleCourseLoading: true,
-      errorMessage: null,
+      errorMessage: "",
     })),
   
     on(CoursesActions.requestCreateCourseSuccess, (state, { course }): CoursesState => ({
       ...state,
       isSingleCourseLoading: false,
       allCourses: state.allCourses ? [...state.allCourses, course] : [course],
-      errorMessage: null,
+      errorMessage: "",
     })),
   
     on(CoursesActions.requestCreateCourseFail, (state, { error }): CoursesState => ({
@@ -91,7 +91,7 @@ export interface CoursesState {
     on(CoursesActions.requestEditCourse, (state): CoursesState => ({
       ...state,
       isSingleCourseLoading: true,
-      errorMessage: null,
+      errorMessage: "",
     })),
   
     on(CoursesActions.requestEditCourseSuccess, (state, { course }): CoursesState => ({
@@ -100,7 +100,7 @@ export interface CoursesState {
       allCourses: state.allCourses
         ? state.allCourses.map(c => (c.id === course.id ? course : c))
         : [course],
-      errorMessage: null,
+      errorMessage: "",
     })),
   
     on(CoursesActions.requestEditCourseFail, (state, { error }): CoursesState => ({
@@ -113,14 +113,14 @@ export interface CoursesState {
     on(CoursesActions.requestDeleteCourse, (state): CoursesState => ({
       ...state,
       isSingleCourseLoading: true,
-      errorMessage: null,
+      errorMessage: "",
     })),
   
     on(CoursesActions.requestDeleteCourseSuccess, (state, { id }): CoursesState => ({
         ...state,
         allCourses: state.allCourses.filter(course => course.id !== id),
         isAllCoursesLoading: false,
-        errorMessage: null,
+        errorMessage: "",
     })),
       
   
@@ -135,7 +135,7 @@ export interface CoursesState {
       ...state,
       isAllCoursesLoading: true,
       isSearchState: true,
-      errorMessage: null,
+      errorMessage: "",
     })),
   
     on(CoursesActions.requestFilteredCoursesSuccess, (state, { courses }): CoursesState => ({
@@ -143,7 +143,7 @@ export interface CoursesState {
       allCourses: [...courses],
       isAllCoursesLoading: false,
       isSearchState: false,
-      errorMessage: null,
+      errorMessage: "",
     })),
   
     on(CoursesActions.requestFilteredCoursesFail, (state, { error }): CoursesState => ({
