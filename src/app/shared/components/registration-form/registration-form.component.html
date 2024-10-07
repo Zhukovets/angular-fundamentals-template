@@ -1,28 +1,79 @@
 <h2 class="text-align-center">Registration</h2>
 <div class="app-plate">
-  <div class="registration-form">
+  <div class="registration-form" [formGroup]="registrationForm">
     <div>
       <div class="form__control">
         <label for="name">Name</label>
-        <!--Use the name `name` for the form control.-->
-        <input type="text" id="name" placeholder="Input text"/>
-        <span id="nameErrorMessage" class="text-danger">Name is required.</span>
+        <input
+          type="text"
+          id="name"
+          placeholder="Input text"
+          formControlName="name"
+          required
+          minlength="6"
+        />
+        <span
+          *ngIf="
+            registrationForm.controls['name'].invalid &&
+            (registrationForm.controls['name'].dirty ||
+              registrationForm.controls['name'].touched)
+          "
+          id="nameErrorMessage"
+          class="text-danger"
+          >Name is required.</span
+        >
       </div>
       <div class="form__control">
         <!--Use the name `email` for the form control.-->
         <label for="email">Email</label>
-        <input type="text" id="email" placeholder="Input text"/>
-        <span id="emailErrorMessage" class="text-danger">Email is required.</span>
+        <input
+          type="text"
+          id="email"
+          placeholder="Input text"
+          formControlName="email"
+          required
+        />
+        <span
+          *ngIf="
+            registrationForm.controls['email'].invalid &&
+            (registrationForm.controls['email'].dirty ||
+              registrationForm.controls['email'].touched)
+          "
+          id="emailErrorMessage"
+          class="text-danger"
+          >Email is required.</span
+        >
       </div>
       <div class="form__control">
         <!--Use the name `password` for the form control.-->
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Input text"/>
-        <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
+        <input
+          type="password"
+          id="password"
+          placeholder="Input text"
+          formControlName="password"
+          required
+        />
+        <span
+          *ngIf="
+            registrationForm.controls['password'].invalid &&
+            (registrationForm.controls['password'].dirty ||
+              registrationForm.controls['password'].touched)
+          "
+          id="passwordErrorMessage"
+          class="text-danger"
+          >Password is required.</span
+        >
+        <div
+          class="form__action"
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <app-button
+            button_text="Submit"
+            (buttonClick)="submit()"
+          ></app-button>
+        </div>
       </div>
-    </div>
-    <div class="form__action">
-      <app-button></app-button>
     </div>
   </div>
 </div>

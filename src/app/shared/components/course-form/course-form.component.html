@@ -1,56 +1,107 @@
-<!-- Replace ::text:: with your code -->
 <h2>Create / Edit Course</h2>
-<form>
+<form [formGroup]="form">
   <div class="app-plate">
     <div class="course">
       <h3>Main Info</h3>
       <div class="form__control">
         <label for="title">Title</label>
-        <!--Use the name `title` for the form control.-->
-        <input type="text" id="title" placeholder="Input text"/>
-        <span id="titleErrorMessage" class="text-danger">Title is required.</span>
+        <input
+          type="text"
+          id="title"
+          placeholder="Input text"
+          formControlName="title"
+          name="title"
+        />
+        <span
+          *ngIf="title.invalid && (title.dirty || title.touched)"
+          id="titleErrorMessage"
+          class="text-danger"
+          >Title is required.</span
+        >
       </div>
       <div class="form__control">
         <label for="description">Description</label>
-        <!--Use the name `description` for the form control.-->
         <textarea
           id="description"
-          name="description"
           placeholder="Input text"
           rows="4"
           cols="5"
+          formControlName="description"
         ></textarea>
-        <span id="descriptionErrorMessage" class="text-danger">Description is required.</span>
+        <span
+          *ngIf="
+            description.invalid && (description.dirty || description.touched)
+          "
+          id="descriptionErrorMessage"
+          class="text-danger"
+          >Description is required.</span
+        >
       </div>
       <div class="separator"></div>
       <h3>Authors</h3>
       <div class="form__control">
         <div class="course__flex">
-          <!--Use the name `author` for the form control.-->
-          <input type="text" id="author" placeholder="Input Author Name"/>
-          <app-button id="createAuthor"></app-button>
+          <input
+            type="text"
+            id="author"
+            placeholder="Input Author Name"
+            formControlName="author"
+          />
+          <app-button
+            id="createAuthor"
+            button_text="Create author"
+            (buttonClick)="createAuthor(author.value)"
+          ></app-button>
         </div>
-        <span id="authorErrorMessage">New author should contain only latin letters and numbers.</span>
+        <span
+          *ngIf="author.invalid && (author.dirty || author.touched)"
+          id="authorErrorMessage"
+          class="text-danger"
+          >New author should contain only latin letters and numbers.</span
+        >
         <div class="course__authors">
-          <!--Use the name `authors` for the form array.-->
-          ::Authors::
+          <ul class="authors-list">
+            <li *ngFor="let author of authors" class="authors-list-item">
+              Name: {{ author }}
+              <app-button button_text="Remove" (click)="removeAuthor(author)">
+              </app-button>
+            </li>
+          </ul>
         </div>
       </div>
       <div class="separator"></div>
       <h3>Duration</h3>
       <div class="form__control">
         <div class="course__flex">
-          <!--Use the name `duration` for the form array.-->
-          <input type="number" id="duration" placeholder="Input duration"/>
+          <input
+            type="number"
+            id="duration"
+            placeholder="Input duration"
+            formControlName="duration"
+            (input)="durationTime = duration.value"
+          />
           <div class="course__duration">
-            ::Duration::
+            <strong>{{ getDurationFormatted(durationTime) }}</strong>
           </div>
         </div>
-        <span id="durationErrorMessage" class="text-danger">Duration is required.</span>
+        <span
+          *ngIf="duration.invalid && (duration.dirty || duration.touched)"
+          id="durationErrorMessage"
+          class="text-danger"
+          >Duration is required and must be greater than 0.</span
+        >
       </div>
-      <div class="form__action">
-        <app-button></app-button>
-      </div>
+      <div class="form__action"></div>
     </div>
+  </div>
+  <div
+    class="buttons-container"
+    style="display: flex; align-items: center; justify-content: center"
+  >
+    <app-button button_text="Cancel"></app-button>
+    <app-button
+      button_text="Create course"
+      (buttonClick)="createCourse()"
+    ></app-button>
   </div>
 </form>

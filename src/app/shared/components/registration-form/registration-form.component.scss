@@ -1,4 +1,4 @@
-@import 'src/app/shared/styles/styles';
+@import "src/app/shared/styles/styles";
 
 .registration-form {
   width: 260px;
@@ -6,4 +6,18 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red !important;
+}
+
+.form__control input {
+  border: 1px solid black;
 }
