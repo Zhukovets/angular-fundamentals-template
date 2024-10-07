@@ -5,9 +5,10 @@ import { Author } from '@app/models/author.model';
 import { Course } from '@app/models/course.model';
 import { CoursesStoreService } from '@app/services/courses-store.service';
 import { CoursesService } from '@app/services/courses.service';
+import { CoursesFacade } from '@app/store/courses/courses.facade';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { forkJoin, map, Observable } from 'rxjs';
+import { forkJoin, map, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-course-form',
@@ -17,6 +18,7 @@ import { forkJoin, map, Observable } from 'rxjs';
 })
 export class CourseFormComponent implements OnInit{
   courseForm!: FormGroup;
+  subscriptions: Subscription[] =[];
   formFields = {
     title: 'title',
     description: 'description',
@@ -33,6 +35,7 @@ export class CourseFormComponent implements OnInit{
     private route: ActivatedRoute,
     private coursesStoreService: CoursesStoreService,
     private coursesService: CoursesService,
+    private coursesFacade: CoursesFacade,
     private router: Router
   ) {
     library.addIconPacks(fas);
@@ -40,27 +43,36 @@ export class CourseFormComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    let courseId = this.route.snapshot.paramMap.get('id');
-    
-    this.coursesStoreService.authors$.subscribe((authors) => {
+    const courseId = this.route.snapshot.paramMap.get('id');
+  
+    const authorsSubscription = this.coursesStoreService.authors$.subscribe((authors) => {
       this.allAuthors = authors;
-      if(!courseId){
-        this.populateAuthors(this.allAuthors);
-      }
+      this.populateAuthors(this.allAuthors);
     });
-
-    if(courseId){
-      this.coursesStoreService.getCourse(courseId);
-      this.coursesStoreService.course$.subscribe((course) => {
+  
+    this.subscriptions.push(authorsSubscription);
+  
+    if (courseId) {
+      this.coursesFacade.getSingleCourse(courseId);
+      
+      const courseSubscription = this.coursesFacade.course$.subscribe((course) => {
         if (course) {
           this.editCourse = course;
-          this.resolveAuthorIds(course.authors).subscribe((resolvedAuthors) => {
+  
+          const resolvedAuthorsSubscription = this.resolveAuthorIds(course.authors).subscribe((resolvedAuthors) => {
             this.patchFormValues(course, resolvedAuthors);
-            this.populateAuthors(resolvedAuthors);
+            this.populateAuthors(this.allAuthors);
           });
+
+          this.subscriptions.push(resolvedAuthorsSubscription);
         }
       });
+      this.subscriptions.push(courseSubscription);
     }
+  }
+  
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   get authors(): FormArray {
@@ -177,23 +189,19 @@ export class CourseFormComponent implements OnInit{
     return forkJoin(authorObservables);
   }
 
-  // Populate authors FormArray with all authors except those already in courseAuthors
   populateAuthors(excludedAuthors: Author[]): void {
-    this.coursesStoreService.authors$.subscribe(allAuthors => {
-      const existingAuthorIds = this.courseAuthors.controls.map(control => control.value.id);
-
-      this.authors.clear();
-
-      allAuthors.forEach(author => {
-        if (!existingAuthorIds.includes(author.id)) {
-          this.authors.push(this.fb.group({
-            id: [author.id],
-            name: [author.name],
-          }));
-        }
-      });
+    this.authors.clear();
+  
+    excludedAuthors.forEach(author => {
+      if (!this.editCourse?.authors.includes(author.id)) {
+        this.authors.push(this.fb.group({
+          id: [author.id],
+          name: [author.name],
+        }));
+      }
     });
   }
+  
 
   patchFormValues(course: Course, authors: Author[]): void {
     this.courseForm.patchValue({

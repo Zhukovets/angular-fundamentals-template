@@ -19,7 +19,9 @@ export class CoursesStoreService {
     public authors$:Observable<Author[]> = this.authors$$.asObservable();
     public course$:Observable<any> = this.course$$.asObservable();
 
-    constructor(private coursesService: CoursesService){}
+    constructor(private coursesService: CoursesService){
+        this.getAllAuthors();
+    }
 
     getAll(): void{
         this.isLoading$$.next(true);

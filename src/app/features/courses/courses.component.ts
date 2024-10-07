@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiResponse, Course } from '@app/models/course.model';
-import { CoursesStoreService } from '@app/services/courses-store.service';
-import { CoursesService } from '@app/services/courses.service';
-import { UserStoreService } from '@app/user/services/user-store.service';
+import { Course } from '@app/models/course.model';
+import { CoursesFacade } from '@app/store/courses/courses.facade';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
@@ -11,41 +10,20 @@ import { UserStoreService } from '@app/user/services/user-store.service';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
-  allCourses: Course[] = [];
+  allCourses$: Observable<Course[]> = this.coursesFacade.allCourses$;
   isEditable: boolean = true;
 
   constructor(
-    private coursesService: CoursesService,
-    private coursesStoreService: CoursesStoreService,
     private router: Router,
-    private userStorageService: UserStoreService
-  ){
-    this.userStorageService.getUser();
-    this.isEditable = this.userStorageService.isAdmin;
-  }
+    private coursesFacade: CoursesFacade
+  ){}
 
   ngOnInit(): void {
     this.loadCourses();
-    this.coursesStoreService.getAllAuthors();
-
-    this.userStorageService.isAdmin$.subscribe((isAdmin) => {
-      this.isEditable = isAdmin;
-    });
   }
 
   loadCourses(): void {
-    this.coursesService.getAll().subscribe(
-      (response: ApiResponse<Course[]>) => {
-        if (response.successful) {
-          this.allCourses = response.result;
-        } else {
-          console.error('Failed to fetch courses', response);
-        }
-      },
-      (error) => {
-        console.error('Error fetching courses', error);
-      }
-    );
+    this.coursesFacade.getAllCourses();
   }
 
   navigateToCoursesAdd(){
@@ -61,46 +39,15 @@ export class CoursesComponent implements OnInit {
   }
 
   deleteCourse(course: Course){
-    this.coursesService.deleteCourse(course.id!).subscribe({
-      next: (response) => {
-        if(response.successful) {
-          this.allCourses = this.allCourses.filter(c => c.id !== course.id);
-        }
-      },
-      error: (error) => {
-        console.error('Error deleting course:', error);
-      }
-    });
+    this.coursesFacade.deleteCourse(course.id!);
   }
 
   filterSearch(searchTerm: string): void {
     if (!searchTerm) {
-      this.coursesService.getAll().subscribe({
-          next: (response) => {
-              if (response.successful && response.result) {
-                  this.allCourses = response.result;
-              } else {
-                  console.error('Failed to fetch all courses:', response);
-              }
-          },
-          error: (error) => {
-              console.error('Error fetching all courses:', error);
-          }
-      });
-  } else {
-      this.coursesStoreService.filterCourses(searchTerm).subscribe({
-          next: (response) => {
-              if (response.successful) {
-                  this.allCourses = response.result;
-              } else {
-                  console.error('Filtering courses failed:', response);
-              }
-          },
-          error: (error) => {
-              console.error('Error during filter search:', error);
-          }
-      });
+      this.coursesFacade.getAllCourses();
+    } else {
+      this.coursesFacade.getFilteredCourses(searchTerm);
+    }
   }
-}
   
 }

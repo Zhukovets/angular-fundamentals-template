@@ -2,11 +2,12 @@
     <app-search (search)="filterSearch($event)"></app-search>
     <app-button *ngIf="isEditable" buttonText="ADD NEW COURSE" (buttonClick)="navigateToCoursesAdd()"></app-button>
 </div>
-
-<app-courses-list
-  [courses]="allCourses"
+<ng-container *ngIf="(allCourses$ | async) as courses">
+  <app-courses-list
+  [courses]="courses"
   [editable]="isEditable"
   (showCourse)="showCourse($event)"
   (editCourse)="editCourse($event)"
   (deleteCourse)="deleteCourse($event)"
 ></app-courses-list>
+</ng-container>

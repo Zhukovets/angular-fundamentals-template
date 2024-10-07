@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
+import { Author } from "@app/models/author.model";
 import { CoursesStoreService } from '@app/services/courses-store.service';
 import { map, Observable } from "rxjs";
 
@@ -8,7 +9,7 @@ import { map, Observable } from "rxjs";
     pure: false
 })
 export class AuthorPipe implements PipeTransform{
-  authors$: Observable<any[]>;
+  authors$: Observable<Author[]>;
 
   constructor(private coursesStoreService: CoursesStoreService){
     this.authors$ = this.coursesStoreService.authors$;

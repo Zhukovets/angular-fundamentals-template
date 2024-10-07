@@ -8,7 +8,7 @@ export interface CoursesState {
     isAllCoursesLoading: boolean;
     isSingleCourseLoading: boolean;
     isSearchState: boolean;
-    errorMessage: string | null;
+    errorMessage: string;
   }
   
   export const initialState: CoursesState = {

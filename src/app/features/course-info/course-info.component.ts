@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from '@app/models/course.model';
-import { CoursesStoreService } from '@app/services/courses-store.service';
+import { CoursesFacade } from '@app/store/courses/courses.facade';
 
 @Component({
   selector: 'app-course-info',
@@ -16,15 +16,15 @@ export class CourseInfoComponent implements OnInit {
 
   constructor(
     private route:ActivatedRoute,
-    private coursesStoreService: CoursesStoreService,
+    private coursesFacade: CoursesFacade,
     private router: Router
   ){}
 
   ngOnInit(): void {
     let courseId = this.route.snapshot.paramMap.get('id');
     if(courseId){
-      this.coursesStoreService.getCourse(courseId);
-      this.coursesStoreService.course$.subscribe((course) => {
+      this.coursesFacade.getSingleCourse(courseId);
+      this.coursesFacade.course$.subscribe((course) => {
         this.displayedCourse = course;
       });
     }
