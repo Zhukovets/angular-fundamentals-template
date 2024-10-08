@@ -1,49 +1,57 @@
 $color-white: #fff;
-$color-gray: #CFCFCF;
-$color-red: #FF0000;
+$color-gray: #cfcfcf;
+$color-red: #ff0000;
 
 .app-plate {
-    width: 100%;
-    min-height: 477px;
-    background-color: $color-white;
-    border: 1px solid $color-gray;
-    border-radius: 4px;
-    padding: 32px;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  min-height: 477px;
+  background-color: $color-white;
+  border: 1px solid $color-gray;
+  border-radius: 4px;
+  padding: 32px;
+  display: flex;
+  justify-content: center;
 }
 
 .text-align-center {
-    text-align: center;
+  text-align: center;
 }
 
 .app-error-text {
-    color: $color-red;
-    position: absolute;
-    margin-top: 4px;
+  color: $color-red;
+  position: absolute;
+  margin-top: 4px;
 }
 
 .form {
-    &__control {
-        margin-bottom: 24px;
+  &__control {
+    margin-bottom: 24px;
+
+    input {
+      border: 1px solid $color-gray;
     }
 
-    &__action {
-        margin-top: 54px;
+    input.invalid-input {
+      border-color: $color-red;
     }
+  }
 
-    &__text {
-        text-align: center;
-        margin-top: 38px;
-      flex-wrap: wrap;
-    }
+  &__action {
+    margin-top: 54px;
+  }
+
+  &__text {
+    text-align: center;
+    margin-top: 38px;
+    flex-wrap: wrap;
+  }
 }
 
 .separator {
-    width: 100%;
-    border-bottom: 1px solid $color-gray;
+  width: 100%;
+  border-bottom: 1px solid $color-gray;
 }
 
 .text-danger {
-    color: red;
+  color: red;
 }

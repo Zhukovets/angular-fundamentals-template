@@ -1,56 +1,140 @@
-<!-- Replace ::text:: with your code -->
-<h2>Create / Edit Course</h2>
-<form>
+<h2>Course Edit/Create Page</h2>
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
   <div class="app-plate">
     <div class="course">
       <h3>Main Info</h3>
       <div class="form__control">
         <label for="title">Title</label>
-        <!--Use the name `title` for the form control.-->
-        <input type="text" id="title" placeholder="Input text"/>
-        <span id="titleErrorMessage" class="text-danger">Title is required.</span>
-      </div>
-      <div class="form__control">
+        <input
+          type="text"
+          id="title"
+          formControlName="title"
+          placeholder="Input text"
+        />
+        <span
+          *ngIf="f['title'].invalid && (f['title'].touched || submitted)"
+          class="text-danger"
+        >
+          <span *ngIf="f['title'].errors?.['required']"
+            >Title is required.</span
+          >
+          <span *ngIf="f['title'].errors?.['minlength']"
+            >Title must be at least 2 characters long.</span
+          >
+        </span>
+
         <label for="description">Description</label>
-        <!--Use the name `description` for the form control.-->
         <textarea
           id="description"
-          name="description"
+          formControlName="description"
           placeholder="Input text"
           rows="4"
           cols="5"
         ></textarea>
-        <span id="descriptionErrorMessage" class="text-danger">Description is required.</span>
-      </div>
-      <div class="separator"></div>
-      <h3>Authors</h3>
-      <div class="form__control">
-        <div class="course__flex">
-          <!--Use the name `author` for the form control.-->
-          <input type="text" id="author" placeholder="Input Author Name"/>
-          <app-button id="createAuthor"></app-button>
-        </div>
-        <span id="authorErrorMessage">New author should contain only latin letters and numbers.</span>
-        <div class="course__authors">
-          <!--Use the name `authors` for the form array.-->
-          ::Authors::
-        </div>
-      </div>
-      <div class="separator"></div>
-      <h3>Duration</h3>
-      <div class="form__control">
-        <div class="course__flex">
-          <!--Use the name `duration` for the form array.-->
-          <input type="number" id="duration" placeholder="Input duration"/>
-          <div class="course__duration">
-            ::Duration::
+        <span
+          *ngIf="
+            courseForm.get('description')?.invalid &&
+            (courseForm.get('description')?.touched || submitted)
+          "
+          class="text-danger"
+        >
+          <span *ngIf="courseForm.get('description')?.errors?.['required']"
+            >Description is required.</span
+          >
+          <span *ngIf="courseForm.get('description')?.errors?.['minlength']"
+            >Description must be at least 2 characters long.</span
+          >
+        </span>
+
+        <div class="course-left-side">
+          <h3>Duration</h3>
+          <div class="form__control">
+            <div class="course__flex">
+              <input
+                type="number"
+                id="duration"
+                formControlName="duration"
+                placeholder="Input duration"
+              />
+              <div class="course__duration">
+                <span>{{ courseForm.get("duration")?.value | duration }}</span>
+              </div>
+            </div>
+            <span
+              *ngIf="
+                courseForm.get('duration')?.invalid &&
+                (courseForm.get('duration')?.touched || submitted)
+              "
+              id="durationErrorMessage"
+              class="text-danger"
+            >
+              <span *ngIf="courseForm.get('duration')?.errors?.['required']"
+                >Duration is required.</span
+              >
+              <span *ngIf="courseForm.get('duration')?.errors?.['min']"
+                >Duration must be at least 0.</span
+              >
+            </span>
+          </div>
+
+          <h3>Authors</h3>
+          <div class="form__control">
+            <div class="course__flex">
+              <input
+                type="text"
+                id="author"
+                formControlName="author"
+                placeholder="Input Text"
+              />
+              <app-button
+                class="button"
+                [buttonText]="'Create Author'"
+                (parentFunction)="createAuthor()"
+              ></app-button>
+            </div>
+            <span
+              *ngIf="f['author'].invalid && (f['author'].touched || submitted || f['author'].errors?.['pattern'])"
+              id="authorErrorMessage"
+              class="text-danger"
+              >New author should contain only latin letters and numbers.</span
+            >
           </div>
         </div>
-        <span id="durationErrorMessage" class="text-danger">Duration is required.</span>
       </div>
-      <div class="form__action">
-        <app-button></app-button>
+      <div class="authorlist-container" *ngFor="let author of authors">
+        <span>{{ author.name }}</span>
+        <app-button
+          (click)="addAuthor(author)"
+          [iconName]="'plus'"
+          class="add-button"
+        ></app-button>
+      </div>
+      <div class="course__authors">
+        <h3>Course Authors</h3>
+        <div *ngIf="courseAuthors.length === 0">
+          <span>Author list is empty.</span>
+        </div>
+        <div *ngFor="let courseAuthor of authors; let i = index">
+          <span>{{ courseAuthor.name }}</span>
+          <app-button
+            (click)="removeAuthorFromAuthors(authors)"
+            [iconName]="'trash-can'"
+            class="remove-button"
+          ></app-button>
+        </div>
       </div>
     </div>
   </div>
 </form>
+<div class="course-form-buttons">
+  <app-button
+    [buttonText]="'Cancel'"
+    type="button"
+    (click)="onCancel()"
+  ></app-button>
+  <app-button
+    class="course-create-button"
+    [buttonText]="'Create Course'"
+    type="submit"
+  ></app-button>
+</div>

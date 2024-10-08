@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="2" failures="1" errors="0" time="17.436">
+  <testsuite name="CoursesComponent" errors="0" failures="0" skipped="0" timestamp="2024-09-22T20:23:35" time="4.095" tests="1">
+    <testcase classname="CoursesComponent should create" name="CoursesComponent should create" time="0.179">
+    </testcase>
+  </testsuite>
+  <testsuite name="CoursesListComponent" errors="0" failures="1" skipped="0" timestamp="2024-09-22T20:23:35" time="11.388" tests="1">
+    <testcase classname="CoursesListComponent should create" name="CoursesListComponent should create" time="0.78">
+      <failure>Error: NG0302: The pipe &apos;customDate&apos; could not be found in the &apos;CoursesListComponent&apos; component. Verify that it is declared or imported in this module. Find more at https://angular.io/errors/NG0302
+    at getPipeDef (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:20764:15)
+    at ɵɵpipe (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:20720:19)
+    at CoursesListComponent_app_course_card_2_Template (ng:///CoursesListComponent.js:7:5)
+    at executeTemplate (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:10441:9)
+    at renderView (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:10263:13)
+    at TemplateRef2.createEmbeddedView (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:21143:9)
+    at ViewContainerRef2.createEmbeddedView (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:21254:37)
+    at /home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/common/fesm2020/common.mjs:3108:31
+    at DefaultIterableDiffer.forEachOperation (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:26319:17)
+    at NgForOf._applyChanges (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/common/fesm2020/common.mjs:3103:17)
+    at NgForOf.ngDoCheck (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/common/fesm2020/common.mjs:3098:22)
+    at callHook (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:2444:18)
+    at callHooks (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:2403:17)
+    at executeInitAndCheckHooks (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:2354:9)
+    at refreshView (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:10341:21)
+    at refreshComponent (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:11385:13)
+    at refreshChildComponents (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:10116:9)
+    at refreshView (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:10376:13)
+    at detectChangesInternal (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:11529:9)
+    at RootViewRef.detectChanges (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:12020:9)
+    at ComponentFixture._tick (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/testing.mjs:126:32)
+    at /home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/testing.mjs:139:22
+    at _ZoneDelegate.Object.&lt;anonymous&gt;._ZoneDelegate.invoke (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/zone.js/bundles/zone-testing-bundle.umd.js:412:30)
+    at Object.onInvoke (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:24210:33)
+    at _ZoneDelegate.Object.&lt;anonymous&gt;._ZoneDelegate.invoke (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/zone.js/bundles/zone-testing-bundle.umd.js:411:56)
+    at Zone.Object.&lt;anonymous&gt;.Zone.run (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/zone.js/bundles/zone-testing-bundle.umd.js:169:47)
+    at NgZone.run (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/core.mjs:24064:28)
+    at ComponentFixture.detectChanges (/home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/node_modules/@angular/core/fesm2020/testing.mjs:138:25)
+    at /home/detti/dev/zsuzsi/epam/Front-End Specialization/angular-fundamentals-template/src/app/courses/courses-list/courses-list.component.spec.ts:17:13
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

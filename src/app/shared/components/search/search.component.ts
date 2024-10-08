@@ -1,12 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { CoursesStateFacade } from "@app/store/courses/courses.facade";
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  selector: "app-search",
+  templateUrl: "./search.component.html",
+  styleUrls: ["./search.component.scss"],
 })
 export class SearchComponent {
-  // Use the name `placeholder` for the @Input.
-  // Use the name `search` for the @Output.
-}
+  @Input() placeholder: string = "Input text";
 
+  constructor(private coursesFacade: CoursesStateFacade) {}
+
+  searchValue: string = "";
+
+  click(): void {
+    if (this.searchValue.trim()) {
+      this.coursesFacade.getFilteredCourses(this.searchValue.trim());
+      this.searchValue = "";
+    }
+  }
+}

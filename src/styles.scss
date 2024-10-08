@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+@import url(./app/shared/components/button/button.component.scss);
+
 $color-white: #fff;
-$color-gray: #CFCFCF;
-$color-red: #FF0000;
+$color-gray: #cfcfcf;
+$color-red: #ff0000;
 
 html {
   height: 100%;
@@ -10,8 +12,8 @@ html {
 body {
   margin: 0;
   font-family: "Open Sans", sans-serif;
-  background-color: #F7F7F7;
-  color: #333E48;
+  background-color: #f7f7f7;
+  color: #333e48;
   height: 100%;
 }
 

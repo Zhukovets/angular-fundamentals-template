@@ -1,0 +1,10 @@
+<app-search placeholder="Input text"></app-search>
+<div class="courses-list">
+  <app-course-card
+    *ngFor="let course of courses$ | async"
+    [title]="course.title"
+    [description]="course.description"
+    [duration]="course.duration"
+    [creationDate]="course.creationDate | customDate"
+  ></app-course-card>
+</div>

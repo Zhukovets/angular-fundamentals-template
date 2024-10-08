@@ -18,8 +18,8 @@
 
   &__description {
     flex: 2;
-    border-right: 1px solid #CFCFCF;
-
+    border-right: 1px solid #cfcfcf;
+    padding: 5px;
   }
 
   &__info {
@@ -30,9 +30,17 @@
     gap: 3px;
     margin-left: 50px;
   }
+
+  &__info-duration {
+    font-weight: bold;
+
+    .duration-text {
+      font-weight: normal;
+    }
+  }
 }
 
-.navigation-block{
+.navigation-block {
   display: flex;
   justify-content: flex-end;
 }
