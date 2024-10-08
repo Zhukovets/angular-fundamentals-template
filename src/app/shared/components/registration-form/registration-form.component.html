@@ -1,28 +1,64 @@
 <h2 class="text-align-center">Registration</h2>
 <div class="app-plate">
   <div class="registration-form">
-    <div>
-      <div class="form__control">
-        <label for="name">Name</label>
-        <!--Use the name `name` for the form control.-->
-        <input type="text" id="name" placeholder="Input text"/>
-        <span id="nameErrorMessage" class="text-danger">Name is required.</span>
-      </div>
-      <div class="form__control">
-        <!--Use the name `email` for the form control.-->
-        <label for="email">Email</label>
-        <input type="text" id="email" placeholder="Input text"/>
-        <span id="emailErrorMessage" class="text-danger">Email is required.</span>
-      </div>
-      <div class="form__control">
-        <!--Use the name `password` for the form control.-->
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Input text"/>
-        <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
-      </div>
-    </div>
-    <div class="form__action">
-      <app-button></app-button>
-    </div>
+      <form [formGroup]="registrationForm">
+        <div>
+          <div class="form__control">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              placeholder="Input text"
+              [formControl]="nameControl"
+            />
+            <div *ngIf="nameControl?.touched">
+              <span *ngIf="nameControl.errors?.['required'] || nameControl.errors?.['minlength']"
+                id="nameErrorMessage"
+                class="text-danger"
+              >Name is required.</span>
+            </div>
+          </div>
+          <div class="form__control">
+            <label for="email">Email</label>
+            <input
+              emailValidator
+              type="text"
+              id="email"
+              name="email"
+              placeholder="Input text"
+              [formControl]="emailControl"
+            />
+            <div *ngIf="emailControl?.touched">
+              <span
+                *ngIf="emailControl?.errors?.['required'] || emailControl?.errors?.['invalidEmail']"
+                id="emailErrorMessage"
+                class="text-danger"
+              >Email is not valid or required.</span>
+            </div>
+          </div>
+          <div class="form__control">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Input text"
+              [formControl]="passwordControl"/>
+            <div *ngIf="passwordControl?.touched">
+              <span
+                *ngIf="passwordControl?.errors?.['required'] || passwordControl?.errors?.['minlength']"
+                id="passwordErrorMessage"
+                class="text-danger"
+              >Password must be at least 6 characters length and required.</span>
+            </div>
+          </div>
+        </div>
+        <div class="form__action">
+          <app-button buttonText="LOGIN" (buttonClick)="onSubmit()"></app-button>
+        </div>
+        <div class="form__text">
+          Already have an account? <a (click)="navigateToLogin()">Login here</a>.
+        </div>
+    </form>
   </div>
 </div>

@@ -34,4 +34,37 @@
     margin-left: 4px;
     cursor: pointer;
   }
+
+  .form__action {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+}
+
+li {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+form.ng-submitted input.ng-invalid,
+input.ng-touched.ng-invalid,
+form.ng-submitted textarea.ng-invalid,
+textarea.ng-touched.ng-invalid {
+  border: 2px solid $color-red;
+}
+
+input.ng-untouched,
+input.ng-pristine,
+textarea.ng-untouched,
+textarea.ng-pristine {
+  border: 1px solid $color-gray;
+}
+
+.button {
+  cursor: pointer;
 }
