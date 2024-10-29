@@ -10,12 +10,37 @@
     color: #fff;
     text-transform: uppercase;
     cursor: pointer;
+    margin: 5px;
 
     &:hover {
         background: #016486;
     }
 
+    &:focus {
+        background: #016100;
+    }
+
+    &:active {
+        background: #016252;
+    }
+
     &__single-icon {
         padding: 13px;
+        margin: 5px;
+        background-color: #007298;
+        color: #fff;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #016486;
+            color: #fff;
+        }
+        &:focus {
+            background: #016100;
+        }
+    
+        &:active {
+            background: #016252;
+        }
     }
 }

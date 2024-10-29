@@ -1,8 +1,13 @@
-import { Pipe } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
+import { formatDate } from '@angular/common';
 
 @Pipe({
-    name: 'customDate'
+  name: 'customDate'
 })
-export class CustomDatePipe {
-    // Add your code here
+export class CustomDatePipe implements PipeTransform {
+
+  transform(value: Date | string): string {
+    return formatDate(value, 'dd.MM.yyyy', 'en-US');
+  }
 }
+

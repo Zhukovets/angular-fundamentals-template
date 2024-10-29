@@ -1,22 +1,32 @@
-<app-header></app-header>
+<app-header>
+  <div class="app-header-account-details">
+    <p>Username</p>
+    <!-- <app-button buttonText="Logout"></app-button> -->
+    <app-button buttonText="Logout" [iconName]="'sign-out'"></app-button>
+  </div>
+</app-header>
+
 <div class="app-root">
-  <!-- Search component -->
-  <!--<app-search></app-search>-->
 
-  <!-- Info component -->
-  <!--<app-info></app-info>-->
+  <app-info title="Your list is Empty" text="Please use 'Add New Course' button to add your first course">
+    <!-- <app-button [buttonText]="'Learn More'" [iconName]="'info-circle'"></app-button> -->
+  </app-info>
 
-  <!-- Course Card component -->
-  <!--<app-course-card></app-course-card>-->
+  <app-search></app-search>
 
-  <!-- Login Form component -->
-  <!--<app-login-form></app-login-form>-->
+  <app-course-card [editable] ="true">
+    <!-- <app-button [iconName]="['fas', 'trash-can']"></app-button>
+    <app-button [iconName]="['fas', 'pencil']"></app-button> -->
+  </app-course-card>
+  <!-- <app-courses-list></app-courses-list> -->
 
-  <!-- Login Form component -->
-  <!--<app-registration-form></app-registration-form>-->
 
-  <!-- Login Form component -->
-  <!--<app-course-form></app-course-form>-->
+
+  <app-login-form></app-login-form>
+
+  <app-registration-form></app-registration-form>
+
+  <app-course-form></app-course-form>
 
   <!-- Modal component -->
   <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->

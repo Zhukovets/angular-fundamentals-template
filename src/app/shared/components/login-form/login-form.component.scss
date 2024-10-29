@@ -1,9 +1,26 @@
 @import 'src/app/shared/styles/styles.scss';
 
 .login-form {
-  width: 260px;
+  //width: 260px;
+  width: 100%;
   margin-top: 36px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.password-container {
+  position: relative;
+
+  input {
+    padding-right: 40px;  // Add space for the toggle button
+  }
+
+  fa-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
 }

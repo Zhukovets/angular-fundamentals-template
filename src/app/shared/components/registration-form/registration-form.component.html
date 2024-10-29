@@ -1,28 +1,65 @@
 <h2 class="text-align-center">Registration</h2>
 <div class="app-plate">
-  <div class="registration-form">
-    <div>
-      <div class="form__control">
-        <label for="name">Name</label>
-        <!--Use the name `name` for the form control.-->
-        <input type="text" id="name" placeholder="Input text"/>
-        <span id="nameErrorMessage" class="text-danger">Name is required.</span>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div class="registration-form">
+      <div>
+        <!-- Name Field -->
+        <div class="form__control">
+          <label for="name">Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            formControlName="name" 
+            placeholder="Input your name"
+            required
+          />
+          <span class="text-danger" *ngIf="submitted && f['name'].errors?.['required']">Name is required.</span>
+          <span class="text-danger" *ngIf="submitted && f['name'].errors?.['minlength']">Name must be at least 6 characters long.</span>
+        </div>
+        <!-- Email Field -->
+        <div class="form__control">
+          <label for="email">Email</label>
+          <input 
+            type="text" 
+            id="email" 
+            formControlName="email" 
+            placeholder="Input your email"
+            required
+          />
+          <span class="text-danger" *ngIf="submitted && f['email'].errors?.['required']">Email is required.</span>
+          <span class="text-danger" *ngIf="submitted && f['email'].errors?.['invalidEmail']">Invalid email format.</span>
+        </div>
+        <!-- Password Field -->
+        <div class="form__control">
+          <label for="password">Password</label>
+          <div class="password-container">
+            <input 
+              type="password" 
+              id="password" 
+              formControlName="password" 
+              placeholder="Input your password"
+              appTogglePassword
+              #passwordDirective="togglePassword"
+              required
+            />
+            <fa-icon [icon]="passwordDirective.isVisible() ? 'eye-slash' : 'eye'" (click)="passwordDirective.toggleVisibility()"></fa-icon>
+          </div>
+          <span class="text-danger" *ngIf="submitted && f['password'].errors?.['required']">Password is required.</span>
+        </div>
+
       </div>
-      <div class="form__control">
-        <!--Use the name `email` for the form control.-->
-        <label for="email">Email</label>
-        <input type="text" id="email" placeholder="Input text"/>
-        <span id="emailErrorMessage" class="text-danger">Email is required.</span>
+
+      <!-- Submit Button -->
+      <div class="form__action">
+        <app-button [buttonText]="'Register'" ></app-button>
+        <!-- <app-button [buttonText]="'Register'" disabled="registrationForm.invalid"></app-button> -->
       </div>
-      <div class="form__control">
-        <!--Use the name `password` for the form control.-->
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Input text"/>
-        <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
+
+      <!-- Link to Login -->
+      <div class="form__text">
+        Already have an account? <a routerLink="/login">Login</a>
       </div>
     </div>
-    <div class="form__action">
-      <app-button></app-button>
-    </div>
-  </div>
+  </form>
 </div>
+

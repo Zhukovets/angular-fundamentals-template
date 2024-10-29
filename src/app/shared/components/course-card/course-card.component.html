@@ -1,23 +1,21 @@
 <div class="course-card">
     <div class="course-card__description">
-      <!-- Replace ::text:: with your code -->
-      <div class="course-card__description-title">::Title::</div>
-      <div class="course-card__description-text">::Description::</div>
+      <div class="course-card__description-title">{{title}}:</div>
+      <div class="course-card__description-text">{{description}}</div>
     </div>
     <div class="course-card__info">
         <div class="course-card__info-text">
-            <div>
-              <b>Authors: </b>
-              ::Authors::
-            </div>
-            <div><b>Duration: </b><span class="course-card__duration">::Duration::</span></div>
-            <div><b>Created: </b><span class="course-card__date">::Creation Date::</span></div>
+            <div><b>Authors: </b>{{authors}}</div>
+            <div><b>Duration: </b><span class="course-card__duration">{{duration | duration}}</span></div>
+            <div><b>Created: </b><span class="course-card__date">{{creationDate | customDate}}</span></div>
         </div>
         <div class="course-card__info-actions">
-            <app-button></app-button>
-            <div class="course-card__buttons">
-                <!--Enter your code here-->
+            <app-button buttonText="Show Courses" (click)="onShowCourse()"></app-button>
+            <div class="course-card__buttons" *ngIf="editable">
+                <app-button iconName="trash-can"></app-button>
+                <app-button iconName="pen"></app-button>
             </div>
+            <ng-content></ng-content>
         </div>
     </div>
 </div>

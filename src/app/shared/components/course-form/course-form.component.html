@@ -1,56 +1,74 @@
-<!-- Replace ::text:: with your code -->
+<!-- --------------------------------------- -->
 <h2>Create / Edit Course</h2>
-<form>
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
   <div class="app-plate">
     <div class="course">
       <h3>Main Info</h3>
+
+      <!-- Title -->
       <div class="form__control">
         <label for="title">Title</label>
-        <!--Use the name `title` for the form control.-->
-        <input type="text" id="title" placeholder="Input text"/>
-        <span id="titleErrorMessage" class="text-danger">Title is required.</span>
+        <input type="text" id="title" formControlName="title" placeholder="Input text"/>
+        <span *ngIf="title?.invalid && (title?.touched || submitted)" class="text-danger">
+          Title is required and must be at least 2 characters.
+        </span>
       </div>
+
+      <!-- Description -->
       <div class="form__control">
         <label for="description">Description</label>
-        <!--Use the name `description` for the form control.-->
-        <textarea
-          id="description"
-          name="description"
-          placeholder="Input text"
-          rows="4"
-          cols="5"
-        ></textarea>
-        <span id="descriptionErrorMessage" class="text-danger">Description is required.</span>
+        <textarea id="description" formControlName="description" placeholder="Input text" rows="4"></textarea>
+        <span *ngIf="description?.invalid && (description?.touched || submitted)" class="text-danger">
+          Description is required and must be at least 2 characters.
+        </span>
       </div>
+
       <div class="separator"></div>
       <h3>Authors</h3>
+
+      <!-- New Author -->
       <div class="form__control">
-        <div class="course__flex">
-          <!--Use the name `author` for the form control.-->
-          <input type="text" id="author" placeholder="Input Author Name"/>
-          <app-button id="createAuthor"></app-button>
-        </div>
-        <span id="authorErrorMessage">New author should contain only latin letters and numbers.</span>
-        <div class="course__authors">
-          <!--Use the name `authors` for the form array.-->
-          ::Authors::
+        <input type="text" formGroupName="newAuthor" formControlName="name" placeholder="Input Author Name"/>
+        <app-button buttonText="Create Author" (click)="addAuthor()" disabled="newAuthorName?.invalid"></app-button>
+        <span *ngIf="newAuthorName?.invalid && newAuthorName?.touched" class="text-danger">
+          New author must be at least 2 characters and contain only latin letters/numbers.
+        </span>
+      </div>
+
+      <!-- Authors List -->
+      <div>
+        <h4>Available Authors</h4>
+        <div *ngFor="let author of authorsList; let i = index">
+          {{ author }} 
+          <app-button buttonText="Add Author" (click)="addAuthorToCourse(author, i)"></app-button>
         </div>
       </div>
+
+      <!-- Course Authors List -->
+      <div>
+        <h4>Course Authors</h4>
+        <div *ngFor="let author of courseAuthors.controls; let i = index">
+          {{ author.value }} 
+          <app-button buttonText="Remove Author" (click)="removeAuthorFromCourse(i)"></app-button>
+        </div>
+      </div>
+
       <div class="separator"></div>
       <h3>Duration</h3>
+
+      <!-- Duration -->
       <div class="form__control">
-        <div class="course__flex">
-          <!--Use the name `duration` for the form array.-->
-          <input type="number" id="duration" placeholder="Input duration"/>
-          <div class="course__duration">
-            ::Duration::
-          </div>
-        </div>
-        <span id="durationErrorMessage" class="text-danger">Duration is required.</span>
+        <input type="number" formControlName="duration" placeholder="Input duration"/>
+        <span *ngIf="duration?.invalid && (duration?.touched || submitted)" class="text-danger">
+          Duration must be greater than 0.
+        </span>
       </div>
+
       <div class="form__action">
-        <app-button></app-button>
+        <app-button buttonText="Submit" type="submit"></app-button>
       </div>
     </div>
   </div>
 </form>
+
+
