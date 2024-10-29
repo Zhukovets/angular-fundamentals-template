@@ -1,22 +1,22 @@
-<div class="course-card">
+<div class="course-card" *ngIf="course">
     <div class="course-card__description">
       <!-- Replace ::text:: with your code -->
-      <div class="course-card__description-title">::Title::</div>
-      <div class="course-card__description-text">::Description::</div>
+      <div class="course-card__description-title">{{course.title}}</div>
+      <div class="course-card__description-text">{{course.description}}</div>
     </div>
     <div class="course-card__info">
         <div class="course-card__info-text">
             <div>
               <b>Authors: </b>
-              ::Authors::
+              {{course.authors}}
             </div>
-            <div><b>Duration: </b><span class="course-card__duration">::Duration::</span></div>
-            <div><b>Created: </b><span class="course-card__date">::Creation Date::</span></div>
+            <div><b>Duration: </b><span class="course-card__duration">{{math.trunc(course.duration/60)}}:{{course.duration%60 === 0 ? "00" : course.duration%60}} hours</span></div>
+            <div><b>Created: </b><span class="course-card__date">{{course.creationDate.getDay().toString().padStart(2,"0")}}.{{course.creationDate.getMonth().toString().padStart(2,"0")}}.{{course.creationDate.getFullYear()}}</span></div>
         </div>
         <div class="course-card__info-actions">
-            <app-button></app-button>
-            <div class="course-card__buttons">
-                <!--Enter your code here-->
+            <app-button [buttonText]="'show course'" [ngStyle]="{ 'width': '100%'}"></app-button>
+            <div class="course-card__buttons" *ngIf="editable">
+                <ng-content></ng-content>
             </div>
         </div>
     </div>

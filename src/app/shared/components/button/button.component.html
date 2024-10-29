@@ -1,4 +1,11 @@
-<div class="app-button">
+<div class="app-button" *ngIf="buttonText || iconName" (click)="changeLoginStatus()" [ngStyle]="reversed ? { 'background-color': '#fff', 'color': '#007298', 'font-size': '30px',  } : { 'background-color': '#007298', 'color': '#fff'}" >
   <!-- Replace the text below with your code -->
-  Button
+   <ng-container *ngIf="buttonText; else icon">
+    {{ buttonText | uppercase }}
+   </ng-container>
+
+   <ng-template #icon>
+     <fa-icon *ngIf="iconName" [icon]="iconName"></fa-icon>
+   </ng-template>
+  
 </div>

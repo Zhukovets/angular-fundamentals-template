@@ -6,3 +6,12 @@
   justify-content: center;
   padding: 24px;
 }
+
+.header-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .user-name {
+    margin-right: 15px;
+  }
+}
