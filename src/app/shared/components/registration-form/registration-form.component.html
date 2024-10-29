@@ -1,26 +1,35 @@
 <h2 class="text-align-center">Registration</h2>
 <div class="app-plate">
-  <div class="registration-form">
-    <div>
-      <div class="form__control">
-        <label for="name">Name</label>
-        <!--Use the name `name` for the form control.-->
-        <input type="text" id="name" placeholder="Input text"/>
-        <span id="nameErrorMessage" class="text-danger">Name is required.</span>
-      </div>
-      <div class="form__control">
-        <!--Use the name `email` for the form control.-->
-        <label for="email">Email</label>
-        <input type="text" id="email" placeholder="Input text"/>
-        <span id="emailErrorMessage" class="text-danger">Email is required.</span>
-      </div>
-      <div class="form__control">
-        <!--Use the name `password` for the form control.-->
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Input text"/>
-        <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
-      </div>
+  <div class="registration-form" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div class="form_control">
+      <label for="name">Name</label>
+      <input type="text" id="name" formControlName="name" placeholder="Input text">
+      <span *ngIf="name?.invalid && (name?.touched || submitted)" class="text-danger">
+        Name is required and must be at least 6 characters long.
+      </span>
     </div>
+  
+    <div class="form_control">
+      <label for="email">Email</label>
+      <input type="text" 
+      id="email" 
+      formControlName="email" 
+      placeholder="Input text" 
+      EmailValidatorDirective
+      />
+      <span *ngIf="email?.invalid && (email?.touched || submitted)" class="text-danger">
+        Email is required or invalid.
+      </span>
+    </div>
+  
+    <div class="form_control">
+      <label for="password">Password</label>
+      <input type="password" id="password" formControlName="password" placeholder="Input text">
+      <span *ngIf="password?.invalid && (password?.touched || submitted)" class="text-danger">
+        Password is required and must be at least 6 characters long.
+      </span>
+    </div>
+    
     <div class="form__action">
       <app-button></app-button>
     </div>

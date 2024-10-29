@@ -33,13 +33,16 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [components],
+  declarations: [...components],
   imports: [
     CommonModule,
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
+    
+    
+    
   ],
-  exports: [components]
+  exports: [...components]
 })
 export class SharedModule { }

@@ -22,4 +22,8 @@ export enum CoursesConstants {
     REQUEST_CREATE_COURSE = '[Courses] Request Create Course',
     REQUEST_CREATE_COURSE_SUCCESS = '[Courses] Request Create Course Success',
     REQUEST_CREATE_COURSE_FAIL = '[Courses] Request Create Course Fail',
+
+    REQUEST_SPECIFIC_COURSE = '[Courses] Request Specific Course',
+    REQUEST_SPECIFIC_COURSE_SUCCESS = '[Courses] Request Specific Course Success',
+    REQUEST_SPECIFIC_COURSE_FAIL = '[Courses] Request Specific Course Fail',
 }
