@@ -1,0 +1,14 @@
+<app-search placeholder="Search courses" (search)="onSearch($event)"></app-search>
+<div class="courses-list">
+    <app-course-card *ngFor="let course of courses"
+    [title]="course.title" 
+    [description]="course.description"
+    [creationDate]="course.creationDate"
+    [duration]="course.duration"
+    [authors]="course.authors"
+    [editable]="editable"
+    [id]="course.id"
+    (clickOnShow)="navigateToCourse($event)">    
+    </app-course-card>
+    <app-button *ngIf="editable" buttonText="Add course" routerLink="/courses/add"></app-button>
+</div>
