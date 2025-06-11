@@ -20,16 +20,6 @@ export class MockDataService {
       .pipe(map((response) => response.results));
   }
 
-<<<<<<< HEAD
-    getPlanets(searchTerm?: string): Observable<any> {
-        this.planetsLoader$.next(true);
-        const queryParams: string = searchTerm ? `?search=${searchTerm}` : '';
-        return this.httpClient
-            .get<any>(`https://swapi.dev/api/planets/${queryParams}`)
-            .pipe(finalize(() => this.planetsLoader$.next(false)))
-            .pipe(map((response) => response.results));
-    }
-=======
   getPlatents(searchTerm?: string): Observable<any> {
     this.planetsLoader$.next(true);
     const queryParams: string = searchTerm ? `?search=${searchTerm}` : "";
@@ -38,7 +28,6 @@ export class MockDataService {
       .pipe(finalize(() => this.planetsLoader$.next(false)))
       .pipe(map((response) => response.results));
   }
->>>>>>> 8fa8b86 (1 soultion with api changes)
 
   getCharactersLoader(): Observable<boolean> {
     return this.charactersLoader$;
