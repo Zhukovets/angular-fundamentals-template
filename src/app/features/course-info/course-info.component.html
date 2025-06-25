@@ -1,17 +1,24 @@
 <!-- Replace ::text:: with your code -->
 
-<div class="title">::Title::</div>
+<div class="title">{{ course.title }}</div>
 <div class="course-info">
   <div class="course-info__description">
-    ::Description::
+    {{ course.description }}
   </div>
   <div class="course-info__info">
-    <div><b>ID: </b><span class="course-info__info-id">::id::</span></div>
-    <div><b>Duration: </b><span class="course-info__info-duration">::duration::</span></div>
-    <div><b>Created: </b><span class="course-info__info-date">::date::</span></div>
-    <div><b>Authors: </b><span class="course-info__info-authors">::authors::</span></div>
+    <div><b>ID: </b><span class="course-info__info-id">{{ course.id }}</span></div>
+    <div><b>Duration: </b><span class="course-info__info-duration">{{ course.duration }}</span></div>
+    <div><b>Created: </b><span class="course-info__info-date">{{ course.creationDate | date }}</span></div>
+    <div><b>Authors: </b>
+      <span class="course-info__info-authors">
+      <ng-container *ngFor="let author of course.authors;let i = index">
+                {{author}}{{ i < course.authors.length-1 ? ", " : ""}}
+      </ng-container>
+    </span>
+  </div>
   </div>
 </div>
 <div class="navigation-block">
   <!--Enter your code here-->
+  <app-button [buttonText]="'Back'" (click)="hideCourse()"></app-button>
 </div>

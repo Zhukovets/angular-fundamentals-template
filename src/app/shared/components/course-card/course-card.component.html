@@ -1,22 +1,25 @@
 <div class="course-card">
     <div class="course-card__description">
       <!-- Replace ::text:: with your code -->
-      <div class="course-card__description-title">::Title::</div>
-      <div class="course-card__description-text">::Description::</div>
+      <div class="course-card__description-title">{{ title }}</div>
+      <div class="course-card__description-text">{{ description }}</div>
     </div>
     <div class="course-card__info">
         <div class="course-card__info-text">
             <div>
               <b>Authors: </b>
-              ::Authors::
+              <ng-container *ngFor="let author of authors;let i = index">
+                {{author}}{{ i < authors.length-1 ? ", " : ""}}
+              </ng-container>
             </div>
-            <div><b>Duration: </b><span class="course-card__duration">::Duration::</span></div>
-            <div><b>Created: </b><span class="course-card__date">::Creation Date::</span></div>
+            <div><b>Duration: </b><span class="course-card__duration">{{ duration }}</span></div>
+            <div><b>Created: </b><span class="course-card__date">{{ creationDate | date }}</span></div>
         </div>
         <div class="course-card__info-actions">
-            <app-button></app-button>
-            <div class="course-card__buttons">
+            <app-button [buttonText]="'Show Course'" (click)="clickOnShow.next(title)"></app-button>
+            <div class="course-card__buttons" *ngIf="editable">
                 <!--Enter your code here-->
+                <ng-content></ng-content>
             </div>
         </div>
     </div>

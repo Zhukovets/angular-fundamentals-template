@@ -1,4 +1,8 @@
-<div class="app-button">
+<div class="app-button"
+[ngClass]="iconName === 'edit' || iconName === 'delete' ? 'icon' : ''"
+>
   <!-- Replace the text below with your code -->
-  Button
+   <fa-icon *ngIf="iconName === 'edit'" [icon]="'pen'"></fa-icon>
+   <fa-icon *ngIf="iconName === 'delete'" [icon]="'trash-can'"></fa-icon>
+  {{ buttonText }}
 </div>

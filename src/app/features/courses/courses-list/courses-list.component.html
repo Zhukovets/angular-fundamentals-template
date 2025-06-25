@@ -1,0 +1,17 @@
+
+<ng-container *ngFor="let course of courses">
+    <app-course-card
+        [editable]="editable"
+        [title]="course.title"
+        [description]="course.description"
+        [creationDate]="stringToDate(course.creationDate)"
+        [authors]="course.authors"
+        [duration]="course.duration"
+        (clickOnShow)="showCourseInfo($event)"   
+    >
+      <div class="btn-container">
+      <app-button [iconName]="'delete'" (click)="deleteCourse.next(course.title)"></app-button>
+      <app-button [iconName]="'edit'" (click)="editCourse.next(course.title)"></app-button>
+      </div>
+</app-course-card>
+</ng-container>

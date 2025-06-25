@@ -1,0 +1,14 @@
+  <ng-container *ngIf="!showCourseInfo">
+     <app-courses-list 
+  [editable]="true" 
+  [courses]="mockedCoursesList" 
+  (showCourse)="onShowCourse($event)"
+  (deleteCourse)="onDeleteCourse($event)"
+  (editCourse)="onEditCourse($event)"
+  >
+  </app-courses-list>
+  </ng-container>
+
+  <ng-container *ngIf="showCourseInfo">
+    <app-course-info [course]="course" (hideCourseEmitter)="hideShowCourseInfo($event)"></app-course-info>
+  </ng-container>

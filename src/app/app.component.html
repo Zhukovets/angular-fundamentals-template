@@ -1,13 +1,26 @@
-<app-header></app-header>
+<app-header>
+  <app-button [buttonText]="'Login'"></app-button>
+</app-header>
 <div class="app-root">
   <!-- Search component -->
   <!--<app-search></app-search>-->
 
   <!-- Info component -->
-  <!--<app-info></app-info>-->
+  <app-info 
+  [title]="'Your List Is Empty'" 
+  [text]="'Please use \'Add New Course\' button to add your first course'"
+  >
+  <app-button [buttonText]="'add new course'"></app-button>
+  </app-info>
 
   <!-- Course Card component -->
-  <!--<app-course-card></app-course-card>-->
+  <!-- <app-course-card [editable]="true">
+    <div [ngStyle]="{ 'display':'flex' }">
+      <app-button [iconName]="'delete'"></app-button>
+      <app-button [iconName]="'edit'"></app-button>
+    </div>
+  </app-course-card> -->
+  <app-courses></app-courses>
 
   <!-- Login Form component -->
   <!--<app-login-form></app-login-form>-->
