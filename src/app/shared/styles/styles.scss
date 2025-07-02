@@ -3,6 +3,7 @@ $color-gray: #CFCFCF;
 $color-red: #FF0000;
 
 .app-plate {
+    box-sizing: border-box;
     width: 100%;
     min-height: 477px;
     background-color: $color-white;

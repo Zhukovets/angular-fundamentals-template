@@ -1,0 +1,13 @@
+<app-search (search)="onSearchCourses($event)"></app-search>
+<app-courses-list
+  [courses]="coursesList"
+  [editable]="true"
+  (showCourse)="showInfo($event)"
+  (editCourse)="editCourse($event)"
+  (deleteCourse)="deleteCourse($event)"
+  *ngIf="listVisible; else infoTemplate"
+>
+</app-courses-list>
+<ng-template #infoTemplate>
+  <app-course-info [course]="detailedCourse" (goBack)="showList()"></app-course-info>
+</ng-template>

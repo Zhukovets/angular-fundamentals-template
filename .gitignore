@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+.angular
 
 # testing
 /coverage
@@ -23,3 +24,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea/
+.prettierignore
+settings.json
+.eslintrc.js

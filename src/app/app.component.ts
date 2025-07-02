@@ -1,10 +1,17 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
+import { mockedCoursesList } from "./shared/mocks/mocks";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  title = 'courses-app';
+  title = "courses-app";
+  username? = "Harry Potter";
+  buttonText = "LOGOUT";
+  titleInfo = "Your List is Empty";
+  textInfo = `Please use 'Add New Course' button to add your first course`;
+  buttonInfo = "ADD NEW COURSE";
+  // iconName = "plus";
 }

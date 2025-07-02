@@ -1,21 +1,32 @@
 .app-button {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 13px 36px;
-    gap: 10px;
-    background: #007298;
-    border-radius: 4px;
-    color: #fff;
-    text-transform: uppercase;
-    cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 13px 36px;
+  gap: 10px;
+  background: #007298;
+  border-radius: 4px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
 
-    &:hover {
-        background: #016486;
-    }
+  &:hover {
+    background: #016486;
+  }
 
-    &__single-icon {
-        padding: 13px;
-    }
+  &:focus {
+    background: #0165869d;
+  }
+
+  &:active {
+    background: #013f86;
+  }
+
+  &__single-icon {
+    padding: 13px;
+  }
 }

@@ -1,56 +1,130 @@
 <!-- Replace ::text:: with your code -->
 <h2>Create / Edit Course</h2>
-<form>
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
   <div class="app-plate">
     <div class="course">
       <h3>Main Info</h3>
       <div class="form__control">
         <label for="title">Title</label>
         <!--Use the name `title` for the form control.-->
-        <input type="text" id="title" placeholder="Input text"/>
-        <span id="titleErrorMessage" class="text-danger">Title is required.</span>
+        <input type="text" id="title" placeholder="Input text" formControlName="title" />
+        <span
+          *ngIf="
+            courseForm.get('title')?.invalid && (courseForm.get('title')?.touched || submitted)
+          "
+          id="titleErrorMessage"
+          class="text-danger"
+          >Title is required.</span
+        >
       </div>
       <div class="form__control">
         <label for="description">Description</label>
         <!--Use the name `description` for the form control.-->
         <textarea
           id="description"
-          name="description"
           placeholder="Input text"
           rows="4"
           cols="5"
+          formControlName="description"
         ></textarea>
-        <span id="descriptionErrorMessage" class="text-danger">Description is required.</span>
+        <span
+          *ngIf="
+            courseForm.get('description')?.invalid &&
+            (courseForm.get('description')?.touched || submitted)
+          "
+          id="descriptionErrorMessage"
+          class="text-danger"
+          >Description is required.</span
+        >
       </div>
-      <div class="separator"></div>
-      <h3>Authors</h3>
-      <div class="form__control">
-        <div class="course__flex">
-          <!--Use the name `author` for the form control.-->
-          <input type="text" id="author" placeholder="Input Author Name"/>
-          <app-button id="createAuthor"></app-button>
-        </div>
-        <span id="authorErrorMessage">New author should contain only latin letters and numbers.</span>
-        <div class="course__authors">
-          <!--Use the name `authors` for the form array.-->
-          ::Authors::
-        </div>
-      </div>
-      <div class="separator"></div>
       <h3>Duration</h3>
       <div class="form__control">
         <div class="course__flex">
           <!--Use the name `duration` for the form array.-->
-          <input type="number" id="duration" placeholder="Input duration"/>
+          <input
+            type="number"
+            id="duration"
+            class="fixed-width"
+            placeholder="Input duration"
+            formControlName="duration"
+          />
           <div class="course__duration">
-            ::Duration::
+            <strong> {{ courseForm.get("duration")?.value | duration }}</strong>
           </div>
         </div>
-        <span id="durationErrorMessage" class="text-danger">Duration is required.</span>
+        <span
+          *ngIf="
+            courseForm.get('duration')?.invalid &&
+            (courseForm.get('duration')?.touched || submitted)
+          "
+          id="durationErrorMessage"
+          class="text-danger"
+          >Duration is required.</span
+        >
       </div>
-      <div class="form__action">
-        <app-button></app-button>
+      <div class="form-flex">
+        <div>
+          <h3>Authors</h3>
+          <div class="form__control">
+            <label for="author">Author Name</label>
+            <div class="course__flex">
+              <!--Use the name `author` for the form control.-->
+              <input
+                type="text"
+                id="author"
+                class="fixed-width"
+                placeholder="Input Author Name"
+                [formControl]="author"
+              />
+              <app-button
+                id="createAuthor"
+                buttonText="CREATE AUTHOR"
+                (click)="createAuthor()"
+              ></app-button>
+            </div>
+            <span
+              id="authorErrorMessage"
+              class="text-danger"
+              *ngIf="authors.invalid && (author.touched || courseForm.touched)"
+              >New author should contain only latin letters and numbers.</span
+            >
+            <div class="course__authors">
+              <!--Use the name `authors` for the form array.-->
+              <h4>Author List</h4>
+              <div
+                class="course__authors-item"
+                *ngFor="
+                  let author of authors.controls;
+                  let i = index;
+                  trackBy: trackByAuthorIndex
+                "
+              >
+                {{ author.value.name }}
+                <span class="course__icon" (click)="addAuthorToCourse(i)"> + </span>
+                <span class="course__icon" (click)="removeAuthorFromList(author.value.id)">
+                  <img src="assets/trash.svg" alt="trash" />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="course-authors-block">
+          <h3>Course Authors</h3>
+          <div
+            class="course__authors-item"
+            *ngFor="let author of courseAuthors; let i = index; trackBy: trackByAuthorIndex"
+          >
+            {{ author.name }}
+            <span class="course__icon" (click)="removeAuthorFromCourse(i)">
+              <img src="assets/trash.svg" alt="trash" />
+            </span>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+  <div class="form__action">
+    <app-button buttonText="CANCEL"></app-button>
+    <app-button type="submit" buttonText="CREATE COURSE"></app-button>
   </div>
 </form>

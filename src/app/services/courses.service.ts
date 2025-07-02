@@ -1,30 +1,31 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CoursesService {
-    getAll() {
+    getAll(): Observable<any> | void { // replace 'any' with the required interface and remove 'void'
         // Add your code here
     }
 
-    createCourse(course: any) { // replace 'any' with the required interface
+    createCourse(course: any): Observable<any> | void { // replace 'any' with the required interface and remove 'void'
         // Add your code here
     }
 
-    editCourse(id: string, course: any) { // replace 'any' with the required interface
+    editCourse(id: string, course: any): Observable<any> | void { // replace 'any' with the required interface and remove 'void'
         // Add your code here
     }
 
-    getCourse(id: string) {
+    getCourse(id: string): Observable<any> | void { // replace 'any' with the required interface and remove 'void'
         // Add your code here
     }
 
-    deleteCourse(id: string) {
+    deleteCourse(id: string): Observable<any> | void { // replace 'any' with the required interface and remove 'void'
         // Add your code here
     }
 
-    filterCourses(value: string) {
+    filterCourses(value: string): Observable<any> | void { // replace 'any' with the required interface and remove 'void'
         // Add your code here
     }
 

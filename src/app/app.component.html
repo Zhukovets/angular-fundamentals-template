@@ -1,22 +1,31 @@
-<app-header></app-header>
+<app-header
+  ><div class="header-right">
+    <span>{{ username }}</span
+    ><app-button [buttonText]="buttonText"></app-button>
+  </div>
+</app-header>
 <div class="app-root">
   <!-- Search component -->
-  <!--<app-search></app-search>-->
+  <!-- <app-search></app-search> -->
 
   <!-- Info component -->
-  <!--<app-info></app-info>-->
+  <!-- <app-info [title]="titleInfo" [text]="textInfo"
+    ><app-button [buttonText]="buttonInfo"></app-button
+  ></app-info> -->
+
+  <!-- <app-courses></app-courses> -->
 
   <!-- Course Card component -->
   <!--<app-course-card></app-course-card>-->
 
   <!-- Login Form component -->
-  <!--<app-login-form></app-login-form>-->
+  <app-login-form></app-login-form>
 
   <!-- Login Form component -->
-  <!--<app-registration-form></app-registration-form>-->
+  <app-registration-form></app-registration-form>
 
   <!-- Login Form component -->
-  <!--<app-course-form></app-course-form>-->
+  <app-course-form></app-course-form>
 
   <!-- Modal component -->
   <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->
