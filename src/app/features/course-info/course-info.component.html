@@ -1,17 +1,34 @@
 <!-- Replace ::text:: with your code -->
-
-<div class="title">::Title::</div>
-<div class="course-info">
-  <div class="course-info__description">
-    ::Description::
+<div *ngIf="course">
+  <div class="course-info">
+    <div class="course-info__header">
+      <h1>{{ course.title }}</h1>
+      <p>{{ course.description || "" }}</p>
+    </div>
+    <div class="course-info__content">
+      <div class="course-info__info">
+        <div class="course-info__info-item">
+          <span class="course-info__info-label">Duration:</span>
+          <span class="course-info__info-value">{{
+            course.duration | duration
+          }}</span>
+        </div>
+        <div class="course-info__info-item">
+          <span class="course-info__info-label">Created:</span>
+          <span class="course-info__info-date">{{
+            course.creationDate || ""
+          }}</span>
+        </div>
+        <div class="course-info__info-item">
+          <span class="course-info__info-label">Authors:</span>
+          <span class="course-info__info-authors">{{
+            course.authors || []
+          }}</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="course-info__info">
-    <div><b>ID: </b><span class="course-info__info-id">::id::</span></div>
-    <div><b>Duration: </b><span class="course-info__info-duration">::duration::</span></div>
-    <div><b>Created: </b><span class="course-info__info-date">::date::</span></div>
-    <div><b>Authors: </b><span class="course-info__info-authors">::authors::</span></div>
+  <div class="navigation-block">
+    <app-button [buttonText]="'back'" (click)="onBack()"></app-button>
   </div>
-</div>
-<div class="navigation-block">
-  <!--Enter your code here-->
 </div>

@@ -1,23 +1,40 @@
 <div class="course-card">
-    <div class="course-card__description">
-      <!-- Replace ::text:: with your code -->
-      <div class="course-card__description-title">::Title::</div>
-      <div class="course-card__description-text">::Description::</div>
+  <div class="course-card__description">
+    <div class="course-card__description-title">{{ course.title }}</div>
+    <div class="course-card__description-text">
+      {{ course.description || "" }}
     </div>
-    <div class="course-card__info">
-        <div class="course-card__info-text">
-            <div>
-              <b>Authors: </b>
-              ::Authors::
-            </div>
-            <div><b>Duration: </b><span class="course-card__duration">::Duration::</span></div>
-            <div><b>Created: </b><span class="course-card__date">::Creation Date::</span></div>
-        </div>
-        <div class="course-card__info-actions">
-            <app-button></app-button>
-            <div class="course-card__buttons">
-                <!--Enter your code here-->
-            </div>
-        </div>
+  </div>
+  <div class="course-card__info">
+    <div class="course-card__info-text">
+      <div><b>Authors:</b> {{ course.authors | authorNames }}</div>
+      <div>
+        <b>Duration:</b>
+        <span class="course-card__duration">{{
+          course.duration | duration
+        }}</span>
+      </div>
+      <div>
+        <b>Created:</b>
+        <span class="course-card__date">{{
+          course.creationDate | customDate
+        }}</span>
+      </div>
     </div>
+    <div class="course-card__info-actions">
+      <app-button
+        [buttonText]="'Show course'"
+        (click)="onShowCourse()"
+      ></app-button>
+      <ng-container *ngIf="editable">
+        <button class="icon-btn" title="Remove" (click)="onDeleteCourse()">
+          <fa-icon [icon]="['fas', 'trash']" [style.fontSize.px]="18"></fa-icon>
+        </button>
+        <button class="icon-btn" title="Edit" (click)="onEditCourse()">
+          <fa-icon [icon]="['fas', 'pen']" [style.fontSize.px]="18"></fa-icon>
+        </button>
+      </ng-container>
+      <ng-content></ng-content>
+    </div>
+  </div>
 </div>

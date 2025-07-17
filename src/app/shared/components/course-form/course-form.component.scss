@@ -1,19 +1,24 @@
-@import 'src/app/shared/styles/styles';
+@import "src/app/shared/styles/styles";
 
 .course {
- min-width: 60vw;
+  min-width: 60vw;
 
   &__flex {
     display: flex;
-    justify-content: space-between;
     align-items: baseline;
+    gap: 8px;
 
     & input {
       flex: 1;
+
+      &.fixed-width {
+        max-width: 290px;
+      }
     }
 
     & app-button {
       margin-left: 16px;
+      width: 190px;
     }
 
     & .course__duration {
@@ -24,14 +29,51 @@
   &__authors {
     margin-top: 8px;
     display: flex;
+    flex-direction: column;
+    gap: 6px;
 
     &-item {
-      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      padding: 4px 0;
     }
   }
 
   &__icon {
     margin-left: 4px;
     cursor: pointer;
+
+    img {
+      width: 20px;
+    }
+  }
+}
+
+.form__action {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+
+  app-button {
+    width: 190px;
+  }
+}
+.form-flex {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: start;
+}
+
+.course-authors-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 220px;
+  text-align: center;
+
+  .empty-text {
+    font-style: italic;
+    color: gray;
   }
 }

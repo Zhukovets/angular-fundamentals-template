@@ -1,0 +1,43 @@
+<app-info
+  *ngIf="!(isLoading$ | async) && ((coursesList$ | async) || []).length > 0"
+  title="Coureses List"
+  text="List of {{ (coursesList$ | async)?.length || 0 }} courses"
+></app-info>
+
+<app-info
+  *ngIf="!(isLoading$ | async) && ((coursesList$ | async) || []).length === 0"
+  title="Please try again"
+  text="Nothing has been found"
+></app-info>
+
+<div class="courses__toolbar">
+  <app-search (search)="onSearchCourses($event)" />
+  <app-button
+    *ngIf="isAdmin$ | async"
+    (click)="addCourse()"
+    buttonText="ADD NEW COURSE"
+  />
+</div>
+
+<div *ngIf="isLoading$ | async" class="loading">Loading courses...</div>
+
+<app-courses-list
+  *ngIf="!(isLoading$ | async) && ((coursesList$ | async) || []).length > 0"
+  [courses]="(coursesList$ | async) || []"
+  [editable]="(isAdmin$ | async) || false"
+  (showCourse)="showInfo($event)"
+  (editCourse)="editCourse($event)"
+  (deleteCourse)="deleteCourse($event)"
+>
+</app-courses-list>
+
+<app-info
+  *ngIf="
+    !(isLoading$ | async) &&
+    isSearchActive &&
+    ((coursesList$ | async) || []).length === 0
+  "
+  title="No courses found"
+  text="No courses pass your search "
+>
+</app-info>
