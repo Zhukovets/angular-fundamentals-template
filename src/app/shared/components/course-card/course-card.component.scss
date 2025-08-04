@@ -1,34 +1,60 @@
 @import "src/app/shared/styles/variables/colors";
 
 .course-card {
+  margin: 32px auto;
   padding: 32px;
-  box-shadow: 0 0 4px rgb(0 0 0 / 25%);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
-  border-left: 8px solid $color-dark-gray;
+  border-left: 8px solid #4a4a4a;
   display: flex;
   justify-content: space-between;
-  margin: 32px 0;
   min-height: 170px;
   width: 80vw;
-  background-color: $color-white;
+  background: #fff;
+}
 
-  &__description {
-    flex: 2;
+.course-card__description-title {
+  font-weight: bold;
+  font-size: 22px;
+  margin-bottom: 8px;
+}
 
-    &-title {
-      font-weight: bold;
-    }
-  }
+.course-card__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 50px;
+}
 
-  &__info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-left: 50px;
+.course-card__info-text {
+  margin-bottom: 24px;
+  font-size: 15px;
+}
 
-    &-text {
-      margin-top: 16px;
-    }
+.course-card__info-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: #007298;
+  min-width: 38px;
+  min-height: 38px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+
+  &:hover {
+    background: #e6f2fa;
+    color: #016486;
   }
 }
