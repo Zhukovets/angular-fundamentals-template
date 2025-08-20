@@ -1,0 +1,8 @@
+.container {
+    display: flex;
+}
+
+.user-name {
+    margin-top: 15px;
+    margin-right: 10px;
+}

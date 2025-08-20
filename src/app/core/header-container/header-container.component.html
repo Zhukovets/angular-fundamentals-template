@@ -1,0 +1,8 @@
+<app-header>
+    <ng-container *ngIf="!isAuthPage">
+        <div class="container">
+            <div class="user-name">{{ name$ | async }}</div>
+            <app-button (click)="logout()" [buttonText]="'Logout'"></app-button>
+        </div>
+    </ng-container>
+</app-header>

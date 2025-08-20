@@ -1,18 +1,21 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SessionStorageService } from "./services/session-storage.service";
-import { AuthService } from "./services/auth.service";
-import { HttpClientModule } from '@angular/common/http';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {LoginComponent} from "@app/auth/pages/login/login.component";
+import {RegistrationComponent} from "@app/auth/pages/registration/registration.component";
+import {SharedModule} from "@shared/shared.module";
+import {AuthRoutingModule} from "@app/auth/auth-routing.module";
+
+const components = [
+    LoginComponent,
+    RegistrationComponent
+];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    HttpClientModule
-  ],
-  providers: [
-    SessionStorageService,
-    AuthService,
-  ]
+    declarations: [components],
+    imports: [
+        CommonModule,
+        SharedModule,
+        AuthRoutingModule
+    ]
 })
-export class AuthModule { }
+export class AuthModule {}

@@ -1,4 +1,5 @@
 <div class="app-button">
   <!-- Replace the text below with your code -->
-  Button
+    <span *ngIf="buttonText">{{buttonText}}</span>
+    <fa-icon *ngIf="iconName" [icon]="['fas', icon]" size="xl"></fa-icon>
 </div>

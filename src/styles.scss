@@ -3,6 +3,10 @@ $color-white: #fff;
 $color-gray: #CFCFCF;
 $color-red: #FF0000;
 
+*{
+  box-sizing: border-box;
+}
+
 html {
   height: 100%;
 }
@@ -29,9 +33,8 @@ textarea {
   font-family: "Open Sans", sans-serif;
 }
 
-input:invalid,
-textarea:invalid {
-  border-color: $color-red;
+.is-invalid {
+  border: 1px solid red;
 }
 
 label {

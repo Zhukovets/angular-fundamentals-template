@@ -23,7 +23,8 @@
     "paths": {
       "@app/*": ["src/app/*"],
       "@shared/*": ["src/app/shared/*"],
-      "@features/*": ["src/app/features/*"]
+      "@features/*": ["src/app/features/*"],
+      "@auth/*": ["src/app/auth/*"]
     },
     "lib": [
       "ES2022",

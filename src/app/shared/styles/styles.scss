@@ -4,7 +4,7 @@ $color-red: #FF0000;
 
 .app-plate {
     width: 100%;
-    min-height: 477px;
+    min-height: 377px;
     background-color: $color-white;
     border: 1px solid $color-gray;
     border-radius: 4px;
@@ -29,13 +29,13 @@ $color-red: #FF0000;
     }
 
     &__action {
-        margin-top: 54px;
+        margin-top: 20px;
     }
 
     &__text {
         text-align: center;
         margin-top: 38px;
-      flex-wrap: wrap;
+        flex-wrap: wrap;
     }
 }
 

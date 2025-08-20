@@ -1,8 +1,18 @@
-import { Injectable } from '@angular/core';
+import {inject} from '@angular/core';
+import {CanActivateFn, Router} from '@angular/router';
+import {AuthService} from '../services/auth.service';
+import {map} from "rxjs";
+import {ROUTE_NAMES} from "@app/app-routing.module";
 
-@Injectable({
-    providedIn: 'root'
-})
-export class AuthorizedGuard {
-    // Add your code here
-}
+export const authorizedGuard: CanActivateFn = () => {
+    const authService = inject(AuthService);
+    const router = inject(Router);
+
+    return authService.isAuthorized$.pipe(
+        map((value)=>
+             value || router.parseUrl(`/${ROUTE_NAMES.AUTH}/${ROUTE_NAMES.LOGIN}`)
+        )
+    );
+};
+
+

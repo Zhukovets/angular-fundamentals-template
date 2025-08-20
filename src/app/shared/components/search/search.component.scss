@@ -1,9 +1,14 @@
 .app-search {
-  display: flex;
   width: 100%;
-  align-items: baseline;
 
   & input {
     margin-right: 24px;
+    width: 400px;
+    height: 50px;
+  }
+
+  & form {
+    display: flex;
+    align-items: center;
   }
 }

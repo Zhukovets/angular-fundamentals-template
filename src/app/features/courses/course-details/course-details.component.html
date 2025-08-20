@@ -1,0 +1,10 @@
+<app-course-info
+        *ngIf="course$ | async as course"
+        [courseId]="course.id"
+        [courseTitle]="course.title"
+        [courseDescription]="course.description"
+        [courseCreationDate]="course.creationDate"
+        [courseDuration]="course.duration"
+        [courseAuthors]="course.authors | authorsToNames"
+        (backEvent)="navToCourses()"
+></app-course-info>

@@ -13,13 +13,13 @@
   justify-content: space-between;
   margin: 32px 0;
   min-height: 170px;
-  width: 80vw;
   background-color: $color-white;
+  min-width: 1122px;
 
   &__description {
     flex: 2;
     border-right: 1px solid #CFCFCF;
-
+    font-size: 17px;
   }
 
   &__info {

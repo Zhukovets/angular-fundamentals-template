@@ -1,5 +1,15 @@
 @import 'src/app/shared/styles/styles.scss';
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  a {
+    text-decoration: none;
+  }
+}
+
 .login-form {
   width: 260px;
   margin-top: 36px;
@@ -7,3 +17,4 @@
   flex-direction: column;
   justify-content: space-between;
 }
+

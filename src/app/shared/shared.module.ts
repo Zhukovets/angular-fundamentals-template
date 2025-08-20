@@ -1,21 +1,34 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ModalComponent } from './components/modal/modal.component';
+import {NgModule} from '@angular/core';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {ModalComponent} from './components/modal/modal.component';
 import {
-  HeaderComponent,
   ButtonComponent,
-  InfoComponent,
-  SearchComponent,
   CourseCardComponent,
+  CourseFormComponent,
+  HeaderComponent,
+  InfoComponent,
   LoginFormComponent,
   RegistrationFormComponent,
-  CourseFormComponent
+  SearchComponent
 } from "./components";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { DurationPipe } from './pipes/duration.pipe';
-import { CustomDatePipe } from './pipes/custom-date.pipe';
-import { EmailValidatorDirective } from '@shared/directives/email.directive';
+import {CustomDatePipe} from './pipes/custom-date.pipe';
+import {EmailValidatorDirective} from '@shared/directives/email.directive';
+import {DurationPipe} from "@shared/pipes/duration.pipe";
+import {isAuthorInList} from "@shared/pipes/is-author-in-list.pipe";
+import {RouterLink} from "@angular/router";
+import {LoaderComponent} from "@shared/components/loader/loader.component";
+
+const directives = [
+  EmailValidatorDirective
+];
+
+const pipes = [
+  DurationPipe,
+  CustomDatePipe,
+  isAuthorInList
+];
 
 const components = [
   HeaderComponent,
@@ -27,19 +40,19 @@ const components = [
   LoginFormComponent,
   RegistrationFormComponent,
   CourseFormComponent,
-  DurationPipe,
-  CustomDatePipe,
-  EmailValidatorDirective
+  LoaderComponent
 ];
 
 @NgModule({
-  declarations: [components],
+  declarations: [components,pipes,directives],
   imports: [
     CommonModule,
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
+    NgOptimizedImage,
+    RouterLink
   ],
-  exports: [components]
+  exports: [components, pipes]
 })
 export class SharedModule { }

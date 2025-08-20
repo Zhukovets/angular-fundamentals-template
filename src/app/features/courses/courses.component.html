@@ -1,0 +1,46 @@
+<ng-container *ngIf="(isLoading$ | async); else coursesBlock">
+        <app-loader></app-loader>
+</ng-container>
+
+<ng-template #coursesBlock>
+    <ng-container *ngIf="coursesWithAuthors$ | async as courses">
+        <ng-container *ngIf="courses.length || searchTerm; else emptyList">
+
+            <div class="container">
+                <app-search placeholder="Input text" (search)="handleSearch($event)"></app-search>
+                <ng-container *ngIf="enabled$ | async">
+                    <ng-container *ngTemplateOutlet="addCourseButton"></ng-container>
+                </ng-container>
+            </div>
+
+            <app-courses-list
+                    *ngIf="courses.length; else nothingFound"
+                    [courses]="courses"
+                    [editable]="enabled$ | async"
+                    (showCourse)="showCourse($event)"
+                    (editCourse)="editCourse($event)"
+                    (deleteCourse)="deleteCourse($event)"
+            >
+            </app-courses-list>
+
+            <ng-template #nothingFound>
+                <app-info title="Nothing was found"></app-info>
+            </ng-template>
+        </ng-container>
+
+        <ng-template #emptyList>
+            <app-info title="Your List Is Empty" text="Please use ’Add New Course’ button to add your first course">
+                <ng-container *ngIf="enabled$ | async">
+                    <ng-container *ngTemplateOutlet="addCourseButton"></ng-container>
+                </ng-container>
+            </app-info>
+        </ng-template>
+    </ng-container>
+</ng-template>
+
+<ng-template #addCourseButton>
+    <app-button (click)="navigateToCourseForm()" buttonText="ADD NEW COURSE"></app-button>
+</ng-template>
+
+
+

@@ -10,9 +10,22 @@
     color: #fff;
     text-transform: uppercase;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
+    line-height: 24px;
 
     &:hover {
         background: #016486;
+    }
+
+    &:focus {
+        outline: 3px solid #2980b9;
+        outline-offset: 2px;
+    }
+
+    &:active {
+        transform: scale(0.95);
     }
 
     &__single-icon {
