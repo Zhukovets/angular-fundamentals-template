@@ -7,3 +7,47 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  input {
+    flex: 1;
+    padding-right: 20px;
+  }
+}
+
+.form__action {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
+  button {
+    padding: 13px 36px;
+    background: #007298;
+    border-radius: 4px;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:hover {
+      background: #016486;
+    }
+
+    &:focus {
+      outline: 2px solid #004a5a;
+      outline-offset: 2px;
+    }
+
+    &:active {
+      background: #004a5a;
+    }
+
+    &__single-icon {
+      padding: 0 5px 0 0;
+    }
+  }
+
+}

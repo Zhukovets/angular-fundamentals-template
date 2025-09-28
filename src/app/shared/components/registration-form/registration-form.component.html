@@ -1,28 +1,86 @@
 <h2 class="text-align-center">Registration</h2>
 <div class="app-plate">
-  <div class="registration-form">
+  <form
+    [formGroup]="registrationForm"
+    (ngSubmit)="onSubmit()"
+    class="registration-form"
+    novalidate
+  >
     <div>
       <div class="form__control">
         <label for="name">Name</label>
-        <!--Use the name `name` for the form control.-->
-        <input type="text" id="name" placeholder="Input text"/>
-        <span id="nameErrorMessage" class="text-danger">Name is required.</span>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          placeholder="Input text"
+        />
+        <span
+          *ngIf="f['name'].invalid && (f['name'].touched || submitted)"
+          class="text-danger"
+        >
+          <ng-container *ngIf="f['name'].errors?.['required']">
+            Name is required.
+          </ng-container>
+          <ng-container *ngIf="f['name'].errors?.['minlength']">
+            Name must be at least 6 characters long.
+          </ng-container>
+        </span>
       </div>
+
       <div class="form__control">
-        <!--Use the name `email` for the form control.-->
         <label for="email">Email</label>
-        <input type="text" id="email" placeholder="Input text"/>
-        <span id="emailErrorMessage" class="text-danger">Email is required.</span>
+        <input
+          type="text"
+          id="email"
+          formControlName="email"
+          placeholder="Input text"
+          emailValidator
+        />
+        <span
+          *ngIf="f['email'].invalid && (f['email'].touched || submitted)"
+          class="text-danger"
+        >
+          <ng-container *ngIf="f['email'].errors?.['required']">
+            Email is required.
+          </ng-container>
+          <ng-container *ngIf="f['email'].errors?.['email']">
+            Invalid email format.
+          </ng-container>
+        </span>
       </div>
+
       <div class="form__control">
-        <!--Use the name `password` for the form control.-->
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Input text"/>
-        <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
+        <div class="password-wrapper">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            formControlName="password"
+            placeholder="Input text"
+          />
+        </div>
+        <span
+          *ngIf="f['password'].invalid && (f['password'].touched || submitted)"
+          class="text-danger"
+        >
+          <ng-container *ngIf="f['password'].errors?.['required']">
+            Password is required.
+          </ng-container>
+          <ng-container *ngIf="f['password'].errors?.['minlength']">
+            Password must be at least 6 characters long.
+          </ng-container>
+        </span>
       </div>
     </div>
+
     <div class="form__action">
-      <app-button></app-button>
+      <button type = "submit" [disabled] = "registrationForm.invalid">REGISTER</button>
     </div>
-  </div>
+
+    <div class="form__text">
+      If you have an account you may
+      <a routerLink="/login"><strong>Login</strong></a>
+    </div>
+  </form>
 </div>

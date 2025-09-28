@@ -1,27 +1,69 @@
 <h2 class="text-align-center">Login</h2>
 <div class="app-plate">
-  <form #loginForm="ngForm">
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
     <div class="login-form">
       <div>
         <div class="form__control">
           <label for="email">Email</label>
-          <!--Use the name `email` for the form control.-->
-          <input type="text" id="email" placeholder="Input text"/>
-          <span id="emailErrorMessage" class="text-danger">Email is required.</span>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Input text"
+            required
+            emailValidator
+            ngModel
+            #emailCtrl="ngModel"
+          />
+          <span
+            *ngIf="
+              emailCtrl.invalid &&
+              (emailCtrl.touched || emailCtrl.dirty || loginForm.submitted)
+            "
+            class="text-danger"
+          >
+            <ng-container *ngIf="emailCtrl.errors?.['required']">
+              Email is required.
+            </ng-container>
+            <ng-container *ngIf="emailCtrl.errors?.['email']">
+              Invalid email format.
+            </ng-container>
+          </span>
         </div>
+
         <div class="form__control">
           <label for="password">Password</label>
-          <!--Use the name `password` for the form control.-->
-          <input type="password" id="password" placeholder="Input text"/>
-          <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
+          <div class="password-wrapper">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              name="password"
+              ngModel
+              required
+              #passwordCtrl="ngModel"
+            />
+          </div>
+          <span
+            *ngIf="
+              passwordCtrl.invalid &&
+              (passwordCtrl.touched ||
+                passwordCtrl.dirty ||
+                loginForm.submitted)
+            "
+            class="text-danger"
+          >
+            Password is required
+          </span>
         </div>
       </div>
+
       <div>
         <div class="form__action">
-          <app-button></app-button>
+          <button type = "submit" [disabled] = "loginForm.invalid">LOGIN</button>
         </div>
         <div class="form__text">
-          If you don't have an account you may <strong>Registration</strong>
+          If you have an account you may
+          <a routerLink="/login"><strong>Login</strong></a>
         </div>
       </div>
     </div>

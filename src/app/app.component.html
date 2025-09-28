@@ -1,23 +1,36 @@
-<app-header></app-header>
+<app-header>
+  <app-button buttonText="Log out"></app-button>
+  <app-button buttonText="Log in"></app-button>
+</app-header>
+
 <div class="app-root">
-  <!-- Search component -->
   <!--<app-search></app-search>-->
 
-  <!-- Info component -->
-  <!--<app-info></app-info>-->
+  <app-info
+    title="Your Cart Is Empty"
+    text="Add items to your cart to see them here."
+  >
+    <app-button buttonText="Add New Course"></app-button>
+  </app-info>
+  <app-course-info
+    *ngIf="selectedCourse"
+    [course]="selectedCourse"
+    (goBack)="onBackFromCourseInfo()"
+  >
+  </app-course-info>
 
-  <!-- Course Card component -->
-  <!--<app-course-card></app-course-card>-->
+  <app-courses
+    (showCourse)="onShowCourse($event)"
+    (editCourse)="onEditCourse($event)"
+    (deleteCourse)="onDeleteCourse($event)"
+  >
+  </app-courses>
 
-  <!-- Login Form component -->
-  <!--<app-login-form></app-login-form>-->
+  <app-login-form></app-login-form>
 
-  <!-- Login Form component -->
-  <!--<app-registration-form></app-registration-form>-->
+  <app-registration-form></app-registration-form>
 
-  <!-- Login Form component -->
-  <!--<app-course-form></app-course-form>-->
+  <app-course-form></app-course-form>
 
-  <!-- Modal component -->
   <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->
 </div>

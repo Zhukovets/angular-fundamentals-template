@@ -1,55 +1,153 @@
-<!-- Replace ::text:: with your code -->
-<h2>Create / Edit Course</h2>
-<form>
+<h2>Course Edit/Create Page</h2>
+
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
   <div class="app-plate">
     <div class="course">
       <h3>Main Info</h3>
+
       <div class="form__control">
         <label for="title">Title</label>
-        <!--Use the name `title` for the form control.-->
-        <input type="text" id="title" placeholder="Input text"/>
-        <span id="titleErrorMessage" class="text-danger">Title is required.</span>
+        <input
+          type="text"
+          id="title"
+          formControlName="title"
+          placeholder="Input text"
+        />
+        <span
+          class="text-danger"
+          data-testid="title-error"
+          *ngIf="(title.touched || submitted) && title.invalid"
+        >
+          Title is required.
+        </span>
       </div>
+
       <div class="form__control">
         <label for="description">Description</label>
-        <!--Use the name `description` for the form control.-->
         <textarea
           id="description"
-          name="description"
+          formControlName="description"
           placeholder="Input text"
-          rows="4"
-          cols="5"
         ></textarea>
-        <span id="descriptionErrorMessage" class="text-danger">Description is required.</span>
+        <span
+          class="text-danger"
+          data-testid="description-error"
+          *ngIf="(description.touched || submitted) && description.invalid"
+        >
+          Description is required.
+        </span>
       </div>
+
       <div class="separator"></div>
-      <h3>Authors</h3>
-      <div class="form__control">
-        <div class="course__flex">
-          <!--Use the name `author` for the form control.-->
-          <input type="text" id="author" placeholder="Input Author Name"/>
-          <app-button id="createAuthor"></app-button>
-        </div>
-        <span id="authorErrorMessage">New author should contain only latin letters and numbers.</span>
-        <div class="course__authors">
-          <!--Use the name `authors` for the form array.-->
-          ::Authors::
-        </div>
-      </div>
-      <div class="separator"></div>
+
       <h3>Duration</h3>
       <div class="form__control">
         <div class="course__flex">
-          <!--Use the name `duration` for the form array.-->
-          <input type="number" id="duration" placeholder="Input duration"/>
+          <input
+            type="number"
+            id="duration"
+            formControlName="duration"
+            placeholder="Input duration"
+          />
           <div class="course__duration">
-            ::Duration::
+            {{ formatDuration(duration.value) }} hours
           </div>
         </div>
-        <span id="durationErrorMessage" class="text-danger">Duration is required.</span>
+        <span
+          class="text-danger"
+          data-testid="duration-error"
+          *ngIf="(duration.touched || submitted) && duration.invalid"
+        >
+          Duration is required.
+        </span>
       </div>
+
+      <div class="separator"></div>
+
+      <h3>Authors</h3>
+      <div class="form__control">
+        <div class="course__flex">
+          <input
+            type="text"
+            id="author"
+            formControlName="author"
+            placeholder="Input Author Name"
+          />
+          <app-button
+            buttonText="CREATE AUTHOR"
+            (click)="createAuthor()"
+          ></app-button>
+        </div>
+        <span
+          class="text-danger"
+          data-testid="author-error"
+          *ngIf="(author.touched || submitted) && author.errors"
+        >
+          <ng-container *ngIf="author.errors?.['required']">
+            Author name is required.
+          </ng-container>
+          <ng-container *ngIf="author.errors?.['minlength']">
+            Author name must be at least 2 characters.
+          </ng-container>
+          <ng-container *ngIf="author.errors?.['pattern']">
+            Author name should contain only latin letters and numbers.
+          </ng-container>
+        </span>
+
+        <div class="course__columns">
+          <div class="course__col">
+            <div class="course__col-title">Authors List</div>
+            <div formArrayName="authors">
+              <div
+                class="course__authors-item"
+                *ngFor="let a of authors.controls; let i = index"
+              >
+                {{ a.value.name }}
+                <button
+                  type="button"
+                  class="icon-btn"
+                  aria-label="Add author"
+                  data-testid="add-author-button"
+                  (click)="addAuthor(i)"
+                >
+                  <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="course__col">
+            <div class="course__col-title">Course Authors</div>
+            <div *ngIf="courseAuthors.length === 0" class="muted">
+              Author list is empty
+            </div>
+            <div formArrayName="courseAuthors">
+              <div
+                class="course__authors-item"
+                *ngFor="let a of courseAuthors.controls; let i = index"
+              >
+                <input type="text" [value]="a.value.name" disabled />
+                <button
+                  type="button"
+                  class="icon-btn danger"
+                  aria-label="Remove author"
+                  data-testid="remove-author-button"
+                  (click)="removeAuthor(i)"
+                >
+                  <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="form__action">
-        <app-button></app-button>
+        <app-button buttonText="CANCEL"></app-button>
+        <app-button
+          data-testid="submit-button"
+          buttonText="CREATE COURSE"
+        ></app-button>
       </div>
     </div>
   </div>
