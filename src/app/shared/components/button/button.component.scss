@@ -1,21 +1,53 @@
 .app-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 13px 36px;
+  gap: 10px;
+  background: #007298;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  width: 100%;
+
+  &:hover {
+    background: #016486;
+  }
+
+  &:focus {
+    outline: 2px solid #004f63;
+    outline-offset: 2px;
+  }
+
+  &:active {
+    background: #004f63;
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+  }
+
+  &__single-icon {
+    padding: 13px;
+    width: 48px;
+    height: 48px;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
     align-items: center;
-    padding: 13px 36px;
-    gap: 10px;
-    background: #007298;
-    border-radius: 4px;
-    color: #fff;
-    text-transform: uppercase;
-    cursor: pointer;
+    justify-content: center;
 
-    &:hover {
-        background: #016486;
+    .btn-icon {
+      font-size: 18px;
     }
+  }
 
-    &__single-icon {
-        padding: 13px;
-    }
+  .btn-icon {
+    font-size: 16px;
+  }
 }

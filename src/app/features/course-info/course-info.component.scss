@@ -36,3 +36,17 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.course-info__back-btn {
+  padding: 10px 20px;
+  background-color: #007298;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: #016486;
+  }
+}

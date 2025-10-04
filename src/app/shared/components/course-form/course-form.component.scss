@@ -1,7 +1,7 @@
-@import 'src/app/shared/styles/styles';
+@import "src/app/shared/styles/styles";
 
 .course {
- min-width: 60vw;
+  min-width: 60vw;
 
   &__flex {
     display: flex;
@@ -34,4 +34,75 @@
     margin-left: 4px;
     cursor: pointer;
   }
+}
+
+.course-form input {
+  border: 1px solid #ccc;
+}
+
+input.ng-invalid.ng-touched,
+input.ng-invalid.ng-dirty,
+textarea.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-dirty,
+form.ng-submitted input.ng-invalid,
+form.ng-submitted textarea.ng-invalid {
+  border-color: red;
+}
+.inputLabel {
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+.form__action {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+  align-items: center;
+}
+#course__authors__list__label {
+  margin-bottom: 0px;
+}
+span {
+  margin-top: 0px;
+}
+.course__authors-item {
+  display: flex;
+  align-items: center;
+}
+
+.two-columns {
+  display: flex;
+  gap: 5px;
+
+  .left-column,
+  .right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .right-column {
+    align-items: flex-end;
+  }
+}
+
+.course__authors {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-right: 0;
+  }
+}
+.course__authors-item input {
+  flex: none;
+  width: 200px;
+  max-width: 300px;
+}
+
+#duration__control__id {
+  width: 50%;
 }

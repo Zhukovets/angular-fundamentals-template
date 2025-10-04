@@ -1,42 +1,127 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable, tap } from "rxjs";
+import { CoursesService } from "./courses.service";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: "root",
 })
 export class CoursesStoreService {
-    getAll(){
-        // Add your code here
-    }
+  private courses$$ = new BehaviorSubject<any[]>([]);
+  private isLoading$$ = new BehaviorSubject<boolean>(false);
 
-    createCourse(course: any) { // replace 'any' with the required interface
-        // Add your code here
-    }
+  courses$: Observable<any[]> = this.courses$$.asObservable();
+  isLoading$: Observable<boolean> = this.isLoading$$.asObservable();
 
-    getCourse(id: string) {
-        // Add your code here
-    }
+  constructor(private coursesService: CoursesService) {}
 
-    editCourse(id: string, course: any) { // replace 'any' with the required interface
-        // Add your code here
-    }
+  getAll() {
+    console.log("Fetching courses");
+    this.isLoading$$.next(true);
 
-    deleteCourse(id: string) {
-        // Add your code here
-    }
+    this.coursesService
+      .getAll()
+      .pipe(
+        tap({
+          next: (res) => {
+            const courses = Array.isArray(res) ? res : res.result || [];
+            this.courses$$.next(courses);
+          },
+          complete: () => this.isLoading$$.next(false),
+          error: () => this.isLoading$$.next(false),
+        })
+      )
+      .subscribe();
+    // Add your code here
+  }
 
-    filterCourses(value: string) {
-        // Add your code here
-    }
+  createCourse(course: any) {
+    this.isLoading$$.next(true);
+    this.coursesService
+      .createCourse(course)
+      .pipe(
+        tap({
+          next: (newCourse) =>
+            this.courses$$.next([...this.courses$$.getValue(), newCourse]),
+          complete: () => this.isLoading$$.next(false),
+          error: () => this.isLoading$$.next(false),
+        })
+      )
+      .subscribe();
+    // replace 'any' with the required interface
+    // Add your code here
+  }
 
-    getAllAuthors() {
-        // Add your code here
-    }
+  getCourse(id: string) {
+    return this.coursesService.getCourse(id);
+    // Add your code here
+  }
 
-    createAuthor(name: string) {
-        // Add your code here
-    }
+  editCourse(id: string, course: any) {
+    this.isLoading$$.next(true);
+    this.coursesService
+      .editCourse(id, course)
+      .pipe(
+        tap({
+          next: (updatedCourse) => {
+            const updated = this.courses$$
+              .getValue()
+              .map((c) => (c.id === id ? updatedCourse : c));
+            this.courses$$.next(updated);
+          },
+          complete: () => this.isLoading$$.next(false),
+          error: () => this.isLoading$$.next(false),
+        })
+      )
+      .subscribe();
+    // replace 'any' with the required interface
+    // Add your code here
+  }
 
-    getAuthorById(id: string) {
-        // Add your code here
-    }
+  deleteCourse(id: string) {
+    this.isLoading$$.next(true);
+    this.coursesService
+      .deleteCourse(id)
+      .pipe(
+        tap({
+          next: () => {
+            const filtered = this.courses$$
+              .getValue()
+              .filter((c) => c.id !== id);
+            this.courses$$.next(filtered);
+          },
+          complete: () => this.isLoading$$.next(false),
+          error: () => this.isLoading$$.next(false),
+        })
+      )
+      .subscribe();
+    // Add your code here
+  }
+
+  filterCourses(value: string) {
+    this.isLoading$$.next(true);
+
+    return this.coursesService.filterCourses(value).pipe(
+      tap({
+        next: (filteredCourses) => this.courses$$.next(filteredCourses),
+        complete: () => this.isLoading$$.next(false),
+        error: () => this.isLoading$$.next(false),
+      })
+    );
+    // Add your code here
+  }
+
+  getAllAuthors() {
+    return this.coursesService.getAllAuthors();
+    // Add your code here
+  }
+
+  createAuthor(name: string) {
+    return this.coursesService.createAuthor(name);
+    // Add your code here
+  }
+
+  getAuthorById(id: string) {
+    return this.coursesService.getAuthorById(id);
+    // Add your code here
+  }
 }

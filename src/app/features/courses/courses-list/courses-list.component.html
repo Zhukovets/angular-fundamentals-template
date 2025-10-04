@@ -1,0 +1,25 @@
+<div class="courses-list">
+  <app-course-card
+    *ngFor="let course of courses"
+    [title]="course.title"
+    [description]="course.description"
+    [creationDate]="course.creationDate"
+    [duration]="course.duration"
+    [authors]="course.authors"
+    [editable]="editable"
+    (clickOnShow)="onShow(course)"
+  >
+    <app-button
+      buttonText="Edit"
+      iconName="pen"
+      *ngIf="editable"
+      (click)="onEdit(course)"
+    ></app-button>
+    <app-button
+      buttonText="Remove"
+      iconName="trash"
+      *ngIf="editable"
+      (click)="onDelete(course)"
+    ></app-button>
+  </app-course-card>
+</div>
