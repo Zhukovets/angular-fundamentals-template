@@ -1,4 +1,4 @@
-@import 'src/app/shared/styles/styles.scss';
+@import "src/app/shared/styles/styles.scss";
 
 .login-form {
   width: 260px;
@@ -7,3 +7,56 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.login-form input {
+  border: 1px solid #ccc;
+}
+
+input.ng-invalid.ng-touched,
+input.ng-invalid.ng-dirty {
+  border-color: red;
+}
+form.ng-submitted input.ng-invalid {
+  border-color: red;
+}
+
+// для іконки показати в паролі
+.input-with-icon {
+  position: relative;
+  width: 100%;
+
+  input {
+    width: 100%;
+    padding-right: 44px;
+    box-sizing: border-box;
+  }
+
+  .password-toggle {
+    position: absolute;
+    right: 8px;                 
+    top: calc(50% + 2px);
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    color: inherit;
+  }
+
+  .password-toggle:focus {
+    outline: none; 
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.2);
+    border-radius: 4px;
+  }
+
+  fa-icon {
+    font-size: 16px;
+    line-height: 1;
+  }
+}
+

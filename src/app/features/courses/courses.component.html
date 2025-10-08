@@ -1,0 +1,21 @@
+<div class="search-bar">
+  <input
+    type="text"
+    [(ngModel)]="searchValue"
+    placeholder="Search courses"
+    (keyup.enter)="onSearch()"
+  />
+  <app-button [buttonText]="'Search'" (click)="onSearch()"></app-button>
+  <button *ngIf="isAdmin$ | async" (click)="addCourse()">Add course</button>
+</div>
+
+<div *ngIf="isLoading$ | async" class="loading">Loading...</div>
+
+<app-courses-list
+  *ngIf="(courses$ | async) as list"
+  [courses]="list"
+  [editable]="(isAdmin$ | async) === true"
+  (showCourse)="showCourse($event)"
+  (editCourse)="editCourse($event)"
+  (deleteCourse)="deleteCourse($event)"
+></app-courses-list>
