@@ -1,8 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router'; 
-import { CoursesStoreService } from '../../../services/courses-store.service';
+//import { CoursesStoreService } from '../../../services/courses-store.service';
 import { UserStoreService } from 'src/app/user/services/user-store.service';
 import { Observable } from 'rxjs'; 
+import { CoursesFacade } from 'src/app/store/courses/courses.facade'; 
 
 interface Course { 
   id: string; 
@@ -37,7 +38,7 @@ export class CourseCardComponent {
 
   constructor(
     private router: Router, 
-    private coursesStore: CoursesStoreService,
+   private coursesFacade: CoursesFacade,
     private userStore: UserStoreService 
   ) {
     this.isAdmin$ = this.userStore.isAdmin$;
@@ -53,7 +54,7 @@ export class CourseCardComponent {
   
   onDeleteCourse(): void {
     if (confirm(`Are you sure you want to delete course "${this.course.title}"?`)) {
-      this.coursesStore.deleteCourse(this.course.id);
+      this.coursesFacade.deleteCourse(+this.course.id);
     }
   }
 }

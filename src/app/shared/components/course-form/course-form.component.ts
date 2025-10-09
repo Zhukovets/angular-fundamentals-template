@@ -11,6 +11,7 @@ import { FaIconLibrary } from "@fortawesome/angular-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 
 import { CoursesStoreService } from "../../../services/courses-store.service";
+import { CoursesFacade } from "src/app/store/courses/courses.facade";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable, Subscription } from "rxjs";
 import { take } from "rxjs/operators";
@@ -53,6 +54,7 @@ export class CourseComponent implements OnInit {
     public fb: FormBuilder,
     public library: FaIconLibrary,
     private coursesStore: CoursesStoreService,
+    private coursesFacade: CoursesFacade,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -86,9 +88,9 @@ export class CourseComponent implements OnInit {
       this.isEditMode = !!this.courseId;
 
       if (this.isEditMode && this.courseId) {
-        this.coursesStore
-          .getCourseById(this.courseId)
-          .subscribe((course: Course) => {
+        this.coursesFacade.getSingleCourse(+this.courseId);
+        this.coursesFacade.course$.pipe(take(1)).subscribe((course: any) => {
+          if (course) {
             this.courseForm.patchValue({
               title: course.title,
               description: course.description,
@@ -96,14 +98,15 @@ export class CourseComponent implements OnInit {
             });
 
             this.allAuthors$.pipe(take(1)).subscribe((all) => {
-              course.authors.forEach((authorId) => {
+              course.authors.forEach((authorId: string) => {
                 const author = all.find((a) => a.id === authorId);
                 if (author) {
                   this.addAuthor(author);
                 }
               });
             });
-          });
+          }
+        });
       }
     });
   }
@@ -159,31 +162,31 @@ export class CourseComponent implements OnInit {
     control.markAsTouched();
   }
 
-   onSubmit(): void {
-        this.markAllAsTouched(this.courseForm);
+  onSubmit(): void {
+    this.markAllAsTouched(this.courseForm);
 
-        if (this.courseForm.valid) {
-            const formValue = this.courseForm.value;
-            
-            const courseData: CourseUpdateData = {
-                title: formValue.title,
-                description: formValue.description,
-                duration: formValue.duration,
-                authors: this.courseAuthors.map(a => a.id) 
-            };
+    if (this.courseForm.valid) {
+      const formValue = this.courseForm.value;
 
-            if (this.isEditMode && this.courseId) {
-                this.coursesStore.editCourse(this.courseId, courseData);
-            } else {
-                this.coursesStore.createCourse(courseData);
-            }
-            this.router.navigate(['/courses']);
-        } else {
-            console.log("Form is invalid. Displaying errors.");
-        }
+      const courseData: CourseUpdateData = {
+        title: formValue.title,
+        description: formValue.description,
+        duration: formValue.duration,
+        authors: this.courseAuthors.map((a) => a.id),
+      };
+
+      if (this.isEditMode && this.courseId) {
+        this.coursesFacade.editCourse(+this.courseId, courseData);
+      } else {
+        this.coursesFacade.createCourse(courseData);
+      }
+      this.router.navigate(["/courses"]);
+    } else {
+      console.log("Form is invalid. Displaying errors.");
     }
+  }
 
-    onCancel(): void {
-    this.router.navigate(['/courses']);
+  onCancel(): void {
+    this.router.navigate(["/courses"]);
   }
 }
