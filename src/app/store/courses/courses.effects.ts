@@ -5,12 +5,14 @@ import { of } from 'rxjs';
 import { switchMap, map, catchError, concatMap, withLatestFrom } from 'rxjs/operators';
 import * as CoursesActions from './courses.actions';
 import { CoursesFacade } from './courses.facade';
+import { CoursesService } from '../../services/courses.service';
+import { Action } from '@ngrx/store'; 
 
 @Injectable()
 export class CoursesEffects {
   constructor(
     private actions$: Actions,
-    private coursesService: any, 
+    private coursesService: CoursesService, 
     private coursesFacade: CoursesFacade,
     private router: Router
   ) {}
@@ -19,13 +21,13 @@ export class CoursesEffects {
     this.actions$.pipe(
       ofType(CoursesActions.requestAllCourses),
       switchMap(() =>
-        this.coursesService.getAll().pipe(
+        this.coursesService.getAllCourses().pipe(
           map((courses: any[]) => CoursesActions.requestAllCoursesSuccess({ courses })),
           catchError((error: any) => of(CoursesActions.requestAllCoursesFail({ error })))
         )
       )
     )
-  );
+  ) as any;
 
   filteredCourses$ = createEffect(() =>
     this.actions$.pipe(
@@ -42,19 +44,19 @@ export class CoursesEffects {
     this.actions$.pipe(
       ofType(CoursesActions.requestSingleCourse),
       switchMap(({ id }) =>
-        this.coursesService.getSpecificCourse(id).pipe(
+        this.coursesService.getCourseById(id.toString()).pipe(
           map((course: any) => CoursesActions.requestSingleCourseSuccess({ course })),
           catchError((error: any) => of(CoursesActions.requestSingleCourseFail({ error })))
         )
       )
     )
-  );
+  ) as any;
 
   deleteCourse$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CoursesActions.requestDeleteCourse),
       concatMap(({ id }) =>
-        this.coursesService.deleteCourse(id).pipe(
+        this.coursesService.deleteCourse(id.toString()).pipe(
           concatMap(() => [
             CoursesActions.requestDeleteCourseSuccess(),
             CoursesActions.requestAllCourses(),
@@ -63,19 +65,19 @@ export class CoursesEffects {
         )
       )
     )
-  );
+  ) as any;
 
   editCourse$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CoursesActions.requestEditCourse),
       switchMap(({ id, course }: { id: number, course: any }) =>
-        this.coursesService.editCourse(id, course).pipe(
+         this.coursesService.editCourse(id.toString(), course).pipe( 
           map((updatedCourse: any) => CoursesActions.requestEditCourseSuccess({ course: updatedCourse })),
           catchError((error: any) => of(CoursesActions.requestEditCourseFail({ error })))
         )
       )
     )
-  );
+  ) as any;
 
   createCourse$ = createEffect(() =>
     this.actions$.pipe(
@@ -87,7 +89,7 @@ export class CoursesEffects {
         )
       )
     )
-  );
+  ) as any;
 
   redirectToTheCoursesPage$ = createEffect(() =>
     this.actions$.pipe(

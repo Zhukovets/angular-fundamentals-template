@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, finalize } from "rxjs";
-//import { CoursesService } from "./courses.service";
+import { CoursesService } from "./courses.service";
 import { CoursesFacade } from "../store/courses/courses.facade";
 
 interface Author {
@@ -38,7 +38,7 @@ export class CoursesStoreService {
   constructor(
     //private coursesService: CoursesService
     private coursesFacade: CoursesFacade,
-    private coursesService: any
+    private coursesService: CoursesService
   ) {}
 
   private setLoading(value: boolean): void {
