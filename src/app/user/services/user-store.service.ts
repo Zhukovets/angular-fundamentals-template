@@ -1,19 +1,31 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
+import { UserService } from "./user.service";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: "root",
 })
 export class UserStoreService {
+  private name$$ = new BehaviorSubject<string>("");
+  private isAdmin$$ = new BehaviorSubject<boolean>(false);
 
-    getUser() {
-        // Add your code here
-    }
+  public name$ = this.name$$.asObservable();
+  public isAdmin$ = this.isAdmin$$.asObservable();
 
-    get isAdmin() {
-        // Add your code here. Get isAdmin$$ value
-    }
+  constructor(private userService: UserService) {}
 
-    set isAdmin(value: boolean) {
-        // Add your code here. Change isAdmin$$ value
-    }
+  getUser(): void {
+    this.userService.getUser().subscribe((user) => {
+      this.name$$.next(user?.name || "");
+      this.isAdmin$$.next(!!user?.isAdmin);
+    });
+  }
+
+  get isAdmin(): boolean {
+    return this.isAdmin$$.value;
+  }
+
+  set isAdmin(value: boolean) {
+    this.isAdmin$$.next(value);
+  }
 }

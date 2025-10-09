@@ -1,30 +1,81 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject, Observable } from "rxjs";
+import { Router } from "@angular/router";
+import { tap } from "rxjs/operators";
+import { SessionStorageService } from "./session-storage.service";
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface RegisterRequest {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface AuthResponse {
+  successful: boolean;
+  result: string;
+  user?: {
+    isAdmin: boolean;
+    name: string;
+    email: string;
+  };
+}
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
-    login(user: any) { // replace 'any' with the required interface
-        // Add your code here
-    }
+  private readonly apiUrl = "http://localhost:4000";
+  private isAuthorized$$ = new BehaviorSubject<boolean>(false);
+  public isAuthorized$ = this.isAuthorized$$.asObservable();
 
-    logout() {
-        // Add your code here
+  constructor(
+    private http: HttpClient,
+    private sessionStorageService: SessionStorageService,
+    private router: Router
+  ) {
+    // Check if user is already authorized on service initialization
+    const token = this.sessionStorageService.getToken();
+    if (token) {
+      this.isAuthorized$$.next(true);
     }
+  }
 
-    register(user: any) { // replace 'any' with the required interface
-        // Add your code here
-    }
+  login(user: LoginRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, user).pipe(
+      tap((response) => {
+        if (response.successful) {
+          this.sessionStorageService.setToken(response.result);
+          this.isAuthorized$$.next(true);
+        }
+      })
+    );
+  }
 
-    get isAuthorised() {
-        // Add your code here. Get isAuthorized$$ value
-    }
+  logout(): void {
+    this.sessionStorageService.deleteToken();
+    this.isAuthorized$$.next(false);
+    this.router.navigate(["/login"]);
+  }
 
-    set isAuthorised(value: boolean) {
-        // Add your code here. Change isAuthorized$$ value
-    }
+  register(user: RegisterRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, user);
+  }
 
-    getLoginUrl() {
-        // Add your code here
-    }
+  get isAuthorised(): boolean {
+    return this.isAuthorized$$.value;
+  }
+
+  set isAuthorised(value: boolean) {
+    this.isAuthorized$$.next(value);
+  }
+
+  getLoginUrl(): string {
+    return "/login";
+  }
 }

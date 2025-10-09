@@ -1,19 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { HttpClientModule } from "@angular/common/http";
 import { UserService } from "./services/user.service";
 import { UserStoreService } from "./services/user-store.service";
 import { AdminGuard } from "./guards/admin.guard";
 
-
 @NgModule({
-    declarations: [],
-    imports: [
-        CommonModule
-    ],
-    providers: [
-        UserService,
-        UserStoreService,
-        AdminGuard
-    ]
+  declarations: [],
+  imports: [CommonModule, HttpClientModule],
+  providers: [UserService, UserStoreService, AdminGuard],
 })
-export class UserModule { }
+export class UserModule {}

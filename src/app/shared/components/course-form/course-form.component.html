@@ -1,39 +1,44 @@
 <!-- Replace ::text:: with your code -->
 <h2>Create / Edit Course</h2>
-<form>
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
   <div class="app-plate">
     <div class="course">
       <h3>Main Info</h3>
       <div class="form__control">
         <label for="title">Title</label>
         <!--Use the name `title` for the form control.-->
-        <input type="text" id="title" placeholder="Input text"/>
-        <span id="titleErrorMessage" class="text-danger">Title is required.</span>
+        <input type="text" id="title" placeholder="Input text" required formControlName="title" />
+        <span id="titleErrorMessage" class="text-danger"
+          *ngIf="(submitted || courseForm.controls['title'].touched) && courseForm.controls['title'].errors?.['required']">Title
+          is required.</span>
       </div>
       <div class="form__control">
         <label for="description">Description</label>
         <!--Use the name `description` for the form control.-->
-        <textarea
-          id="description"
-          name="description"
-          placeholder="Input text"
-          rows="4"
-          cols="5"
-        ></textarea>
-        <span id="descriptionErrorMessage" class="text-danger">Description is required.</span>
+        <textarea id="description" name="description" placeholder="Input text" rows="4" cols="5"
+          formControlName="description" required></textarea>
+        <span id="descriptionErrorMessage" class="text-danger"
+          *ngIf="(submitted || courseForm.controls['description'].touched) && courseForm.controls['description'].errors?.['required']">Description
+          is required.</span>
       </div>
       <div class="separator"></div>
       <h3>Authors</h3>
       <div class="form__control">
         <div class="course__flex">
           <!--Use the name `author` for the form control.-->
-          <input type="text" id="author" placeholder="Input Author Name"/>
-          <app-button id="createAuthor"></app-button>
+          <input type="text" id="author" placeholder="Input Author Name" formControlName="author" />
+          <app-button id="createAuthor" (click)="createAuthor()">Create Author</app-button>
         </div>
         <span id="authorErrorMessage">New author should contain only latin letters and numbers.</span>
         <div class="course__authors">
           <!--Use the name `authors` for the form array.-->
-          ::Authors::
+          <h4>All Authors</h4>
+          <ng-container formArrayName="authors">
+            <div *ngFor="let author of authors.controls; let i = index" [formGroupName]="i">
+              <span>{{ author.value.name }}</span>
+              <app-button (click)="removeAuthorFromCourse(author.value, i)">Remove</app-button>
+            </div>
+          </ng-container>
         </div>
       </div>
       <div class="separator"></div>
@@ -41,15 +46,18 @@
       <div class="form__control">
         <div class="course__flex">
           <!--Use the name `duration` for the form array.-->
-          <input type="number" id="duration" placeholder="Input duration"/>
+          <input type="number" id="duration" placeholder="Input duration" formControlName="duration" required />
           <div class="course__duration">
-            ::Duration::
+            {{ courseForm.controls['duration'].value }} hours
           </div>
         </div>
-        <span id="durationErrorMessage" class="text-danger">Duration is required.</span>
+        <span id="durationErrorMessage" class="text-danger"
+          *ngIf="(submitted || courseForm.controls['duration'].touched) && courseForm.controls['duration'].errors?.['required']">Duration
+          is required.</span>
       </div>
       <div class="form__action">
-        <app-button></app-button>
+        <app-button [buttonText]="isEditMode ? 'Update Course' : 'Create Course'" (click)="onSubmit()"></app-button>
+        <app-button [buttonText]="'Cancel'" (click)="onCancel()"></app-button>
       </div>
     </div>
   </div>

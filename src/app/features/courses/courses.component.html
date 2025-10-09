@@ -1,0 +1,18 @@
+<div class="courses-page">
+  <div class="courses-page__header">
+    <app-search (search)="onSearch($event)"></app-search>
+    <ng-container *ngIf="isAdmin$ | async">
+      <app-button [buttonText]="'Add Course'" [iconName]="'add'" (click)="onAddCourse()"></app-button>
+    </ng-container>
+  </div>
+
+  <div class="courses-page__content" *ngIf="!(isLoading$ | async); else loading">
+    <app-courses-list [courses]="courses$ | async" [editable]="!!(isAdmin$ | async)" (showCourse)="onShowCourse($event)"
+      (editCourse)="onEditCourse($event)" (deleteCourse)="onDeleteCourse($event)">
+    </app-courses-list>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading">Loading courses...</div>
+  </ng-template>
+</div>

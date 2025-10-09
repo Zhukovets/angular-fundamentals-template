@@ -1,4 +1,7 @@
 <div class="app-button">
   <!-- Replace the text below with your code -->
-  Button
+  <ng-container *ngIf="iconName">
+    <span class="icon material-icons">{{ iconName }}</span>
+  </ng-container>
+  {{ buttonText }}
 </div>
