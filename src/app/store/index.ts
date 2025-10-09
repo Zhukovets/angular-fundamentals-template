@@ -1,15 +1,14 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { coursesReducer, CoursesState, coursesFeatureKey } from './courses/courses.reducer';
-import { CoursesEffects } from './courses/courses.effects';
+import { CoursesState, coursesReducer } from '@app/store/courses/courses.reducer';
+import { CoursesEffects } from '@app/store/courses/courses.effects';
 
 export interface State {
-  [coursesFeatureKey]: CoursesState;
+  courses: CoursesState;
 }
 
 export const reducers: ActionReducerMap<State> = {
-  [coursesFeatureKey]: coursesReducer,
+  courses: coursesReducer,
 };
 
-export const effects = [
-  CoursesEffects
-];
+export const effects = [CoursesEffects];
+ 
