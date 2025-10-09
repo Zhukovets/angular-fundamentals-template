@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { switchMap, map, catchError, concatMap, withLatestFrom } from 'rxjs/operators';
 import * as CoursesActions from './courses.actions';
 import { CoursesFacade } from './courses.facade';
-import { CoursesService } from '../../services/courses.service';
+import { CoursesService } from '@app/services/courses.service';
 import { Action } from '@ngrx/store'; 
 
 @Injectable()

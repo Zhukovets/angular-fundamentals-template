@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CourseComponent } from '../../shared/components/course-form/course-form.component'; 
+import { CourseComponent } from '@app/shared/components/course-form/course-form.component'; 
 
-import { CourseInfoComponent } from '../../features/course-info/course-info.component'; 
+import { CourseInfoComponent } from '@app/features/course-info/course-info.component';
 
 const routes: Routes = [
   {

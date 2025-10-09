@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { reducers, effects } from './store'; 
+import { reducers, effects } from '@app/store'; 
 
 @NgModule({
   declarations: [AppComponent, CourseInfoComponent],
