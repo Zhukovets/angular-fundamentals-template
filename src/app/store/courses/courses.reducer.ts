@@ -28,13 +28,13 @@ const reducerLogic = createReducer(
     ...state,
     isAllCoursesLoading: true,
     isSearchState: false,
-    errorMessage: null,
+    errorMessage: "",
   })),
   on(CoursesActions.requestAllCoursesSuccess, (state, { courses }) => ({
     ...state,
     allCourses: courses,
     isAllCoursesLoading: false,
-    errorMessage: null,
+    errorMessage: "",
   })),
   on(CoursesActions.requestAllCoursesFail, (state, { error }) => ({
     ...state,
@@ -45,13 +45,13 @@ const reducerLogic = createReducer(
   on(CoursesActions.requestSingleCourse, (state) => ({
     ...state,
     isSingleCourseLoading: true,
-    errorMessage: null,
+    errorMessage: "",
   })),
   on(CoursesActions.requestSingleCourseSuccess, (state, { course }) => ({
     ...state,
     course,
     isSingleCourseLoading: false,
-    errorMessage: null,
+    errorMessage: "",
   })),
   on(CoursesActions.requestSingleCourseFail, (state, { error }) => ({
     ...state,
@@ -63,14 +63,14 @@ const reducerLogic = createReducer(
     ...state,
     isAllCoursesLoading: true,
     isSearchState: true,
-    errorMessage: null,
+    errorMessage: "",
   })),
   on(CoursesActions.requestFilteredCoursesSuccess, (state, { courses }) => ({
     ...state,
     allCourses: courses,
     isAllCoursesLoading: false,
     isSearchState: true,
-    errorMessage: null,
+    errorMessage: "",
   })),
   on(CoursesActions.requestFilteredCoursesFail, (state, { error }) => ({
     ...state,
@@ -81,13 +81,12 @@ const reducerLogic = createReducer(
 
   on(CoursesActions.requestDeleteCourse, (state) => ({
     ...state,
-    errorMessage: null,
+    errorMessage: "",
   })),
-  // Тепер success отримує id — видаляємо курс з масиву
   on(CoursesActions.requestDeleteCourseSuccess, (state, { id }) => ({
     ...state,
     allCourses: state.allCourses.filter((c) => c.id !== id),
-    errorMessage: null,
+    errorMessage: "",
   })),
   on(CoursesActions.requestDeleteCourseFail, (state, { error }) => ({
     ...state,
@@ -96,13 +95,13 @@ const reducerLogic = createReducer(
 
   on(CoursesActions.requestEditCourse, (state) => ({
     ...state,
-    errorMessage: null,
+    errorMessage: "",
   })),
   on(CoursesActions.requestEditCourseSuccess, (state, { course }) => ({
     ...state,
     allCourses: state.allCourses.map((c) => (c.id === course.id ? course : c)),
     course,
-    errorMessage: null,
+    errorMessage: "",
   })),
   on(CoursesActions.requestEditCourseFail, (state, { error }) => ({
     ...state,
@@ -111,13 +110,13 @@ const reducerLogic = createReducer(
 
   on(CoursesActions.requestCreateCourse, (state) => ({
     ...state,
-    errorMessage: null,
+    errorMessage: "",
   })),
   on(CoursesActions.requestCreateCourseSuccess, (state, { course }) => ({
     ...state,
     allCourses: [...state.allCourses, course],
     course,
-    errorMessage: null,
+    errorMessage: "",
   })),
   on(CoursesActions.requestCreateCourseFail, (state, { error }) => ({
     ...state,
