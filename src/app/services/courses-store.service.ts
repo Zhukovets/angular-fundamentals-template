@@ -1,42 +1,100 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable, finalize } from "rxjs";
+import { CoursesService } from "./courses.service";
+import { CoursesFacade } from "@app/store/courses/courses.facade";
+
+interface Author {
+  id: string;
+  name: string;
+}
+interface Course {
+  id: string;
+  title: string;
+  description: string;
+  duration: number;
+  authors: string[];
+  creationDate: string;
+}
+interface CourseUpdateData {
+  title: string;
+  description: string;
+  duration: number;
+  authors: string[];
+}
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: "root",
 })
 export class CoursesStoreService {
-    getAll(){
-        // Add your code here
-    }
+  private courses$$ = new BehaviorSubject<Course[]>([]);
+  private isLoading$$ = new BehaviorSubject<boolean>(false);
+  private authors$$ = new BehaviorSubject<Author[]>([]);
 
-    createCourse(course: any) { // replace 'any' with the required interface
-        // Add your code here
-    }
+  public courses$: Observable<any[]> = this.coursesFacade.courses$;
+  public isLoading$: Observable<boolean> =
+    this.coursesFacade.isAllCoursesLoading$;
+  public authors$: Observable<Author[]> = this.authors$$.asObservable();
 
-    getCourse(id: string) {
-        // Add your code here
-    }
+  constructor(
+    //private coursesService: CoursesService
+    private coursesFacade: CoursesFacade,
+    private coursesService: CoursesService
+  ) {}
 
-    editCourse(id: string, course: any) { // replace 'any' with the required interface
-        // Add your code here
-    }
+  private setLoading(value: boolean): void {
+    this.isLoading$$.next(value);
+  }
 
-    deleteCourse(id: string) {
-        // Add your code here
-    }
+  getAllCourses(): void {
+    this.coursesFacade.getAllCourses();
+  }
 
-    filterCourses(value: string) {
-        // Add your code here
-    }
+  createCourse(courseData: CourseUpdateData): void {
+    this.coursesFacade.createCourse(courseData);
+  }
 
-    getAllAuthors() {
-        // Add your code here
-    }
+  getCourseById(id: string): Observable<Course> {
+    this.coursesFacade.getSingleCourse(id);
+    return this.coursesFacade.course$;
+  }
 
-    createAuthor(name: string) {
-        // Add your code here
-    }
+  editCourse(id: string, courseData: CourseUpdateData): void {
+    this.coursesFacade.editCourse(id, courseData);
+  }
 
-    getAuthorById(id: string) {
-        // Add your code here
-    }
+  deleteCourse(id: string): void {
+    this.coursesFacade.deleteCourse(id);
+  }
+
+  filterCourses(textFragment: string): void {
+    this.coursesFacade.getFilteredCourses(textFragment);
+  }
+
+  getAuthors(): void {
+    this.isLoading$$.next(true);
+    this.coursesService
+      .getAuthors()
+      .pipe(finalize(() => this.isLoading$$.next(false)))
+      .subscribe({
+        next: (authors: Author[]) => this.authors$$.next(authors),
+        error: (err: any) => console.error("Error loading authors:", err),
+      });
+  }
+
+  createAuthor(author: Author): void {
+    this.isLoading$$.next(true);
+    this.coursesService
+      .createAuthor(author)
+      .pipe(finalize(() => this.isLoading$$.next(false)))
+      .subscribe({
+        next: (newAuthor: Author) => {
+          this.authors$$.next([...this.authors$$.value, newAuthor]);
+        },
+        error: (err: any) => console.error("Error creating author:", err),
+      });
+  }
+
+  getAuthorById(id: string): Observable<Author> {
+    return this.coursesService.getAuthorById(id);
+  }
 }

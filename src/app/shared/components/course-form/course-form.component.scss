@@ -1,7 +1,7 @@
-@import 'src/app/shared/styles/styles';
+@import "src/app/shared/styles/styles";
 
 .course {
- min-width: 60vw;
+  min-width: 60vw;
 
   &__flex {
     display: flex;
@@ -33,5 +33,57 @@
   &__icon {
     margin-left: 4px;
     cursor: pointer;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    padding: 8px;
+    margin-bottom: 8px;
+  }
+
+  &__authors-added {
+    margin-top: 20px;
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #ccc;
+      padding: 8px;
+      margin-bottom: 8px;
+    }
+  }
+
+  // Додамо стилі для кнопок, щоб вони відповідали макету
+  button {
+    border: 1px solid #000;
+    background-color: transparent;
+    padding: 8px 16px;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  // Стилі для повідомлень про помилки
+  .text-danger {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
   }
 }

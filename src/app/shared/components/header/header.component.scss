@@ -9,3 +9,13 @@
     background-color: $color-white;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
 }
+
+.header-content-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.app-header img {
+    height: 40px;
+}

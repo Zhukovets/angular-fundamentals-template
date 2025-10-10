@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /.pnp
+.angular/
 .pnp.js
 
 # testing
@@ -23,3 +24,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea/
+.angular/
+.angular/

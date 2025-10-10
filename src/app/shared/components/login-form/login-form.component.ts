@@ -8,5 +8,11 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginFormComponent {
   @ViewChild("loginForm") public loginForm!: NgForm;
-  //Use the names `email` and `password` for form controls.
+  onSubmit(): void {
+    if (this.loginForm.valid) {
+      console.log('Login Form Submitted!', this.loginForm.value);
+    } else {
+      console.log('Form is invalid.');
+    }
+  }
 }

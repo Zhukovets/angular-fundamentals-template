@@ -7,3 +7,12 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.form__control input.ng-invalid.ng-touched,
+.form__control input.ng-invalid.ng-dirty {
+  border: 1px solid red;
+}
+
+.text-danger {
+  color: red;
+}

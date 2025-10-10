@@ -10,6 +10,9 @@
     color: #fff;
     text-transform: uppercase;
     cursor: pointer;
+    border: none;
+    font-weight: bold;
+    font-size: 1rem;
 
     &:hover {
         background: #016486;
@@ -18,4 +21,13 @@
     &__single-icon {
         padding: 13px;
     }
+}
+
+.app-button:active {
+    background: darken(#016486, 10%);
+}
+
+.app-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 114, 152, 0.5);
 }

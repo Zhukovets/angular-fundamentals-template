@@ -1,4 +1,6 @@
-<div class="app-button">
+<button class="app-button">
   <!-- Replace the text below with your code -->
-  Button
-</div>
+  <span *ngIf="buttonText">{{ buttonText }}</span>
+  <span *ngIf="iconName" class="material-icons"> {{ iconName }}
+  </span>
+</button>
