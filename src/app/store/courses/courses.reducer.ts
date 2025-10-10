@@ -34,7 +34,7 @@ const reducerLogic = createReducer(
     ...state,
     allCourses: courses,
     isAllCoursesLoading: false,
-    errorMessage: "",
+    errorMessage: null,
   })),
   on(CoursesActions.requestAllCoursesFail, (state, { error }) => ({
     ...state,
@@ -86,7 +86,7 @@ const reducerLogic = createReducer(
   on(CoursesActions.requestDeleteCourseSuccess, (state, { id }) => ({
     ...state,
     allCourses: state.allCourses.filter((c) => c.id !== id),
-    errorMessage: "",
+    errorMessage: null,
   })),
   on(CoursesActions.requestDeleteCourseFail, (state, { error }) => ({
     ...state,
