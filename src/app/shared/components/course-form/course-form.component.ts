@@ -88,7 +88,7 @@ export class CourseComponent implements OnInit {
       this.isEditMode = !!this.courseId;
 
       if (this.isEditMode && this.courseId) {
-        this.coursesFacade.getSingleCourse(+this.courseId);
+        this.coursesFacade.getSingleCourse(this.courseId);
         this.coursesFacade.course$.pipe(take(1)).subscribe((course: any) => {
           if (course) {
             this.courseForm.patchValue({
@@ -176,7 +176,7 @@ export class CourseComponent implements OnInit {
       };
 
       if (this.isEditMode && this.courseId) {
-        this.coursesFacade.editCourse(+this.courseId, courseData);
+        this.coursesFacade.editCourse(this.courseId, courseData);
       } else {
         this.coursesFacade.createCourse(courseData);
       }

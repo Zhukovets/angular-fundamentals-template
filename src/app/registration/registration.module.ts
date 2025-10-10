@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
 import { RegistrationFormComponent } from '../shared/components/registration-form/registration-form.component';
+import { SharedModule } from '@app/shared/shared.module';
 
 const routes: Routes = [
   { path: '', component: RegistrationFormComponent }
@@ -10,11 +11,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    RegistrationFormComponent 
+    //RegistrationFormComponent 
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule
   ],
 })
 export class RegistrationModule { }

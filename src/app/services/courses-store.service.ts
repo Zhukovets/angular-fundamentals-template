@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, finalize } from "rxjs";
 import { CoursesService } from "./courses.service";
-import { CoursesFacade } from "../store/courses/courses.facade";
+import { CoursesFacade } from "@app/store/courses/courses.facade";
 
 interface Author {
   id: string;
@@ -54,16 +54,16 @@ export class CoursesStoreService {
   }
 
   getCourseById(id: string): Observable<Course> {
-    this.coursesFacade.getSingleCourse(+id);
+    this.coursesFacade.getSingleCourse(id);
     return this.coursesFacade.course$;
   }
 
   editCourse(id: string, courseData: CourseUpdateData): void {
-    this.coursesFacade.editCourse(+id, courseData);
+    this.coursesFacade.editCourse(id, courseData);
   }
 
   deleteCourse(id: string): void {
-    this.coursesFacade.deleteCourse(+id);
+    this.coursesFacade.deleteCourse(id);
   }
 
   filterCourses(textFragment: string): void {

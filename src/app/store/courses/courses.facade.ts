@@ -12,7 +12,7 @@ export class CoursesFacade {
   courses$: Observable<any[]> = this.store.pipe(select(CoursesSelectors.getCourses));
   allCourses$: Observable<any[]> = this.store.pipe(select(CoursesSelectors.getAllCourses));
   course$: Observable<any | null> = this.store.pipe(select(CoursesSelectors.getCourse));
-  errorMessage$: Observable<any> = this.store.pipe(select(CoursesSelectors.getErrorMessage));
+  errorMessage$: Observable<string | null> = this.store.pipe(select(CoursesSelectors.getErrorMessage));
 
   constructor(private store: Store) {}
 
@@ -20,7 +20,7 @@ export class CoursesFacade {
     this.store.dispatch(CoursesActions.requestAllCourses());
   }
 
-  getSingleCourse(id: number): void {
+  getSingleCourse(id: string): void {
     this.store.dispatch(CoursesActions.requestSingleCourse({ id }));
   }
 
@@ -28,7 +28,7 @@ export class CoursesFacade {
     this.store.dispatch(CoursesActions.requestFilteredCourses({ title: searchValue }));
   }
 
-  editCourse(id: number, body: any): void {
+  editCourse(id: string, body: any): void {
     this.store.dispatch(CoursesActions.requestEditCourse({ id, course: body }));
   }
 
@@ -36,7 +36,8 @@ export class CoursesFacade {
     this.store.dispatch(CoursesActions.requestCreateCourse({ course: body }));
   }
 
-  deleteCourse(id: number): void {
+  deleteCourse(id: string): void {
     this.store.dispatch(CoursesActions.requestDeleteCourse({ id }));
   }
 }
+ 

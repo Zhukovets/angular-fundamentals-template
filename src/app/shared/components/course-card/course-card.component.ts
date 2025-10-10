@@ -54,7 +54,7 @@ export class CourseCardComponent {
   
   onDeleteCourse(): void {
     if (confirm(`Are you sure you want to delete course "${this.course.title}"?`)) {
-      this.coursesFacade.deleteCourse(+this.course.id);
+      this.coursesFacade.deleteCourse(this.course.id);
     }
   }
 }

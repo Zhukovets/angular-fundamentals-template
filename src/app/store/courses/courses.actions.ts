@@ -1,15 +1,12 @@
 import { createAction, props } from '@ngrx/store';
 import { CoursesConstants } from '@app/store/courses/courses.constants';
 
-// Add your code here
-interface Course {
-  id: number;
+export interface Course {
+  id: string;
   title: string;
 }
 
-interface Error {
-  message: string;
-}
+export type ErrorMessage = string;
 
 export const requestAllCourses = createAction(
   CoursesConstants.REQUEST_ALL_COURSES
@@ -22,12 +19,12 @@ export const requestAllCoursesSuccess = createAction(
 
 export const requestAllCoursesFail = createAction(
   CoursesConstants.REQUEST_ALL_COURSES_FAIL,
-  props<{ error: Error }>()
+  props<{ error: ErrorMessage }>()
 );
 
 export const requestSingleCourse = createAction(
   CoursesConstants.REQUEST_SINGLE_COURSE,
-  props<{ id: number }>()
+  props<{ id: string }>()
 );
 
 export const requestSingleCourseSuccess = createAction(
@@ -37,7 +34,7 @@ export const requestSingleCourseSuccess = createAction(
 
 export const requestSingleCourseFail = createAction(
   CoursesConstants.REQUEST_SINGLE_COURSE_FAIL,
-  props<{ error: Error }>()
+  props<{ error: ErrorMessage }>()
 );
 
 export const requestFilteredCourses = createAction(
@@ -52,26 +49,27 @@ export const requestFilteredCoursesSuccess = createAction(
 
 export const requestFilteredCoursesFail = createAction(
   CoursesConstants.REQUEST_FILTERED_COURSES_FAIL,
-  props<{ error: Error }>()
+  props<{ error: ErrorMessage }>()
 );
 
 export const requestDeleteCourse = createAction(
   CoursesConstants.REQUEST_DELETE_COURSE,
-  props<{ id: number }>()
+  props<{ id: string }>()
 );
 
 export const requestDeleteCourseSuccess = createAction(
-  CoursesConstants.REQUEST_DELETE_COURSE_SUCCESS
+  CoursesConstants.REQUEST_DELETE_COURSE_SUCCESS,
+  props<{ id: string }>()
 );
 
 export const requestDeleteCourseFail = createAction(
   CoursesConstants.REQUEST_DELETE_COURSE_FAIL,
-  props<{ error: Error }>()
+  props<{ error: ErrorMessage }>()
 );
 
 export const requestEditCourse = createAction(
   CoursesConstants.REQUEST_EDIT_COURSE,
-  props<{ id: number; course: Course }>()
+  props<{ id: string; course: Course }>()
 );
 
 export const requestEditCourseSuccess = createAction(
@@ -81,7 +79,7 @@ export const requestEditCourseSuccess = createAction(
 
 export const requestEditCourseFail = createAction(
   CoursesConstants.REQUEST_EDIT_COURSE_FAIL,
-  props<{ error: Error }>()
+  props<{ error: ErrorMessage }>()
 );
 
 export const requestCreateCourse = createAction(
@@ -96,5 +94,6 @@ export const requestCreateCourseSuccess = createAction(
 
 export const requestCreateCourseFail = createAction(
   CoursesConstants.REQUEST_CREATE_COURSE_FAIL,
-  props<{ error: Error }>()
+  props<{ error: ErrorMessage }>()
 );
+ 
