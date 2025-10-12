@@ -1,0 +1,18 @@
+<div class="app-courses__top">
+  <app-search
+    [placeholder]="'Search courses'"
+    (search)="onSearch($event)"
+  ></app-search>
+  <app-button [buttonText]="'Add new course'" class="addCourse" *ngIf="isAdmin$ | async" (click)="addCourse()"></app-button>
+</div>
+
+<div *ngIf="isLoading$ | async" class="loading">Loading...</div>
+
+<app-courses-list
+  *ngIf="(courses$ | async) as list"
+  [courses]="list"
+  [editable]="(isAdmin$ | async) === true"
+  (showCourse)="showCourse($event)"
+  (editCourse)="editCourse($event)"
+  (deleteCourse)="deleteCourse($event)"
+></app-courses-list>

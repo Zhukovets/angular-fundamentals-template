@@ -1,9 +1,20 @@
-import { Directive } from "@angular/core";
+import { Directive } from '@angular/core';
+import { NG_VALIDATORS, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Directive({
-    selector: '[emailValidator]',
-    providers: [/*Add your code here*/]
+  selector: '[emailValidator]',
+  providers: [
+    {
+      provide: NG_VALIDATORS,
+      useExisting: EmailValidatorDirective,
+      multi: true
+    }
+  ]
 })
-export class EmailValidatorDirective {
-    // Add your code here
+export class EmailValidatorDirective implements Validator {
+  validate(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) return null;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(control.value) ? null : { emailInvalid: true };
+  }
 }
