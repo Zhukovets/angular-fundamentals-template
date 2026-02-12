@@ -1,0 +1,30 @@
+<div *ngIf="!selectedCourse">
+  <div class="courses-header">
+    <app-search [placeholder]="'Search courses...'" (search)="onSearch($event)">
+    </app-search>
+
+    <app-button
+      *ngIf="editable"
+      [buttonText]="'Add Course'"
+      (click)="onAddCourse()"
+      [iconName]="'plus'"
+    >
+    </app-button>
+  </div>
+
+  <app-courses-list
+    [courses]="filteredCourses"
+    [editable]="editable"
+    [authorMap]="authorMap"
+    (showCourse)="onShowCourse($event)"
+    (editCourse)="onEditCourse($event)"
+    (deleteCourse)="onDeleteCourse($event)"
+  >
+  </app-courses-list>
+</div>
+<div *ngIf="selectedCourse">
+  <app-course-info
+    [course]="selectedCourse"
+    (goBack)="onBack()">
+  </app-course-info>
+</div>

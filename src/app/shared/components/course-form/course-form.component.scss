@@ -1,7 +1,7 @@
 @import 'src/app/shared/styles/styles';
 
 .course {
- min-width: 60vw;
+  min-width: 60vw;
 
   &__flex {
     display: flex;
@@ -12,26 +12,57 @@
       flex: 1;
     }
 
-    & app-button {
+    & .btn {
       margin-left: 16px;
     }
 
     & .course__duration {
       margin-left: 16px;
+      white-space: nowrap;
     }
   }
 
-  &__authors {
+  &__columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
     margin-top: 8px;
+    align-items: start;
+  }
+
+  &__col-title {
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  &__authors {
+    margin-top: 4px;
     display: flex;
+    flex-direction: column;
 
     &-item {
-      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+
+      & input[disabled] {
+        flex: 1;
+      }
     }
   }
 
   &__icon {
-    margin-left: 4px;
+    margin-left: 8px;
     cursor: pointer;
   }
+}
+
+.form__action {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.muted {
+  opacity: .6;
 }

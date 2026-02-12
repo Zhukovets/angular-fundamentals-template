@@ -1,42 +1,83 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { finalize, tap } from 'rxjs/operators';
+import { CoursesService, Course, CreateCourseDto, Author } from './courses.service';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class CoursesStoreService {
-    getAll(){
-        // Add your code here
-    }
+  private isLoading$$ = new BehaviorSubject<boolean>(false);
+  private courses$$ = new BehaviorSubject<Course[]>([]);
 
-    createCourse(course: any) { // replace 'any' with the required interface
-        // Add your code here
-    }
+  public isLoading$: Observable<boolean> = this.isLoading$$.asObservable();
+  public courses$: Observable<Course[]> = this.courses$$.asObservable();
 
-    getCourse(id: string) {
-        // Add your code here
-    }
+  constructor(private api: CoursesService) {}
 
-    editCourse(id: string, course: any) { // replace 'any' with the required interface
-        // Add your code here
-    }
+  getAll(): void {
+    this.isLoading$$.next(true);
+    this.api.getAll()
+      .pipe(
+        tap(courses => this.courses$$.next(courses)),
+        finalize(() => this.isLoading$$.next(false))
+      )
+      .subscribe();
+  }
 
-    deleteCourse(id: string) {
-        // Add your code here
-    }
+  getCourse(id: string) {
+    return this.api.getCourse(id);
+  }
 
-    filterCourses(value: string) {
-        // Add your code here
-    }
+  createCourse(dto: CreateCourseDto): void {
+    this.isLoading$$.next(true);
+    this.api.createCourse(dto)
+      .pipe(
+        tap(() => this.getAll()),
+        finalize(() => this.isLoading$$.next(false))
+      )
+      .subscribe();
+  }
 
-    getAllAuthors() {
-        // Add your code here
-    }
+  editCourse(id: string, dto: CreateCourseDto): void {
+    this.isLoading$$.next(true);
+    this.api.editCourse(id, dto)
+      .pipe(
+        tap(() => this.getAll()),
+        finalize(() => this.isLoading$$.next(false))
+      )
+      .subscribe();
+  }
 
-    createAuthor(name: string) {
-        // Add your code here
-    }
+  deleteCourse(id: string): void {
+    this.isLoading$$.next(true);
+    this.api.deleteCourse(id)
+      .pipe(
+        tap(() => this.getAll()),
+        finalize(() => this.isLoading$$.next(false))
+      )
+      .subscribe();
+  }
 
-    getAuthorById(id: string) {
-        // Add your code here
-    }
+  filterCourses(text: string): void {
+    this.isLoading$$.next(true);
+    this.api.filterCourses(text)
+      .pipe(
+        tap(courses => this.courses$$.next(courses)),
+        finalize(() => this.isLoading$$.next(false))
+      )
+      .subscribe();
+  }
+
+  getAllAuthors(): Observable<Author[]> {
+    return this.api.getAllAuthors();
+  }
+
+  getAuthorById(id: string): Observable<Author> {
+    return this.api.getAuthorById(id);
+  }
+
+  createAuthor(name: string): Observable<Author> {
+    return this.api.createAuthor(name);
+  }
 }

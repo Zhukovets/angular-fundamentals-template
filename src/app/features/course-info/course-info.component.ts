@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Course } from '../../services/courses.service';
 
 @Component({
   selector: 'app-course-info',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./course-info.component.scss']
 })
 export class CourseInfoComponent {
-  // Use the names for the input `course`.
+  @Input() course!: Course;
+  
+  @Output() goBack = new EventEmitter<void>();
+
+  onBack() {
+    this.goBack.emit();
+  }
 }

@@ -11,9 +11,9 @@ import { AdminGuard } from "./guards/admin.guard";
         CommonModule
     ],
     providers: [
-        UserService,
-        UserStoreService,
-        AdminGuard
+        //UserService,
+        //UserStoreService,
+        //AdminGuard
     ]
 })
 export class UserModule { }
